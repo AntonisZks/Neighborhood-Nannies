@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Import the pages of the application
-import HomePage from './pages/home';
+import HomePage from './pages/HomePage/HomePage.jsx';
 import LoginPage from './pages/login';
 
 // Import the global styles of the application

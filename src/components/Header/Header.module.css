@@ -1,0 +1,25 @@
+.container {
+  background-color: rgb(88, 146, 228);
+  display: flex;
+  justify-content: space-around;
+  height: 90px;
+}
+
+.misc_container {
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  color: white;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.login {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.login:hover {
+  background-color: rgb(137, 186, 255);
+}
