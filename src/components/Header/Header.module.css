@@ -2,7 +2,7 @@
   background-color: rgb(88, 146, 228);
   display: flex;
   justify-content: space-around;
-  height: 90px;
+  /* height: 90px; */
   grid-area: header;
 }
 

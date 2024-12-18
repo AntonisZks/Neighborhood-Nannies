@@ -12,11 +12,11 @@ export default function Footer() {
           <p className={styles.title}>Στοιχεία Επικοινωνίας:</p>
           <ul>
             <li>
-              <i class="fa-solid fa-phone"></i>
+              <i className="fa-solid fa-phone"></i>
               <p>Τηλέφωνο: 2103258080 - 210325809</p>
             </li>
             <li>
-              <i class="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-envelope"></i>
               <p>Email: ntantades@yeka.gr</p>
             </li>
           </ul>

@@ -13,24 +13,59 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   color: white;
-  padding: 0px 2rem;
   height: 100%;
-  display: flex;
-  align-items: center;
+  /* align-items: center; */
   cursor: pointer;
-  gap: 1rem;
   transition: 0.3s;
-  display: flex;
+  display: inline-block;
+  position: relative;
   flex-direction: column;
 }
 
-.navigation_list li .tab {
+.navigation_list li .tab_title {
   display: flex;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+}
+
+.navigation_list li p {
+  height: 100%;
+}
+
+.navigation_list li .tab {
+  display: block;
   align-items: center;
+  text-align: center;
   gap: 0.8rem;
   height: 100%;
 }
 
 .navigation_list li:hover {
   background-color: rgb(137, 186, 255);
+}
+
+.navigation_list li ul.dropdown li {
+  display: block;
+}
+
+.dropdown {
+  width: 100%;
+  position: absolute;
+  display: none;
+  background-color: rgb(137, 186, 255);
+  transition: 0.3s;
+}
+
+.dropdown li {
+  /* border-bottom: 1px solid black; */
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.dropdown li:hover {
+  background-color: rgb(183, 213, 255);
+}
+
+.navigation_list li:hover .dropdown {
+  display: block;
 }
