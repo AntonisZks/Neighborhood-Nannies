@@ -1,7 +1,7 @@
 .container {
   background-color: rgb(255, 255, 255);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   grid-area: header;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   z-index: 999;
@@ -17,11 +17,43 @@
   padding: 0 1rem;
 }
 
-.login {
-  transition: 0.3s;
-  cursor: pointer;
+.auth_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding-right: 3rem;
 }
 
-.login:hover {
-  background-color: rgb(137, 186, 255);
+.login_link {
+  color: rgb(28, 123, 255);
+  font-size: 1.2rem;
+}
+
+.signup_button {
+  font: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  color: rgb(28, 123, 255);
+  
+  background-color: white;
+  border: 2px solid rgb(28, 123, 255);
+  border-radius: 25px;
+  
+  width: 9rem;
+  height: 60%;
+  
+  transition: 0.2s;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+
+  padding: 0 5rem;
+}
+
+.signup_button:hover {
+  background-color: rgb(28, 123, 255);
+  color: white;
+  cursor: pointer;
 }
