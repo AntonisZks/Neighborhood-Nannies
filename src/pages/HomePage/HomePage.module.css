@@ -1,4 +1,86 @@
-.main_content {
-  height: 900px; /* Temporary height */
+.outer_container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+
 }
 
+.main_content {
+  grid-area: main;
+  display: flex;
+}
+
+.main_content .left_section {
+  width: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  background-color: rgb(236, 236, 236);
+  padding: 80px 40px;
+}
+
+.left_section h1 {
+  font-size: 2.1rem;
+  margin-bottom: 30px;
+}
+
+.left_section p {
+  font-size: 1.5rem;
+}
+
+.right_section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right_section .user_options {
+  display: flex;
+  justify-content: space-around;
+  justify-self: center;
+  text-align: center;
+  gap: 50px;
+  align-items: center;
+  /* background-color: rgb(238, 238, 238); */
+  width: 85%;
+  height: 80%;
+}
+
+.user_card_container {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  border-radius: 20px;
+  width: 45%;
+  height: 60%;
+  background-color: rgb(255, 255, 255);
+  /* height: 70%; */
+}
+
+.user_card_container img {
+  width: 90%;
+  height: 100%;
+  object-fit: cover;
+  /* margin: 30px; */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.user_card_container p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 170%;
+  background-color: rgb(88, 146, 228);
+  color: white;
+  /* margin: 30px; */
+  padding: 30px 0;
+  width: 90%;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}

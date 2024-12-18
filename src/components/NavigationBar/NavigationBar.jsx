@@ -5,22 +5,32 @@ export default function NavigationBar() {
     <>
       <ul className={styles.navigation_list}>
         <li>
-          <p>Κηδεμόνες</p>
-          <i className="fa-solid fa-caret-down"></i>
+          <div className={styles.tab}>
+            <p>Κηδεμόνες</p>
+            <i className="fa-solid fa-caret-down"></i>
+          </div>
         </li>
         <li>
-          <p>Επιμελητές</p>
-          <i className="fa-solid fa-caret-down"></i>
+          <div className={styles.tab}>
+            <p>Επιμελητές</p>
+            <i className="fa-solid fa-caret-down"></i>
+          </div>
         </li>
         <li>
-          <p>Οδηγίες</p>
-          <i className="fa-solid fa-caret-down"></i>
+          <div className={styles.tab}>
+            <p>Οδηγίες</p>
+            <i className="fa-solid fa-caret-down"></i>
+          </div>
         </li>
         <li>
-          <p>Ανακοινώσεις</p>
+          <div className={styles.tab}>
+            <p>Ανακοινώσεις</p>
+          </div>
         </li>
         <li>
-          <p>Επικοινωνία</p>
+          <div className={styles.tab}>
+            <p>Επικοινωνία</p>
+          </div>
         </li>
       </ul>
     </>
