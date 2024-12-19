@@ -1,8 +1,15 @@
 .container {
   background-color: rgb(88, 146, 228);
-  display: flex;
-  justify-content: space-around;
   grid-area: footer;
+  width: 100%;
+}
+
+.inner_container {
+  display: flex;
+  justify-content: space-between;
+  width: 1100px;
+  justify-self: center;
+  /* background-color: green; */
 }
 
 .column {
@@ -14,13 +21,14 @@
 }
 
 .column .title{
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .column ul {
   list-style: none;
   margin-top: 0.8rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .column ul li {
@@ -32,4 +40,14 @@
 
 .column ul li a {
   color: white;
+}
+
+.socials_column ul {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+
+.socials_column ul li a {
+  color: rgb(255, 255, 255);
 }

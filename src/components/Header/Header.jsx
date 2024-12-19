@@ -11,12 +11,15 @@ export default function Header() {
         <div>
           <NavigationBar />
         </div>
-        <div className={`${styles.misc_container} ${styles.language}`}>
+        {/* <div className={`${styles.misc_container} ${styles.language}`}>
           <p>ΕΛ | EN</p>
-        </div>
-        <div className={` ${styles.misc_container} ${styles.login}`}>
-          <p>Σύνδεση/Εγγραφή</p>
-          <i className="fa-solid fa-caret-down"></i>
+        </div> */}
+        <div className={` ${styles.misc_container} ${styles.auth_container}`}>
+          <a className={styles.login_link} href="#">Σύνδεση</a>
+          <button className={styles.signup_button}>
+            <i className="fas fa-user-plus"></i>
+            Εγγραφή
+          </button>
         </div>
       </div>
     </>

@@ -9,36 +9,161 @@
 
 }
 
-.main_content {
+.main_section {
   grid-area: main;
+  width: 1300px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  padding-top: 50px;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  height: auto;
+  color: rgb(0, 0, 0);
+  justify-self: center;
 }
 
-.main_content .left_section {
-  width: 500px;
+
+.main_section img {
+  position: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main_section .nanny_container{
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  background-color: rgb(236, 236, 236);
-  padding: 80px 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 30% 50 20%;
+  grid-template-areas: 
+  "nanny_image title"
+  "nanny_image description"
+  "nanny_image button";
 }
 
-.left_section h1 {
-  font-size: 2.1rem;
-  margin-bottom: 30px;
+.main_section .nanny_image,
+.main_section .parent_image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  grid-area: nanny_image;
 }
 
-.left_section p {
-  font-size: 1.5rem;
+.nanny_container .title,
+.parent_container .title {
+  color: rgb(72, 72, 72);
+  font-size: 2.5rem;
+  font-weight: bold;
+  grid-area: title;
+  align-self: center;
+  margin-left: 20px;
+  width: 700px;
 }
 
-.right_section {
+.nanny_container .description,
+.parent_container .description {
+  color: rgb(94, 94, 94);
+  grid-area: description;
+  width: 60%;
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-left: 20px;
+}
+
+.nanny_container button {
+  width: 20%;
+  height: 70%;
+  margin-left: 20px;
+  border: 2px solid rgb(28, 123, 255);
+  border-radius: 30px;
+  color: rgb(28, 123, 255);
+  background-color: white;
+  transition: 0.2s;
+}
+
+.nanny_container button .button_content {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.7rem;
 }
 
-.right_section .user_options {
+.nanny_container button .button_content p  {
+  font-size: 1.2rem;
+}
+
+.nanny_container button:hover,
+.parent_container button:hover {
+  background-color: rgb(213, 231, 255);
+  cursor: pointer;
+}
+
+.main_section .parent_container {
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 700px auto;
+  grid-template-rows: 30% 50 20%;
+  grid-template-areas: 
+  "title nanny_image"
+  "description nanny_image"
+  "button nanny_image";
+  justify-content: right;
+}
+
+.parent_container .title {
+  width: 100%;
+  margin: 0;
+  margin-right: 20px;
+  text-align: right;
+}
+
+.parent_container .description {
+  width: 80%;
+  margin: 0;
+  margin-right: 20px;
+  justify-self: right;
+  text-align: right;
+}
+
+.parent_container button {
+  width: 30%;
+  height: 70%;
+  justify-self: right;
+  align-items: center;
+  margin-right: 20px;
+  border: 2px solid rgb(28, 123, 255);
+  border-radius: 30px;
+  color: rgb(28, 123, 255);
+  background-color: white;
+  transition: 0.2s;
+}
+
+.parent_container button .button_content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.parent_container button .button_content p  {
+  font-size: 1.2rem;
+}
+
+
+
+
+
+
+
+.main_section .user_options {
   display: flex;
   justify-content: space-around;
   justify-self: center;
