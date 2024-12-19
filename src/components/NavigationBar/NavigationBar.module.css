@@ -1,3 +1,5 @@
+@import "../../styles/config.css";
+
 .navigation_list {
   display: flex;
   justify-content: space-between;
@@ -11,7 +13,7 @@
 .navigation_list li {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
-  color: rgb(40, 126, 246);
+  color: var(--theme_color_fg);
   width: 180px;
   height: 100%;
   cursor: default;
@@ -87,7 +89,7 @@
 }
 
 .dropdown li:hover {
-  background-color: rgb(70, 141, 242);
+  background-color: var(--theme_color_fg);
   color: white;
   cursor: pointer;
 }

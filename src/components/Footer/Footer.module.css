@@ -1,10 +1,20 @@
+@import "../../styles/config.css";
+
 .container {
-  background-color: rgb(88, 146, 228);
+  background-color: var(--theme_color_bg);
   grid-area: footer;
-  width: 100%;
+  width: 110%;
+  border-radius: 50% 50% 0 0;
+  justify-self: center;
+  margin-top: -100px;
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  z-index: 1000;
 }
 
 .inner_container {
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
   width: 1100px;
