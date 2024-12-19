@@ -1,0 +1,6 @@
+:root {
+  --theme_color_bg: rgb(88, 146, 228);
+  --theme_color_fg: rgb(28, 123, 255);
+  --theme_color_fg_lighter: rgb(213, 231, 255);
+  --text_color_black: rgb(94, 94, 94);
+}
