@@ -27,9 +27,11 @@ function MainSection() {
           <NannyIntroductionContainer />
         </div>
 
-        {/* <div className={styles.search_container}>
+        <div className={styles.upper_wave}></div>
+        <div className={styles.search_container}>
           <h1>Αναζήτησε νταντάδες, εύκολα και γρήγορα!</h1>
-        </div> */}
+        </div>
+        <div className={styles.lower_wave}></div>
       </div>
     </>
   );
