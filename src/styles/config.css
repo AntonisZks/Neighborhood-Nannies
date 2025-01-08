@@ -1,6 +1,19 @@
 :root {
-  --theme_color_bg: #5892e4;
+  --theme_color_bg: #69a4f7;
   --theme_color_fg: rgb(28, 123, 255);
+  --theme_color_brighter: rgb(36, 87, 237);
   --theme_color_fg_lighter: rgb(213, 231, 255);
   --text_color_black: rgb(94, 94, 94);
+
+  /* --theme_color_bg: #f7b269;
+  --theme_color_fg: rgb(255, 123, 28);
+  --theme_color_brighter: rgb(237, 130, 36);
+  --theme_color_fg_lighter: rgb(255, 228, 213);
+  --text_color_black: rgb(94, 94, 94); */
+
+  /* --theme_color_bg: #9f69f7;
+  --theme_color_fg: rgb(96, 28, 255);
+  --theme_color_brighter: rgb(90, 36, 237);
+  --theme_color_fg_lighter: rgb(219, 213, 255);
+  --text_color_black: rgb(94, 94, 94); */
 }
