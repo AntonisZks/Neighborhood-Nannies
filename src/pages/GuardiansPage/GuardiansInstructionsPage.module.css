@@ -1,0 +1,17 @@
+@import "../../styles/config.css";
+
+.outer_container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+}
+
+.main {
+  grid-area: main;
+  padding: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}

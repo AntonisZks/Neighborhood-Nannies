@@ -1,17 +1,14 @@
-// Import the required modules from react and react-dom
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-// Import the pages of the application
 import HomePage from './pages/HomePage/HomePage.jsx';
 import LoginPage from './pages/login';
+import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructionsPage.jsx';
+import CaretakersPage from './pages/CaretakersPage/CaretakersPage.jsx'; // Import the new page
 
-// Import the global styles of the application
 import './index.css';
 
-
-// Create a browser router with the routes of the application
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,10 +19,19 @@ const router = createBrowserRouter([
     path: '/login',
     element: <LoginPage />,
     errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/guardians',
+    element: <GuardiansInstructionsPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/caretakers',
+    element: <CaretakersPage />, // Add the new route
+    errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
 
-// Create the main root element of the application and render the RouterProvider component
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
