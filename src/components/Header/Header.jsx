@@ -14,12 +14,6 @@ export default function Header() {
   )
 }
 
-function Logo() {
-  return (
-    <a href="../"> Logo </a>
-  )
-}
-
 function LanguageSelector() {
   return (
     <div className={`${styles.misc_container} ${styles.language}`}>

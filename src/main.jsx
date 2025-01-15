@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Import the pages of the application
 import HomePage from './pages/HomePage/HomePage.jsx';
-import LoginPage from './pages/login';
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
