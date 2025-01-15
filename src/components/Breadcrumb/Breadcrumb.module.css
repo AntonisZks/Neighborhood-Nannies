@@ -3,6 +3,9 @@
 
 
 .breadcrumbs {
+    grid-area:breadcrumb;
+    position: sticky;
+    top:64px;
     font-size: 16px;
     text-transform: capitalize;
     background-color:whitesmoke;

@@ -3,7 +3,7 @@ import alex from '../../assets/imgs/alex.png';
 
 import Header from '../../components/Header/Header';
 import PaymentCalendar from '../../components/PaymentCalendar/PaymentCalendar';
-
+import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from './ParentProfile.module.css';
 
 
@@ -11,6 +11,7 @@ export default function ParentProfile() {
   return (
     <div className={styles.outer_container}>
       <Header />
+      <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
           <button className={styles.profile_edit_button}>

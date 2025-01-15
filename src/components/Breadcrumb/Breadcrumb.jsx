@@ -4,7 +4,7 @@ import styles from "./Breadcrumb.module.css";
 
 var dict={
     "Anouncement" : "Ανακοινώσεις",
-    anouncement : "Ανακοινώσεις"
+    '/anouncement' : "Ανακοινώσεις"
 }
 
 const Breadcrumbs = () => {
@@ -19,9 +19,10 @@ const Breadcrumbs = () => {
 				breadcrumbPath += `/${name}`;
 				const isLast = index === pathnames.length - 1;
 				console.log(pathnames, breadcrumbPath);
-
+				{console.log(name)};	
 				return isLast ? (
-					<span key={breadcrumbPath}> /{dict.name}</span>
+					
+					<span key={breadcrumbPath}> / {dict.name}</span>
 				) : (
 					<span key={breadcrumbPath}>
 						{" "}
