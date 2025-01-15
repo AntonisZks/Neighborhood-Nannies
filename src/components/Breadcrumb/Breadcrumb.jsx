@@ -3,8 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./Breadcrumb.module.css";
 
 var dict={
-    'anouncement': 'Ανακοινώσεις',
-	'parent-profile' : 'Προφίλ Κηδεμόνα'
+	'anouncement': 'Ανακοινώσεις',
+	'parent-profile': 'Προφίλ Κηδεμόνα',
+	'search': 'Αναζήτηση Επιμελητών'
 }
 
 const Breadcrumbs = () => {
@@ -18,10 +19,10 @@ const Breadcrumbs = () => {
 			{pathnames.map((name, index) => {
 				breadcrumbPath += `/${name}`;
 				const isLast = index === pathnames.length - 1;
-				console.log(pathnames, breadcrumbPath);	
 				return isLast ? (
-					
-					<span key={breadcrumbPath}> / {dict[name]}</span>
+					<span key={breadcrumbPath}>
+						/ {dict[name]}
+					</span>
 				) : (
 					<span key={breadcrumbPath}>
 						{" "}
