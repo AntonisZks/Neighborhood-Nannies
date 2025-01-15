@@ -1,23 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import HomePage from './pages/HomePage/HomePage.jsx';
-import LoginPage from './pages/login';
-import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructionsPage.jsx';
-import CaretakersPage from './pages/CaretakersPage/CaretakersPage.jsx'; // Import the new page
-
-import './index.css';
+import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructionsPage';
+import CaretakersPage from './pages/CaretakersPage/CaretakersPage';
+import Contacts from './pages/Contacts/Contacts';
+import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
@@ -27,9 +19,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/caretakers',
-    element: <CaretakersPage />, // Add the new route
+    element: <CaretakersPage />,
     errorElement: <div>Custom 404 Not Found</div>,
-  }
+  },
+  {
+    path: '/contacts',
+    element: <Contacts />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
