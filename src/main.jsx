@@ -5,13 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Import the pages of the application
 import HomePage from './pages/HomePage/HomePage.jsx';
-<<<<<<< HEAD
-import LoginPage from './pages/login';
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
-=======
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
->>>>>>> 661f56c30c3f2d10dfb3fd130107049fa5d86060
 
 // Import the global styles of the application
 import './index.css';
@@ -25,6 +21,11 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/anouncement',
+    element: <AnouncementPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
     path: '/payment',
     element: <PaymentPage />,
     errorElement: <div>Custom 404 Not Found</div>,
@@ -32,11 +33,6 @@ const router = createBrowserRouter([
   {
     path: '/parent-profile',
     element: <ParentProfile />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  {
-    path: '/anouncement',
-    element: <AnouncementPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
