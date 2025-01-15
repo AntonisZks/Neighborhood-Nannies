@@ -5,24 +5,24 @@
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  padding-right: 3rem;
+  padding-right: 2rem;
 }
 
 .login_link {
   color: var(--theme_color_fg);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .signup_button {
   font: Arial, Helvetica, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--theme_color_fg);
   
   background-color: white;
   border: 2px solid var(--theme_color_fg);
   border-radius: 25px;
   
-  width: 9rem;
+  width: 8rem;
   height: 60%;
   
   transition: 0.2s;
@@ -32,7 +32,7 @@
   align-items: center;
   gap: 0.7rem;
 
-  padding: 0 5rem;
+  padding: 0 4rem;
 }
 
 .signup_button:hover {
