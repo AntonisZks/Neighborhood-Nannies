@@ -210,6 +210,16 @@ export default function ParentProfile() {
                     profile_picture={alex}
                     first_name="Αλέξανδρος"
                     last_name="Δημητρίου"
+                    accepted={false}
+                  />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <Declaration
+                    profile_picture={alex}
+                    first_name="Αλέξανδρος"
+                    last_name="Δημητρίου"
                     accepted={true}
                   />
                   </td>
@@ -230,7 +240,7 @@ export default function ParentProfile() {
                     profile_picture={alex}
                     first_name="Αλέξανδρος"
                     last_name="Δημητρίου"
-                    accepted={false}
+                    accepted={true}
                   />
                   </td>
                 </tr>
@@ -240,7 +250,7 @@ export default function ParentProfile() {
                     profile_picture={alex}
                     first_name="Αλέξανδρος"
                     last_name="Δημητρίου"
-                    accepted={false}
+                    accepted={true}
                   />
                   </td>
                 </tr>

@@ -17,9 +17,9 @@ body {
 .profile_sidebar {
   grid-area: profile;
   background-color: white;
-  width: 25%;
-  max-width: 400px;
-  min-width: 400px;
+  width: 15%;
+  max-width: 330px;
+  min-width: 330px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -41,7 +41,7 @@ body {
 }
 
 .profile_data img {
-  width: 10rem;
+  width: 7rem;
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 50%;
@@ -49,7 +49,7 @@ body {
 
 .profile_data h1 {
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .profile_description, .contact_data, .child_data {
@@ -63,10 +63,11 @@ body {
 
 .profile_description {
   margin-top: 2rem;
+  font-size: 0.8rem;
 }
 
 .profile_description h1, .contact_data h1, .child_data h1 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   margin: 0.5rem 0;
 }
 
@@ -84,13 +85,14 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.2rem;
   margin: 0.3rem 0;
+  font-size: 0.8rem;
 }
 
 .contact_data ul li i, .child_data ul li i {
   color: var(--theme_color_fg);
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
 }
 
 .logout_button_container {
@@ -104,13 +106,13 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.7rem 2rem;
   border-radius: 50px;
   border: 2px, solid rgba(255, 84, 84, 1);
   background-color: white; 
   color: rgba(255, 84, 84, 1);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -128,11 +130,11 @@ body {
 }
 
 .profile_edit_button {
-  width: 3.5rem;
+  width: 3.0rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   background-color: var(--theme_color_fg);
@@ -162,11 +164,11 @@ body {
     "payments calendar"
     "finalized unfinalized"
     "previous previous";
-  width: 100%;
+  width: 90%;
+  max-width: 990px;
   height: auto;
   max-height: 1500px;
   margin-top: 2rem;
-  max-width: 1200px;
   gap: 2rem;
 }
 
@@ -195,12 +197,12 @@ body {
 
 .calendar_panel {
   width: 100%;
+  height: 100%;
   grid-area: calendar;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   right: 0;
-  margin-bottom: 2.9rem;
 }
 
 .users_panel {
@@ -211,8 +213,8 @@ body {
 }
 
 .users_panel h1 {
-  font-size: 1.7rem;
-  margin: 0 0 0 1rem;
+  font-size: 1.5rem;
+  margin: 0.3rem 0 0 0.75rem;
 }
 
 .active_collaboration {
@@ -225,16 +227,16 @@ body {
   align-items: center;
   
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   background-image: linear-gradient(to bottom right, var(--theme_color_fg), var(--theme_color_bg));
-  padding: 1rem 2rem;
+  padding: 0.7rem 1rem;
   border-radius: 1rem;
   cursor: default;
 }
 
 .active_collaboration img {
   grid-area: image;
-  width: 60px;
+  width: 40px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
@@ -242,26 +244,26 @@ body {
 
 .active_collaboration h1 {
   grid-area: name;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: white;
-  margin: 0.5rem 0 0 0.8rem;
+  margin: 0.5rem 0 0 0.6rem;
 }
 
 .active_collaboration p {
   grid-area: description;
   color: white;
-  font-size: 0.9rem;
-  margin: 0 0 0.5rem 0.8rem;
+  font-size: 0.7rem;
+  margin: 0 0 0.5rem 0.6rem;
 }
 
 .active_collaboration button {
   grid-area: button;
-  width: 3rem;
+  width: 2.5rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
   border: none;
   background-color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--theme_color_bg);
   cursor: pointer;
   transition: 0.3s;
@@ -278,7 +280,7 @@ body {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
 }
@@ -320,7 +322,7 @@ body {
   align-items: center;
   width: 100%;
   margin-top: 1rem 2rem;
-  padding: 1rem 2rem;
+  padding: 0.7rem 1rem;
   color: var(--text_color_black);
   background-color: rgba(0, 0, 0, 0.05);
   cursor: default;
@@ -332,7 +334,7 @@ body {
 
 .declaration img {
   grid-area: image;
-  width: 50px;
+  width: 40px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
@@ -340,16 +342,16 @@ body {
 
 .declaration h1 {
   grid-area: name;
-  font-size: 1.1rem;
-  padding: 0.1rem 0 0 0rem;
+  font-size: 0.8rem;
+  padding: 0.1rem 0 0 0;
 }
 
 .declaration .description_container {
   grid-area: description;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   display: flex;
   gap: 1rem;
-  padding: 0 0 0.1rem 1rem;
+  padding: 0 0 0.3rem 0.7rem;
   color: var(--text_color_grey);
 }
 
@@ -385,6 +387,7 @@ body {
   font-size: 1rem;
   cursor: pointer;
   background-color: white;
+  color: var(--text_color_grey);
   transition: 0.3s;
 }
 
@@ -410,7 +413,7 @@ body {
   align-items: center;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.05);
-  padding: 1rem 2rem;
+  padding: 0.7rem 1rem;
   cursor: default;
 }
 
@@ -420,7 +423,7 @@ body {
 
 .previous_collaboration img {
   grid-area: image;
-  width: 50px;
+  width: 40px;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
@@ -428,13 +431,13 @@ body {
 
 .previous_collaboration h1 {
   grid-area: name;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   margin: 0rem 0 0 0.8rem;
 }
 
 .previous_collaboration p {
   grid-area: description;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   margin: 0 0 0 0.8rem;
   color: var(--text_color_grey);
 }
@@ -460,7 +463,7 @@ body {
 }
 
 .previous_collaboration .rate_container .grade_container p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
