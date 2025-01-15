@@ -1,5 +1,6 @@
 import styles from "./Header.module.css";
 import NavigationBar from "../NavigationBar/NavigationBar";
+import Logo from "../Logo/Logo";
 
 export default function Header() {
   return (
@@ -10,12 +11,6 @@ export default function Header() {
         <AuthenticationContainer />
       </div>
     </>
-  )
-}
-
-function Logo() {
-  return (
-    <div>Logo</div>
   )
 }
 

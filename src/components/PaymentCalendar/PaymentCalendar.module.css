@@ -1,0 +1,164 @@
+@import "../../styles/config.css";
+
+.calendar{
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "header"
+    "main_content";
+  justify-content: start;
+  align-items: center;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 86%;
+  /* box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.3); */
+}
+
+.calendar_header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  padding: 0.7rem 0;
+  background-image: linear-gradient(to bottom left, var(--theme_color_fg), var(--theme_color_bg));
+  color: white;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.calendar_header .previous_month_button, 
+.calendar_header .next_month_button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar_header .previous_month_button:hover, .next_month_button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.previous_month_button {
+  margin-left: 2rem;
+}
+
+.next_month_button {
+  margin-right: 2rem;
+}
+
+.calendar_main_content {
+  grid-area: main_content;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+    "week_days"
+    "month_days";
+  width: 100%;
+  height: 100%;
+}
+
+.week_days_container {
+  grid-area: week_days;
+  padding: 1.2rem 1rem;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 80%;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--text_color_black);
+}
+
+.week_day_cell {
+  padding: 0rem 0;
+}
+
+.month_days_container {
+  grid-area: month_days;
+  padding: 0 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  height: 450px;
+  text-align: center;
+  align-items: center;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.month_day_cell {
+  display: flex;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 100%;
+  color: var(--text_color_black);
+  position: relative;
+}
+
+.not_active_cell {
+  color: rgb(207, 207, 207);
+}
+
+.today_cell {
+  color: white;
+}
+
+.past_day_cell .background_circle {
+  background-color: var(--theme_color_fg_lighter);
+}
+
+.work_day_cell .background_circle::after {
+  content: '';
+  width: 20%;
+  height: 20%;
+  background-color: rgb(248, 140, 0);
+  position: absolute;
+  border: 2px solid white;
+  border-radius: 50%;
+  top: 2%;
+  right: 2%;
+}
+
+.today_cell .background_circle {
+  background-color: var(--theme_color_fg);
+}
+
+.not_active_cell .background_circle {
+  background-color: rgb(252, 252, 252);
+}
+
+.month_day_cell p{
+  z-index: 1;
+}
+
+.background_circle {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  z-index: 0;
+}

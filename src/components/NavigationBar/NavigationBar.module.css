@@ -12,9 +12,10 @@
 
 .navigation_list li {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
   color: var(--theme_color_fg);
-  width: 180px;
+  width: 8.5rem;
   height: 100%;
   cursor: default;
   display: inline-block;
@@ -77,7 +78,7 @@
   border-bottom-left-radius: 20px;
 }
 
-.dropdown li::after {
+/* .dropdown li::after {
   content: "";
   background-color: rgb(214, 214, 214);
   width: 90%;
@@ -86,7 +87,7 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-}
+} */
 
 .dropdown li:hover {
   background-color: var(--theme_color_fg);
