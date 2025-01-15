@@ -6,10 +6,7 @@ import CaretakersPage from './pages/CaretakersPage/CaretakersPage';
 import Contacts from './pages/Contacts/Contacts';
 import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
 
-<<<<<<< HEAD
-=======
-// Import the pages of the application
-import HomePage from './pages/HomePage/HomePage.jsx';
+
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
@@ -19,7 +16,6 @@ import './index.css';
 
 
 // Create a browser router with the routes of the application
->>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,10 +23,10 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-<<<<<<< HEAD
     path: '/guardians',
     element: <GuardiansInstructionsPage />,
-=======
+  },
+  {
     path: '/anouncement',
     element: <AnouncementPage />,
     errorElement: <div>Custom 404 Not Found</div>,
@@ -43,7 +39,6 @@ const router = createBrowserRouter([
   {
     path: '/parent-profile',
     element: <ParentProfile />,
->>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
