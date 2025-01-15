@@ -1,0 +1,20 @@
+/* filepath: /Users/evita/Desktop/Neighborhood-Nannies/src/components/Accordion/Accordion.module.css */
+.accordion {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  
+  .accordionTitle {
+    background-color: #f7f7f7;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .accordionContent {
+    padding: 10px;
+    background-color: #fff;
+    white-space: pre-wrap; /* Preserve line breaks */
+  }
