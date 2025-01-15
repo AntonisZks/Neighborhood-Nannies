@@ -7,20 +7,26 @@
   align-items: center;
   padding: 10px;
   grid-area: header;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   z-index: 1000;
+<<<<<<< HEAD
   background-color: white; /* Default background color */
 }
 
 .specialPage {
   background-color: white; /* Ensure white background for special pages */
+=======
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
 }
 
 .misc_container {
   display: flex;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: var(--theme_color_bg);
   gap: 1rem;
 }

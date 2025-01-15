@@ -6,6 +6,7 @@ export default function NavigationBar() {
     <>
       <ul className={styles.navigation_list}>
         <li className={styles.dropdown_tab}>
+<<<<<<< HEAD
           <div className={styles.tab_title}>
             <i className="fa-solid fa-user"></i>
             <p>Κηδεμόνες</p>
@@ -21,51 +22,88 @@ export default function NavigationBar() {
               <p>Εγγραφή</p>
             </li>
           </ul>
+=======
+            <div className={styles.tab_title}>
+              <i className="fa-solid fa-user"></i>
+              <a>Κηδεμόνες</a>
+              <i className="fa-solid fa-caret-down"></i>
+            </div>
+            <ul className={styles.dropdown}>
+              <li>
+                <i className="fa-solid fa-right-to-bracket"></i>
+                <a>Σύνδεση</a>
+              </li>
+              <li>
+                <i className="fa-solid fa-user-plus"></i>
+                <a>Εγγραφή</a>
+              </li>
+            </ul>
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
         </li>
         <li className={styles.dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-regular fa-user"></i>
+<<<<<<< HEAD
             <p>Επιμελητές</p> {}
+=======
+            <a>Επιμελητές</a>
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
             <li>
               <i className="fa-solid fa-right-to-bracket"></i>
-              <p>Σύνδεση</p>
+              <a>Σύνδεση</a>
             </li>
             <li>
               <i className="fa-solid fa-user-plus"></i>
-              <p>Εγγραφή</p>
+              <a>Εγγραφή</a>
             </li>
           </ul>
         </li>
         <li className={styles.dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-question"></i>
+<<<<<<< HEAD
             <p>Οδηγίες</p> {}
+=======
+            <a>Οδηγίες</a>
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
             <li>
               <i className="fa-solid fa-user"></i>
+<<<<<<< HEAD
               <Link to="/guardians" className={styles.no_underline}><p>Κηδεμόνες</p></Link>
             </li>
             <li>
               <i className="fa-regular fa-user"></i>
               <Link to="/caretakers" className={styles.no_underline}><p>Επιμελητές</p></Link> {/* Interactive in dropdown */}
+=======
+              <a>Κηδεμόνες</a>
+            </li>
+            <li>
+              <i className="fa-regular fa-user"></i>
+              <a>Επιμελητές</a>
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
             </li>
           </ul>
         </li>
         <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-bullhorn"></i>
-            <p>Ανακοινώσεις</p>
+            <a href="../anouncement"> Ανακοινώσεις</a>
           </div>
         </li>
         <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-comment"></i>
+<<<<<<< HEAD
             <Link to="/Contacts" className={styles.no_underline}><p>Επικοινωνία</p></Link>
+=======
+            <a>Επικοινωνία</a>
+>>>>>>> 4e535ca8d2912cea6a201d4e2168887fbf025740
           </div>
         </li>
       </ul>

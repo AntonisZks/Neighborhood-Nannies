@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from "./Header.module.css";
 import NavigationBar from "../NavigationBar/NavigationBar";
+import Logo from "../Logo/Logo";
 
 export default function Header() {
   const location = useLocation();
@@ -15,12 +16,6 @@ export default function Header() {
         <AuthenticationContainer />
       </div>
     </>
-  )
-}
-
-function Logo() {
-  return (
-    <div>Logo</div>
   )
 }
 
