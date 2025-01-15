@@ -21,6 +21,11 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/anouncement',
+    element: <AnouncementPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
     path: '/payment',
     element: <PaymentPage />,
     errorElement: <div>Custom 404 Not Found</div>,
@@ -28,11 +33,6 @@ const router = createBrowserRouter([
   {
     path: '/parent-profile',
     element: <ParentProfile />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  {
-    path: '/anouncement',
-    element: <AnouncementPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
