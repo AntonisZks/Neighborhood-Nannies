@@ -65,6 +65,8 @@
   background-color: rgb(239, 239, 239);
   transition: 0.3s;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
   z-index: -1;
   
 }
@@ -79,6 +81,11 @@
 }
 
 .dropdown li:last-child {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.dropdown li:last-child a {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -98,6 +105,10 @@
   background-color: var(--theme_color_fg);
   color: white;
   cursor: pointer;
+}
+
+.dropdown li:hover a {
+  color: white;
 }
 
 .navigation_list li:hover .dropdown {
