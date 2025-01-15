@@ -14,8 +14,6 @@ export default function Header() {
   )
 }
 
-
-
 function LanguageSelector() {
   return (
     <div className={`${styles.misc_container} ${styles.language}`}>
