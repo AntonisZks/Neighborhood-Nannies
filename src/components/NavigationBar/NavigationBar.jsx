@@ -65,7 +65,7 @@ export default function NavigationBar() {
         <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-comment"></i>
-            <p>Επικοινωνία</p>
+            <Link to="/Contacts" className={styles.no_underline}><p>Επικοινωνία</p></Link>
           </div>
         </li>
       </ul>
