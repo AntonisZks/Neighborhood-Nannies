@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Import the pages of the application
 import HomePage from './pages/HomePage/HomePage.jsx';
 import LoginPage from './pages/login';
+import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/anouncement',
+    element: <AnouncementPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);

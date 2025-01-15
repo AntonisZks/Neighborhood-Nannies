@@ -7,64 +7,64 @@ export default function NavigationBar() {
         <li className={styles.dropdown_tab}>
             <div className={styles.tab_title}>
               <i className="fa-solid fa-user"></i>
-              <p>Κηδεμόνες</p>
+              <a>Κηδεμόνες</a>
               <i className="fa-solid fa-caret-down"></i>
             </div>
             <ul className={styles.dropdown}>
               <li>
                 <i className="fa-solid fa-right-to-bracket"></i>
-                <p>Σύνδεση</p>
+                <a>Σύνδεση</a>
               </li>
               <li>
                 <i className="fa-solid fa-user-plus"></i>
-                <p>Εγγραφή</p>
+                <a>Εγγραφή</a>
               </li>
             </ul>
         </li>
         <li className={styles.dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-regular fa-user"></i>
-            <p>Επιμελητές</p>
+            <a>Επιμελητές</a>
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
             <li>
               <i className="fa-solid fa-right-to-bracket"></i>
-              <p>Σύνδεση</p>
+              <a>Σύνδεση</a>
             </li>
             <li>
               <i className="fa-solid fa-user-plus"></i>
-              <p>Εγγραφή</p>
+              <a>Εγγραφή</a>
             </li>
           </ul>
         </li>
         <li className={styles.dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-question"></i>
-            <p>Οδηγίες</p>
+            <a>Οδηγίες</a>
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
             <li>
               <i className="fa-solid fa-user"></i>
-              <p>Κηδεμόνες</p>
+              <a>Κηδεμόνες</a>
             </li>
             <li>
               <i className="fa-regular fa-user"></i>
-              <p>Επιμελητές</p>
+              <a>Επιμελητές</a>
             </li>
           </ul>
         </li>
         <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-bullhorn"></i>
-            <p>Ανακοινώσεις</p>
+            <a href="../anouncement"> Ανακοινώσεις</a>
           </div>
         </li>
         <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-comment"></i>
-            <p>Επικοινωνία</p>
+            <a>Επικοινωνία</a>
           </div>
         </li>
       </ul>

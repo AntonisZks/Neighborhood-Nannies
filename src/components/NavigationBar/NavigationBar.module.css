@@ -35,9 +35,15 @@
   padding: 1.5rem 0rem;
 }
 
-.navigation_list li p {
+
+
+.navigation_list li a {
   height: 100%;
+  text-decoration: none;
+  color: var(--theme_color_fg);
 }
+
+
 
 .navigation_list li .tab {
   display: block;
@@ -59,8 +65,7 @@
   transition: 0.3s;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   z-index: -1;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
+  
 }
 
 .dropdown li {
