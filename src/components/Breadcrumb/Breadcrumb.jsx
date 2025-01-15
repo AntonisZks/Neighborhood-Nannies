@@ -4,7 +4,8 @@ import styles from "./Breadcrumb.module.css";
 
 var dict={
 	'anouncement': 'Ανακοινώσεις',
-	'parent-profile': 'Προφίλ Κηδεμόνα'
+	'parent-profile': 'Προφίλ Κηδεμόνα',
+	'search': 'Αναζήτηση Επιμελητών'
 }
 
 const Breadcrumbs = () => {

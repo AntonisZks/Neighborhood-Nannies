@@ -1,0 +1,134 @@
+@import url('../../styles/config.css');
+
+.outer_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 300px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  padding: 1.5rem 1.5rem;
+  border-radius: 1.3rem;
+  position: relative;
+  background-color: white;
+}
+
+.profile_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text_color_black);
+}
+
+.profile_container img {
+  width: 110px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile_container h1 {
+  font-size: 1.2rem;
+}
+
+.info_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text_color_black);
+  margin: 0.3rem 0;
+}
+
+.info_container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  font-size: 0.9rem;
+}
+
+.info_container ul li {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+}
+
+.info_container ul li i {
+  color: var(--theme_color_fg);
+}
+
+.info_container ul li:nth-child(2) i {
+  margin: 0 0.3rem 0 0.1rem;
+}
+
+.rate_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  margin-top: 0.7rem;
+}
+
+.rate_container i {
+  color: var(--theme_color_fg);
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.button_container button {
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem 0;
+  margin: 1rem 0;
+  border-radius: 30px;
+  border: 2px solid var(--theme_color_fg);
+  background-color: white;
+  color: var(--theme_color_fg);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button_container button:hover {
+  background-color: var(--theme_color_fg);
+  color: white;
+}
+
+.more_button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 1rem 1rem 0 0;
+  width: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: var(--text_color_black);
+  font-size: 1rem;
+}
+
+.more_button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

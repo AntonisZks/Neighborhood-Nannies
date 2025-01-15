@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage/HomePage.jsx';
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import SearchPage from './pages/SearchPage/SearchPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
   {
     path: '/parent-profile',
     element: <ParentProfile />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
