@@ -51,7 +51,7 @@ function ParentIntroductionContainer() {
       <button>
         <div className={styles.button_content}>
           <p>Ξεκίνα Τώρα</p>
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <i className="fa-solid fa-arrow-right-to-bracket"></i>
         </div>
       </button>
     </div>
@@ -72,7 +72,7 @@ function NannyIntroductionContainer() {
       <button>
         <div className={styles.button_content}>
           <p>Ξεκίνα Τώρα</p>
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <i className="fa-solid fa-arrow-right-to-bracket"></i>
         </div>
       </button>
     </div>

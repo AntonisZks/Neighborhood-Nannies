@@ -19,7 +19,7 @@ export default function PaymentPage() {
           <p>Ακύρωση</p>
         </button>
         <button className={styles.send_button}>
-          <i class="fa-solid fa-paper-plane"></i>
+          <i className="fa-solid fa-paper-plane"></i>
           <p>Αποστολή Voucher</p>
         </button>
       </div>

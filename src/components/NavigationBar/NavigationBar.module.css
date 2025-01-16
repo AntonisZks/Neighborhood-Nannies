@@ -78,14 +78,23 @@
   gap: 0.5rem;
   padding: 1.3rem;
   text-align: center;
+  height: 100%;
 }
 
-.dropdown li:last-child {
+.dropdown li a {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.dropdown a:last-child {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
 
-.dropdown li:last-child a {
+.dropdown a:last-child li {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }

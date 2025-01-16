@@ -15,7 +15,7 @@ const Breadcrumbs = () => {
 
 	return (
 		<div className={styles.breadcrumbs}>
-			<Link to="/"><i class="fa-solid fa-house"></i>Αρχική</Link>
+			<Link to="/"><i className="fa-solid fa-house"></i>Αρχική</Link>
 			{pathnames.map((name, index) => {
 				breadcrumbPath += `/${name}`;
 				const isLast = index === pathnames.length - 1;

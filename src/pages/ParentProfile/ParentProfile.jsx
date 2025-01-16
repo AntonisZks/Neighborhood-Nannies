@@ -15,7 +15,7 @@ export default function ParentProfile() {
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
           <button className={styles.profile_edit_button}>
-            <i class="fa-solid fa-pencil"></i>
+            <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
         <div className={styles.profile_data}>
@@ -35,11 +35,11 @@ export default function ParentProfile() {
           <h1>Στοιχεία Επικοινωνίας</h1>
           <ul>
             <li>
-              <i class="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-envelope"></i>
               <b>Email: </b>dimitrispapadopoulos@gmail.com
             </li>
             <li>
-              <i class="fa-solid fa-phone"></i>
+              <i className="fa-solid fa-phone"></i>
               <b>Τηλέφωνο: </b>6962881364
             </li>
           </ul>
@@ -48,18 +48,18 @@ export default function ParentProfile() {
           <h1>Χαρατηριστικά Παιδιού</h1>
           <ul>
             <li>
-              <i class="fa-solid fa-venus-mars"></i>
+              <i className="fa-solid fa-venus-mars"></i>
               <b>Φύλλο: </b>Αγόρι
             </li>
             <li>
-              <i class="fa-regular fa-calendar-days"></i>
+              <i className="fa-regular fa-calendar-days"></i>
               <b>Ηλικία: </b>16 μηνών
             </li>
           </ul>
         </div>
         <div className={styles.logout_button_container}>
           <button className={styles.logout_button}>
-            <i class="fa-solid fa-sign-out"></i>
+            <i className="fa-solid fa-sign-out"></i>
             <p>Αποσύνδεση</p>
           </button>
         </div>
@@ -276,7 +276,7 @@ function ActiveCollaboration(props) {
       <h1>{props.first_name} {props.last_name}</h1>
       <p>Πριν από 3 ημέρες</p>
       <button className={styles.view_profile_button}>
-        <i class="fa-solid fa-eye"></i>
+        <i className="fa-solid fa-eye"></i>
       </button>
     </div>
   )
@@ -291,11 +291,11 @@ function PreviousCollaboration(props) {
       <div className={styles.rate_container}>
         <div className={styles.stars_container}>
           {[...Array(props.stars)].map((_, index) => (
-            <i key={index} class="fa-solid fa-star"></i>
+            <i key={index} className="fa-solid fa-star"></i>
           ))}
-          {props.half_star && <i class="fa-regular fa-star-half-stroke"></i>}
+          {props.half_star && <i className="fa-regular fa-star-half-stroke"></i>}
           {[...Array(5 - props.stars - (props.half_star ? 1 : 0))].map((_, index) => (
-            <i key={index} class="fa-regular fa-star"></i>
+            <i key={index} className="fa-regular fa-star"></i>
           ))}
         </div>
         <div className={styles.grade_container}>
@@ -319,20 +319,20 @@ function Declaration(props) {
                 <p className={styles.description}>Έχει οριστικοποιηθεί</p>
                 <p className={`${styles.accepted} ${styles.state}`}>
                   Έγινε αποδεκτή
-                  <i class="fa-solid fa-check"></i>
+                  <i className="fa-solid fa-check"></i>
                 </p> 
               </>
             : <>
                 <p className={styles.description}>Έχει οριστικοποιηθεί</p>
                 <p className={`${styles.rejected} ${styles.state}`}>
                   Απορρίφθηκε
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </p>
               </>
         }
       </div>
       <button className={styles.view_declaration_button}>
-        <i class="fa-solid fa-eye"></i>
+        <i className="fa-solid fa-eye"></i>
       </button>
     </div>
   )
