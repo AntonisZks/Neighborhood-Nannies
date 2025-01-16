@@ -5,15 +5,13 @@ import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructio
 import CaretakersPage from './pages/CaretakersPage/CaretakersPage';
 import Contacts from './pages/Contacts/Contacts';
 import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
-
-
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import Chat from './pages/chat /chat.jsx'; // Import the Chat component
 
 // Import the global styles of the application
 import './index.css';
-
 
 // Create a browser router with the routes of the application
 const router = createBrowserRouter([
@@ -49,6 +47,11 @@ const router = createBrowserRouter([
   {
     path: '/contacts',
     element: <Contacts />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/chat',
+    element: <Chat />, // Add the Chat route
     errorElement: <div>Custom 404 Not Found</div>,
   },
 ]);
