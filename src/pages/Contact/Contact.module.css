@@ -1,0 +1,13 @@
+/* filepath: /Users/evita/Desktop/Neighborhood-Nannies/src/pages/Contact/Contact.module.css */
+.contactContainer {
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.contactContainer h1 {
+  color: var(--theme_color_primary);
+}
+
+.contactContainer p {
+  color: var(--theme_color_secondary);
+}
