@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctl
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
-import Chat from './pages/chat /chat.jsx'; // Import the Chat component
+import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 
 // Import the global styles of the application
 import './index.css';
