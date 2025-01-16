@@ -5,6 +5,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSend = () => {
     if (input.trim()) {
@@ -33,29 +34,37 @@ export default function Chat() {
   }, [isTyping]);
 
   return (
-    <div className={styles.chatContainer}>
-      <div className={styles.header}>
-        <h2>Chat</h2>
-      </div>
-      <div className={styles.messagesContainer}>
-        {messages.map((message, index) => (
-          <div key={index} className={`${styles.message} ${styles.userMessage}`}>
-            <span>{message.text}</span>
-            <small className={styles.timestamp}>{message.timestamp}</small>
+    <div>
+      <button className={styles.chatButton} onClick={() => setIsOpen(true)}>Chat</button>
+      {isOpen && (
+        <div className={styles.chatPopup}>
+          <div className={styles.chatHeader}>
+            <span className={styles.close} onClick={() => setIsOpen(false)}>&times;</span>
+            <h2>Chat</h2>
           </div>
-        ))}
-      </div>
-      {isTyping && <div className={styles.typingIndicator}>User is typing...</div>}
-      <div className={styles.inputContainer}>
-        <input
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Type a message..."
-        />
-        <button onClick={handleSend}>Send</button>
-      </div>
+          <div className={styles.chatBody}>
+            <div className={styles.messagesContainer}>
+              {messages.map((message, index) => (
+                <div key={index} className={`${styles.message} ${styles.userMessage}`}>
+                  <span>{message.text}</span>
+                  <small className={styles.timestamp}>{message.timestamp}</small>
+                </div>
+              ))}
+            </div>
+            {isTyping && <div className={styles.typingIndicator}>User is typing...</div>}
+            <div className={styles.inputContainer}>
+              <input
+                type="text"
+                value={input}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a message..."
+              />
+              <button onClick={handleSend}>Send</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
