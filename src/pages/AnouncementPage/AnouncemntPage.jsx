@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from 'react';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./AnouncementPage.module.css";
+
 
 export default function AnouncementPage() {
   return (
@@ -37,66 +38,91 @@ function MainSection() {
   );
 }
 
+
+const announcements = [
+  {
+    date: '24/12/2024',
+    title: '2000 νέοι επιμελητές συνδέθηκαν για πρώτη φορά τον τελευταίο μήνα',
+    details: [
+      'Αγαπητοί κηδεμόνες,',
+      'Σας ενημερωνούμε ότι τον τελευταίο μήνα 2000 νέοι επιμελητές συνδέθηκαν στον ιστότοπο μας για πρώτη φορά. Μπορείτε να δείτε τους νεότερους επιμελητές της ιστοσελίδας μας στον παρακάτω σύνδεσμο',
+      '(σύνδεσμος)',
+      'Σας ευχαρισούμε'
+    ]
+  },
+  {
+    date: '25/12/2024',
+    title: 'Νέο εκπαιδευτικό υλικό διαθέσιμο',
+    details: [
+      'Αγαπητοί κηδεμόνες,',
+      'Σας ενημερωνούμε ότι τον τελευταίο μήνα 2000 νέοι επιμελητές συνδέθηκαν στον ιστότοπο μας για πρώτη φορά. Μπορείτε να δείτε τους νεότερους επιμελητές της ιστοσελίδας μας στον παρακάτω σύνδεσμο',
+      '(σύνδεσμος)',
+      'Σας ευχαρισούμε'
+    ]
+  },
+  {
+    date: '26/12/2024',
+    title: 'Ενημέρωση για τις διακοπές',
+    details: [
+      'Αγαπητοί κηδεμόνες,',
+      'Σας ενημερωνούμε ότι τον τελευταίο μήνα 2000 νέοι επιμελητές συνδέθηκαν στον ιστότοπο μας για πρώτη φορά. Μπορείτε να δείτε τους νεότερους επιμελητές της ιστοσελίδας μας στον παρακάτω σύνδεσμο',
+      '(σύνδεσμος)',
+      'Σας ευχαρισούμε'
+    ]
+  }
+];
+
 function AnouncementsContainer() {
+  const [openTabs, setOpenTabs] = useState(Array(announcements.length).fill(false));
+
+  const opendropdowntab = (index) => {
+    setOpenTabs((prev) => {
+      const newOpenTabs = [...prev];
+      newOpenTabs[index] = !newOpenTabs[index];
+      return newOpenTabs;
+    });
+  };
+
   return (
     <>
       <ul className={styles.anouncement_container}>
-        <li className={styles.dropdown_tab}>
-          <div className={styles.tab_title}>
-            <a> 24/12/2024</a>
-            <a>
-              2000 νέοι επιμελητές συνδέθηκαν για πρώτη φορά τον τελευταίο μήνα
-            </a>
-            <i className="fa solid fa-caret-down"></i>
-
-            <a>
-              <i className="fa-solid fa-circle"></i>Κηδεμόνες
-            </a>
-          </div>
-          <div className={styles.dropdown}>
-            <li>
-              <a>Αγαπητοί κηδεμόνες,</a>
-              <a>
-                Σας ενημερωνούμε ότι τον τελευταίο μήνα 2000 νέοι επιμελητές
-                συνδέθηκαν στον ιστότοπο μας για πρώτη φορά. Μπορείτε να δείτε
-                τους νεότερους επιμελητές της ιστοσελίδας μας στον παρακάτω
-                σύνδεσμο
-              </a>
-              <a>(σύνδεσμος)</a>
-              <a>Σας ευχαρισούμε</a>
-            </li>
-          </div>
-        </li>
-        <li className={styles.dropdown_tab}>
-          <div className={styles.tab_title}>
-            <a>Μια ανακοίνωση</a>
-            <i className="fa solid fa-caret-down"></i>
-          </div>
-          <ul className={styles.dropdown}>
-            <li>
-              <a>
-                Αγαπητοί κηδεμόνες, Σας ενημερωνούμε ότι τον τελευταίο μήνα 2000
-                νέοι επιμελητές συνδέθηκαν στον ιστότοπο μας για πρώτη φορά.
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li className={styles.dropdown_tab}>
-          <div className={styles.tab_title}>
-            <a>Μια ανακοίνωση</a>
-            <i className="fa solid fa-caret-down"></i>
-          </div>
-          <ul className={styles.dropdown}>
-            <li>
-              <a>
-                hiosgiowshgoSIhgpoSgjnopSnopasjmnopjmngopSngiosnbgionboingioNgopANddddddddddddddddddddddddddddd
-                a[pfkaomgfopsmgopemgopwsemgopwemfgopwemvopwemvoewmvoemvoemfgoemgoemgoewmgoewmgoewmfvoemvoemvoemv]
-                egfm,werogbmoeprmbowermbormborembomborembormbormbormborembpaolmbpar;mogOPEwmrgombpomrbrombomrbpomr
-              </a>
-            </li>
-          </ul>
-        </li>
+        {announcements.map((announcement, index) => (
+          <li key={index} className={`${styles.dropdown_tab} ${openTabs[index] ? styles.open : ''}`}>
+            <div className={styles.tab_title} onClick={() => opendropdowntab(index)}>
+              <a>{announcement.date}</a>
+              <a>{announcement.title}</a>
+              <i className={`fa fa-caret-down ${openTabs[index] ? 'rotate' : ''}`}></i>
+              <a><i className="fa-solid fa-circle"></i>Κηδεμόνες</a>
+            </div>
+            <div className={`${styles.dropdown} ${openTabs[index] ? styles.open : ''}`}>
+              <li>
+                {announcement.details.map((detail, i) => (
+                  <a key={i}>{detail}</a>
+                ))}
+              </li>
+            </div>
+          </li>
+        ))}
       </ul>
     </>
   );
 }
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+  
+
+
