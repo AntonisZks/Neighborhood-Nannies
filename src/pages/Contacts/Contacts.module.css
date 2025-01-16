@@ -22,3 +22,17 @@
   flex-direction: column;
   align-items: center;
 }
+
+.parallelogram {
+  background-color: #f0f0f0; /* Adjust to match your site's color scheme */
+  padding: 20px;
+  border-radius: 15px;
+  transform: skew(-20deg);
+  margin: 20px 0;
+  text-align: center;
+}
+
+.parallelogram p {
+  transform: skew(20deg);
+  margin: 0;
+}
