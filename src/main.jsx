@@ -10,7 +10,8 @@ import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
-import LoginPage from './pages/LoginPage/LoginPage.jsx';
+import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
+import NannyLoginPage from './pages/LoginPages/NannyLoginPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -23,9 +24,14 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/login',
-    element: <LoginPage />,
+    path: '/parent-login',
+    element: <ParentLoginPage />,
     errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/nanny-login',
+    element: <NannyLoginPage />,
+    errorElement: <div>Custom 404 Not</div>,
   },
   {
     path: '/guardians',
