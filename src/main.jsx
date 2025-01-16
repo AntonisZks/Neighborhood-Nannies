@@ -7,7 +7,7 @@ import Contacts from './pages/Contacts/Contacts';
 import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
-import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import ParentDashboard from './pages/ParentDashboard/ParentDashboard.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
 import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
@@ -48,8 +48,8 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/parent-profile',
-    element: <ParentProfile />,
+    path: '/p_dashboard',
+    element: <ParentDashboard />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {

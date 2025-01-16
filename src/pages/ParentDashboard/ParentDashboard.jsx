@@ -4,10 +4,58 @@ import alex from '../../assets/imgs/alex.png';
 import Header from '../../components/Header/Header';
 import PaymentCalendar from '../../components/PaymentCalendar/PaymentCalendar';
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-import styles from './ParentProfile.module.css';
+import styles from './ParentDashboard.module.css';
 
+import { useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
 
-export default function ParentProfile() {
+export default function ParentDashboard() {
+  const [parents, setParents] = useState([]);
+  const [user, setUser] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const parent_id = searchParams.get('pid');
+
+  const signout = () => {
+    navigate('/');
+  }
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setParents(parentsArray);
+
+        // Search for the parent with the given id
+        const parent = parentsArray.find(parent => parent.id === parent_id);
+        console.log(parent);
+        setUser(parent);
+      } 
+      catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      }
+      finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUserData();
+  }, [parent_id])
+
+  if (loading) { return <p>Loading...</p>; }
+  if (error) { return <p>Error: {error}</p>; }
+  
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -19,8 +67,8 @@ export default function ParentProfile() {
           </button>
         </div>
         <div className={styles.profile_data}>
-          <img src={jimmy} alt="profile picture" />
-          <h1>Δημήτρης Παπαδόπουλος</h1>
+          <img src={user.profileImageUrl} alt="profile picture" />
+          <h1>{user.first_name} {user.last_name}</h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
@@ -58,7 +106,7 @@ export default function ParentProfile() {
           </ul>
         </div>
         <div className={styles.logout_button_container}>
-          <button className={styles.logout_button}>
+          <button onClick={signout} className={styles.logout_button}>
             <i className="fa-solid fa-sign-out"></i>
             <p>Αποσύνδεση</p>
           </button>
