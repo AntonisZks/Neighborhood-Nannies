@@ -1,18 +1,18 @@
-// Import the required modules from react and react-dom
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-// Import the pages of the application
-import HomePage from './pages/HomePage/HomePage.jsx';
+import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructionsPage';
+import CaretakersPage from './pages/CaretakersPage/CaretakersPage';
+import Contacts from './pages/Contacts/Contacts';
+import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
-
 
 // Create a browser router with the routes of the application
 const router = createBrowserRouter([
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomePage />,
     errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/guardians',
+    element: <GuardiansInstructionsPage />,
   },
   {
     path: '/anouncement',
@@ -37,13 +41,27 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/caretakers',
+    element: <CaretakersPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/contacts',
+    element: <Contacts />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/chat',
+    element: <Chat />, // Add the Chat route
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
     path: '/search',
     element: <SearchPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
 
-// Create the main root element of the application and render the RouterProvider component
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />

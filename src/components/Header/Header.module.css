@@ -2,11 +2,17 @@
 @import "styles/AuthenticationContainer.css";
 
 .container {
-  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px;
   grid-area: header;
   z-index: 1000;
+  background-color: white; /* Default background color */
+}
+
+.specialPage {
+  background-color: white; /* Ensure white background for special pages */
   width: 100%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   position: sticky;
@@ -20,4 +26,10 @@
   font-size: 1.1rem;
   color: var(--theme_color_bg);
   gap: 1rem;
+}
+
+.header {
+   grid-area: header;
+   z-index: 1000;
+   background-color: white; /* Default background color */
 }
