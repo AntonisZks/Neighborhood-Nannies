@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SearchPage.module.css";
 
 import alex from "../../assets/imgs/alex.png";
@@ -7,9 +7,45 @@ import Header from "../../components/Header/Header";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import NannySearchPanel from "../../components/NannySearchPanel/NannySearchPanel";
 
+import {collection, getDocs} from "firebase/firestore";
+import {firestore} from "../../firebase";
+
 export default function SearchPage() {
   const [experience, setExperience] = useState(0);
   const [collaborations, setCollaborations] = useState(0);
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from Firestore
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Users"));
+        const dataArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setData(dataArray);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className={styles.outer_container}>
@@ -45,17 +81,17 @@ export default function SearchPage() {
       </div>
       <div className={styles.search_area}>
         <div className={styles.outer_container}>
-          {[...Array(100)].map((_, index) => (
+          {data.map((user) => (
             <NannySearchPanel 
-            key={index}
-            profile_picture={alex}
-            first_name="Αλέξανδρος"
-            last_name="Παπαδόπουλος"
-            work_area="Αθήνα"
-            age="25"
-            collaborations="3"
-            stars={3}
-            half_star={true}
+              key={user.id}
+              profile_picture={alex}
+              first_name={user.first_name}
+              last_name={user.last_name}
+              work_area="Αθήνα"
+              age={user.age}
+              collaborations="3"
+              stars={user.stars}
+              half_star={false}
             />
           ))}
         </div>

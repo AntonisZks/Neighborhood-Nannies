@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import GuardiansInstructionsPage from './pages/GuardiansPage/GuardiansInstructionsPage';
 import CaretakersPage from './pages/CaretakersPage/CaretakersPage';
@@ -10,6 +10,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
+import LoginPage from './pages/LoginPage/LoginPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
@@ -62,7 +68,7 @@ const router = createBrowserRouter([
   }
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>

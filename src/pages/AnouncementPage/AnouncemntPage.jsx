@@ -50,7 +50,7 @@ function AnouncementsContainer() {
             <i className="fa solid fa-caret-down"></i>
 
             <a>
-              <i class="fa-solid fa-circle"></i>Κηδεμόνες
+              <i className="fa-solid fa-circle"></i>Κηδεμόνες
             </a>
           </div>
           <div className={styles.dropdown}>
