@@ -14,22 +14,30 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     border-top: 0.3rem solid var(--theme_color_fg);
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: start;
+    align-items: center;
+    padding-left: 1rem;
 }
 
 .breadcrumbs a {
-
     padding-left: 0.8rem;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: var(--theme_color_fg);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.3rem;
 }
 
 .breadcrumbs a i{
     font-size: 0.9rem;
-    padding-right: 0.3rem;
 }
 
 .breadcrumbs span {
     font-family: Arial, Helvetica, sans-serif;
-    color: rgb(0, 0, 0);
+    color: var(--text_color_black)
 }

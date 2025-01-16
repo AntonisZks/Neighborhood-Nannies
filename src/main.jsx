@@ -9,6 +9,7 @@ import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
+import SearchPage from './pages/SearchPage/SearchPage.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
     element: <Chat />, // Add the Chat route
     errorElement: <div>Custom 404 Not Found</div>,
   },
+  {
+    path: '/search',
+    element: <SearchPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
