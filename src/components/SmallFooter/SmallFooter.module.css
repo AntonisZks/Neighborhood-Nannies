@@ -1,0 +1,5 @@
+@import url('../../styles/config.css');
+
+.small_footer {
+  color: var(--text_color_black);
+}

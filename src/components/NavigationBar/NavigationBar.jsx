@@ -12,14 +12,18 @@ export default function NavigationBar() {
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
-            <li>
-              <i className="fa-solid fa-right-to-bracket"></i>
-              <p>Σύνδεση</p>
-            </li>
-            <li>
-              <i className="fa-solid fa-user-plus"></i>
-              <p>Εγγραφή</p>
-            </li>
+            <a href="/parent-login">
+              <li>
+                <i className="fa-solid fa-right-to-bracket"></i>
+                <p>Σύνδεση</p>
+              </li>
+            </a>
+            <a href="">
+              <li>
+                <i className="fa-solid fa-user-plus"></i>
+                <p>Εγγραφή</p>
+              </li>
+            </a>
           </ul>
         </li>
         <li className={styles.dropdown_tab}>
@@ -29,14 +33,18 @@ export default function NavigationBar() {
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
-            <li>
-              <i className="fa-solid fa-right-to-bracket"></i>
-              <p>Σύνδεση</p>
-            </li>
-            <li>
-              <i className="fa-solid fa-user-plus"></i>
-              <p>Εγγραφή</p>
-            </li>
+            <a href="/nanny-login">
+              <li>
+                <i className="fa-solid fa-right-to-bracket"></i>
+                <p>Σύνδεση</p>
+              </li>
+            </a>
+            <a href="">
+              <li>
+                <i className="fa-solid fa-user-plus"></i>
+                <p>Εγγραφή</p>
+              </li>
+            </a>
           </ul>
         </li>
         <li className={styles.dropdown_tab}>
@@ -46,28 +54,36 @@ export default function NavigationBar() {
             <i className="fa-solid fa-caret-down"></i>
           </div>
           <ul className={styles.dropdown}>
-            <li>
-              <i className="fa-solid fa-user"></i>
-              <Link to="/guardians" className={styles.no_underline}><p>Κηδεμόνες</p></Link>
-            </li>
-            <li>
-              <i className="fa-regular fa-user"></i>
-              <Link to="/caretakers" className={styles.no_underline}><p>Επιμελητές</p></Link> {/* Interactive in dropdown */}
-            </li>
+            <Link to="/guardians" className={styles.no_underline}>
+              <li>
+                <i className="fa-solid fa-user"></i>
+                <p>Κηδεμόνες</p>
+              </li>
+            </Link>
+            <Link to="/caretakers" className={styles.no_underline}>
+              <li>
+                <i className="fa-regular fa-user"></i>
+                <p>Επιμελητές</p>
+              </li>
+            </Link> {/* Interactive in dropdown */}
           </ul>
         </li>
-        <li className={styles.not_dropdown_tab}>
+        <a href="../anouncement"> 
+          <li className={styles.not_dropdown_tab}>
           <div className={styles.tab_title}>
             <i className="fa-solid fa-bullhorn"></i>
-            <a href="../anouncement"> Ανακοινώσεις</a>
-          </div>
-        </li>
-        <li className={styles.not_dropdown_tab}>
-          <div className={styles.tab_title}>
-            <i className="fa-solid fa-comment"></i>
-            <Link to="/Contacts" className={styles.no_underline}><p>Επικοινωνία</p></Link>
-          </div>
-        </li>
+              Ανακοινώσεις
+            </div>
+          </li>
+        </a>
+        <Link to="/Contacts" className={styles.no_underline}>
+          <li className={styles.not_dropdown_tab}>
+            <div className={styles.tab_title}>
+              <i className="fa-solid fa-comment"></i>
+              <p>Επικοινωνία</p>
+            </div>
+          </li>
+        </Link>
       </ul>
     </>
   )

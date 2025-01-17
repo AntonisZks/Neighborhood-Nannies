@@ -6,7 +6,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.inner_container}>
           <div className={`${styles.copyright_column} ${styles.column}`}>
-            <p className={styles.copyright_text1}>&copy; Copyright 2024</p>
+            <p className={styles.copyright_text1}>&copy; Copyright {new Date().getFullYear()}</p>
             <p className={styles.copyright_text2}>All rights reserved</p>
           </div>
           <div className={`${styles.contact_column} ${styles.column}`}>

@@ -30,7 +30,7 @@ function LanguageSelector() {
 function AuthenticationContainer() {
   return (
     <div className={` ${styles.misc_container} ${styles.auth_container}`}>
-      <a className={styles.login_link} href="#">Σύνδεση</a>
+      <a className={styles.login_link} href="/parent-login">Σύνδεση</a>
       <button className={styles.signup_button}>
         <i className="fas fa-user-plus"></i>
         Εγγραφή
