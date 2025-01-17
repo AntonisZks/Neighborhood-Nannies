@@ -85,7 +85,7 @@ export default function PaymentCalendar() {
     <div className={styles.calendar}>
       <div className={styles.calendar_header}>
         <button className={styles.previous_month_button} onClick={goToPreviousMonth}>
-          <i class="fa-solid fa-angle-left"></i>
+          <i className="fa-solid fa-angle-left"></i>
         </button>
         <h2>
           {new Date(currentYear, currentMonth).toLocaleString(
@@ -93,7 +93,7 @@ export default function PaymentCalendar() {
           }{" "} {currentYear}
         </h2>
         <button className={styles.next_month_button} onClick={goToNextMonth}>
-          <i class="fa-solid fa-angle-right"></i>
+          <i className="fa-solid fa-angle-right"></i>
         </button>
       </div>
       <div className={styles.calendar_main_content}>

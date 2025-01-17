@@ -1,5 +1,5 @@
 :root {
-  --theme_color_bg: #69a4f7;
+  --theme_color_bg: rgb(105, 164, 247);
   --theme_color_fg: rgb(28, 123, 255);
   --theme_color_brighter: rgb(36, 87, 237);
   --theme_color_fg_lighter: rgb(213, 231, 255);
@@ -7,6 +7,14 @@
   --text_color_grey: rgb(155, 155, 155);
   --text_color_green: rgb(14, 194, 14);
   --text_color_red: rgb(252, 120, 120);
+  --theme_color_bg_values: 105, 164, 247;
+  --theme_color_fg_values: 28, 123, 255;
+  --theme_color_brighter_values: 36, 87, 237;
+  --theme_color_fg_lighter_values: 213, 231, 255;
+  --text_color_black_values: 94, 94, 94;
+  --text_color_grey_values: 155, 155, 155;
+  --text_color_green_values: 14, 194, 14;
+  --text_color_red_values: 252, 120, 120;
   
   /* --theme_color_bg: #f7b269;
   --theme_color_fg: rgb(255, 123, 28);
@@ -15,7 +23,15 @@
   --text_color_black: rgb(94, 94, 94);
   --text_color_grey: rgb(155, 155, 155); 
   --text_color_green: rgb(14, 194, 14);
-  --text_color_red: rgb(252, 120, 120); */
+  --text_color_red: rgb(252, 120, 120); 
+  --theme_color_bg_values: 247, 178, 105;
+  --theme_color_fg_values: 255, 123, 28;
+  --theme_color_brighter_values: 237, 130, 36;
+  --theme_color_fg_lighter_values: 255, 228, 213;
+  --text_color_black_values: 94, 94, 94;
+  --text_color_grey_values: 155, 155, 155;
+  --text_color_green_values: 14, 194, 14;
+  --text_color_red_values: 252, 120, 120; */
 
   /* --theme_color_bg: #9f69f7;
   --theme_color_fg: rgb(96, 28, 255);
@@ -24,5 +40,13 @@
   --text_color_black: rgb(94, 94, 94); 
   --text_color_grey: rgb(155, 155, 155);
   --text_color_green: rgb(14, 194, 14);
-  --text_color_red: rgb(252, 120, 120); */
+  --text_color_red: rgb(252, 120, 120); 
+  --theme_color_bg_values: 159, 105, 247;
+  --theme_color_fg_values: 96, 28, 255;
+  --theme_color_brighter_values: 90, 36, 237;
+  --theme_color_fg_lighter_values: 219, 213, 255;
+  --text_color_black_values: 94, 94, 94;
+  --text_color_grey_values: 155, 155, 155;
+  --text_color_green_values: 14, 194, 14;
+  --text_color_red_values: 252, 120, 120; */
 }
