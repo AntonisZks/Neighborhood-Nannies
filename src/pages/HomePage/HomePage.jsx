@@ -8,9 +8,11 @@ import parents from "../../assets/imgs/parents_image.jpg";
 
 
 export default function HomePage() {
+  const userID = window.localStorage.getItem("parentID");
+
   return (
     <div className={styles.outer_container}>
-      <Header className={styles.header} />
+      <Header userID={userID} className={styles.header} />
       <MainSection />
       <Footer className={styles.footer} />
     </div>

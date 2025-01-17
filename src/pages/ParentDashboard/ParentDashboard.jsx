@@ -13,7 +13,6 @@ import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
 export default function ParentDashboard() {
-  const [parents, setParents] = useState([]);
   const [user, setUser] = useState(null);
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -23,6 +22,8 @@ export default function ParentDashboard() {
   const parent_id = searchParams.get('pid');
 
   const signout = () => {
+    window.localStorage.clear();
+    sessionStorage.clear();
     navigate('/');
   }
 
@@ -34,11 +35,9 @@ export default function ParentDashboard() {
           id: doc.id,
           ...doc.data()
         }));
-        setParents(parentsArray);
 
         // Search for the parent with the given id
         const parent = parentsArray.find(parent => parent.id === parent_id);
-        console.log(parent);
         setUser(parent);
       } 
       catch (error) {
@@ -72,23 +71,18 @@ export default function ParentDashboard() {
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>
-            Αναζητώ μια αξιόπιστη και δημιουργική νταντά για μερική απασχόληση, 
-            κυρίως απογεύματα. Θέλουμε έναν άνθρωπο που να αγαπά τα παιδιά, να 
-            είναι υπομονετικός και να απασχολεί με ενδιαφέροντα και εκπαιδευτικά
-            παιχνίδια.
-          </p>
+          <p>{user.description}</p>
         </div>
         <div className={styles.contact_data}>
           <h1>Στοιχεία Επικοινωνίας</h1>
           <ul>
             <li>
               <i className="fa-solid fa-envelope"></i>
-              <b>Email: </b>dimitrispapadopoulos@gmail.com
+              <b>Email: </b>{user.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
-              <b>Τηλέφωνο: </b>6962881364
+              <b>Τηλέφωνο: </b>{user.phone}
             </li>
           </ul>
         </div>
@@ -97,11 +91,11 @@ export default function ParentDashboard() {
           <ul>
             <li>
               <i className="fa-solid fa-venus-mars"></i>
-              <b>Φύλλο: </b>Αγόρι
+              <b>Φύλλο: </b>{user.child_gender}
             </li>
             <li>
               <i className="fa-regular fa-calendar-days"></i>
-              <b>Ηλικία: </b>16 μηνών
+              <b>Ηλικία: </b>{user.child_age}
             </li>
           </ul>
         </div>

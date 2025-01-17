@@ -5,6 +5,8 @@ import styles from "./ParentLoginPage.module.css";
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
 
+
+
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
 
@@ -47,8 +49,10 @@ export default function ParentLoginPage() {
 
     if (parent) {
       console.log("Parent exists!");
+      window.localStorage.setItem("parentID", parent.id);
       navigate(`/p_dashboard?pid=${parent.id}`);
-    } else {
+    } 
+    else {
       console.log("Parent does not exist!");
     }
 
