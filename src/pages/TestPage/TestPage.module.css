@@ -1,0 +1,42 @@
+@import "../../styles/config.css";
+
+
+.outer_container {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto  auto 1fr auto;
+    grid-template-areas: 
+        "header"
+        "breadcrumb"
+        "main"
+        "footer";
+}
+
+
+.main_section {
+    grid-area: main;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    position: relative;
+    background-color: var(--theme_color_fg_lighter);
+    height: auto;
+    justify-self: center;
+  }
+  
+  .table{
+    z-index: 999;
+  }
+  
+  .bg_circle {
+    position: absolute;
+    width: 2300px;
+    height: 2000px;
+    border-radius: 50%;
+    top: -1050px;
+    justify-self: center;
+    background-color: white;
+    z-index: 998;
+  }
