@@ -12,6 +12,8 @@ import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
 import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
 import NannyLoginPage from './pages/LoginPages/NannyLoginPage.jsx';
+import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
+import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegistration.jsx';
 
 // Import the global styles of the application
 import './index.css';
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: '/nanny-login',
     element: <NannyLoginPage />,
-    errorElement: <div>Custom 404 Not</div>,
+    errorElement: <div>Custom 404 Not Found</div>,
   },
   {
     path: '/guardians',
@@ -71,7 +73,18 @@ const router = createBrowserRouter([
     path: '/search',
     element: <SearchPage />,
     errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/GuardianRegistration',
+    element: <GuardianRegistration />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/CaretakerRegistration',
+    element: <CaretakerRegistration />,
+    errorElement: <div>Custom 404 Not Found</div>,
   }
+
 ]);
 
 createRoot(document.getElementById('root')).render(
