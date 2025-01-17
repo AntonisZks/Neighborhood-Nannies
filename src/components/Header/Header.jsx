@@ -9,16 +9,17 @@ import Logo from "../Logo/Logo";
 import { collection, doc, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 
-export default function Header(props) {
+export default function Header() {
   const location = useLocation();
   const isSpecialPage = location.pathname === '/guardians' || location.pathname === '/caretakers';
+  const userID = window.localStorage.getItem('parentID');
 
   return (
     <>
       <div className={`${styles.container} ${isSpecialPage ? styles.specialPage : ''}`}>
         <Logo />
         <NavigationBar />
-        {props.userID === null ? <AuthenticationContainer /> : <UserProfileContainer />}
+        {userID === null ? <AuthenticationContainer /> : <UserProfileContainer />}
       </div>
     </>
   )
