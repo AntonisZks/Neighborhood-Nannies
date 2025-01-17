@@ -8,10 +8,10 @@
   }
   
   .logo {
-    margin-bottom: 2rem;
-    align-self: flex-start; /* Align logo to the top */
+    position: absolute;
+    left: 0;
+    top: 0;
   }
-  
   .form_container {
     width: 100%;
     max-width: 800px;
@@ -58,4 +58,12 @@
   
   .submitButton:hover {
     background-color: #0056b3;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
   }

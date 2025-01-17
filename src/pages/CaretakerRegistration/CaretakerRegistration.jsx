@@ -151,7 +151,7 @@ export default function CaretakerRegistration() {
                 </label>
               </div>
             </div>
-            <button type="submit" className={styles.submitButton}>Register</button>
+            <button type="submit" className={styles.submitButton}>Επόμενο</button>
           </form>
         </div>
       </div>
