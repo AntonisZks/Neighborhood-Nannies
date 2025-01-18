@@ -7,7 +7,7 @@ import styles from './ScheduleTable.module.css';
 
 const Schedule = () => {
   return (
-    <table className="schedule-table">
+    <table className={styles.schedule_table}>
       <thead>
         <tr>
           <th className={styles.header}>Δευτέρα</th>

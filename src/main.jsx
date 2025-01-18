@@ -8,12 +8,13 @@ import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctl
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
 import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import NannyProfile from './pages/TestPage/NannyProfile.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
 import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
 import NannyLoginPage from './pages/LoginPages/NannyLoginPage.jsx';
 
-import TestPage from './pages/TestPage/TestPage.jsx';
+
 // Import the global styles of the application
 import './index.css';
 
@@ -74,8 +75,8 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/test',
-    element: <TestPage />,
+    path: '/nanny-profile',
+    element: <NannyProfile />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
