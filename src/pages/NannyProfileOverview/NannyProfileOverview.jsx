@@ -104,6 +104,11 @@ export default function NannyProfileOverview() {
               <b>Περιοχή Εργασίας:</b>
               {user.work_area}
             </li>
+            <li>
+              <i className="fa-solid fa-handshake-simple"></i>
+              <b>Συνεργασίες:</b>
+              {user.collaborations}
+            </li>
           </ul>
         </div>
         <div className={styles.contact_data}>
