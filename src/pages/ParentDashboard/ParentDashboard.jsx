@@ -5,6 +5,7 @@ import Header from '../../components/Header/Header';
 import PaymentCalendar from '../../components/PaymentCalendar/PaymentCalendar';
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from './ParentDashboard.module.css';
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -14,10 +15,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ParentDashboard() {
   const [user, setUser] = useState(null);
-  const [searchParams] = useSearchParams();
+  const [isEditPopupVisible, setEditPopupVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const parent_id = searchParams.get('pid');
 
@@ -26,6 +27,18 @@ export default function ParentDashboard() {
     sessionStorage.clear();
     navigate('/');
   }
+
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setEditPopupVisible(false);
+  };
+
+  const handleSaveProfile = (updatedProfileData) => {
+    setUser(updatedProfileData);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -61,7 +74,7 @@ export default function ParentDashboard() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
@@ -83,6 +96,10 @@ export default function ParentDashboard() {
             <li>
               <i className="fa-solid fa-phone"></i>
               <b>Τηλέφωνο: </b>{user.phone}
+            </li>
+            <li>
+              <i className="fa-solid fa-location-dot"></i>
+              <b>Περιοχή: </b>{user.address}
             </li>
           </ul>
         </div>
@@ -307,6 +324,14 @@ export default function ParentDashboard() {
           </div>
         </div>
       </div>
+      {isEditPopupVisible && user && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={user}
+          onSave={handleSaveProfile}
+        />
+      )}
     </div>
   )
 }

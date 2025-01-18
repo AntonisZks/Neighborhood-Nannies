@@ -1,59 +1,71 @@
 import jimmy from '../../assets/imgs/jimmy.png';
 import alex from '../../assets/imgs/alex.png';
-import React from "react";
+import React, { useState } from "react";
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-
-
-
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 export default function NannyProfile() {
+  const [isEditPopupVisible, setEditPopupVisible] = useState(false);
+  const [profileData, setProfileData] = useState({
+    firstName: "Αλέξανδρος",
+    lastName: "Δημητρίου",
+    description: "Είμαι ο Αλέξανδρος, σπουδάζω ψυχολογία και επιθύμω να αποκτήσω πρακτική εμπειρία στον τομέα της φροντίδας βρεφών και νηπίων. Αναζητώ αυτήν την εργασία για να εμπλουτίσω την εμπειρία μου και να υποστηρίξω τα οικονόμικά μου κατά την διάρκεια των σπουδών μου.",
+    age: 25,
+    address: "Περιστέρι",
+    phone: "6912345678",
+    email: "alexdimitriou@gmail.com"
+  });
+
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setEditPopupVisible(false);
+  };
+
+  const handleSaveProfile = (updatedProfileData) => {
+    setProfileData(updatedProfileData);
+  };
+
   return (
     <div className={styles.outer_container}>
       <Header />
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
         <div className={styles.profile_data}>
           <img src={alex} alt="profile picture" />
-          <h1>Αλέξανδρος Δημητρίου</h1>
+          <h1>{profileData.firstName} {profileData.lastName}</h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>
-          Είμαι ο Αλέξανδρος, σπουδάζω ψυχολογία και επιθύμω να αποκτήσω 
-          πρακτική εμπειρία στον τομέα της φροντίδας βρεφών και νηπίων. 
-          Αναζητώ αυτήν την εργασία για να εμπλουτίσω την εμπειρία μου 
-          και να υποστηρίξω τα οικονόμικά μου κατά την διάρκεια των σπουδών μου.
-          </p>
+          <p>{profileData.description}</p>
         </div>
         <div className={styles.contact_data}>
           <h1>Στοιχεία Επικοινωνίας</h1>
           <ul>
-          <li>
-              <b>Ηλικία: </b>25 ετών
-            </li>
             <li>
-              <i class="fa-solid fa-graduation-cap"></i>
-              <b>Σπουδές: </b>Φοιτητής Ψυχολογίας
+              <b>Ηλικία: </b>{profileData.age} ετών
             </li>
             <li>
               <i className="fa-solid fa-envelope"></i>
-              <b>Email: </b>alexdimitriou@gmail.com
+              <b>Email: </b>{profileData.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
-              <b>Τηλέφωνο: </b>6912345678
+              <b>Τηλέφωνο: </b>{profileData.phone}
             </li>
             <li>
-            <i class="fa-solid fa-location-dot"></i>
-              <b>Περιοχή Εργασίας: </b>Περιστέρι
+              <i className="fa-solid fa-location-dot"></i>
+              <b>Περιοχή Εργασίας: </b>{profileData.address}
             </li>
           </ul>
         </div>
@@ -233,6 +245,14 @@ export default function NannyProfile() {
           </div>
         </div>
       </div>
+      {isEditPopupVisible && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={profileData}
+          onSave={handleSaveProfile}
+        />
+      )}
     </div>
   )
 }
