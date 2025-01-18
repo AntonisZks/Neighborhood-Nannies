@@ -1,135 +1,71 @@
 import jimmy from '../../assets/imgs/jimmy.png';
 import alex from '../../assets/imgs/alex.png';
+import React, { useState } from "react";
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-
-import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from '../../firebase';
-import { useNavigate } from 'react-router-dom';
-
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 export default function NannyProfile() {
-  const [user, setUser] = useState(null);
-  const [searchParams] = useSearchParams();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [reviews, setReviews] = useState([]);
-  const [schedule, setSchedule] = useState([]);
-  const navigate = useNavigate();
-  const nanny_id = searchParams.get('nid');
+  const [isEditPopupVisible, setEditPopupVisible] = useState(false);
+  const [profileData, setProfileData] = useState({
+    firstName: "Αλέξανδρος",
+    lastName: "Δημητρίου",
+    description: "Είμαι ο Αλέξανδρος, σπουδάζω ψυχολογία και επιθύμω να αποκτήσω πρακτική εμπειρία στον τομέα της φροντίδας βρεφών και νηπίων. Αναζητώ αυτήν την εργασία για να εμπλουτίσω την εμπειρία μου και να υποστηρίξω τα οικονόμικά μου κατά την διάρκεια των σπουδών μου.",
+    age: 25,
+    address: "Περιστέρι",
+    phone: "6912345678",
+    email: "alexdimitriou@gmail.com"
+  });
 
-  const signout = () => {
-    window.localStorage.clear();
-    sessionStorage.clear();
-    navigate('/');
-  }
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
+  };
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, "Nannies"));
-        const nanniesArray = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+  const handleClosePopup = () => {
+    setEditPopupVisible(false);
+  };
 
-        // Search for the parent with the given id
-        const nanny = nanniesArray.find(nanny => nanny.id === nanny_id);
-        setUser(nanny);
-        
-        if (nanny) {
-          const reviewsSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/reviews`));
-          const reviewsArray = reviewsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setReviews(reviewsArray);
-          
-        }
-        if (nanny) {
-          const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/schedule`));
-          const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setSchedule(scheduleArray);
-          
-        }
-      } 
+  const handleSaveProfile = (updatedProfileData) => {
+    setProfileData(updatedProfileData);
+  };
 
-
-      
-      catch (error) {
-        console.log(error.message);
-        setError(error.message);
-      }
-      finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [nanny_id])
-  if (loading) { return <p>Loading...</p>; }
-  if (error) { return <p>Error: {error}</p>; }
-
-  
-
-  
   return (
     <div className={styles.outer_container}>
       <Header />
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
         <div className={styles.profile_data}>
-          <img src={user.profileImageUrl} alt="profile picture" />  
-          <h1>
-            {user.first_name} {user.last_name}
-          </h1>
+          <img src={alex} alt="profile picture" />
+          <h1>{profileData.firstName} {profileData.lastName}</h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>{user.description}</p>
-        </div>
-        <div className={styles.user_data}>
-          <h1>Χαρακτηριστικά</h1>
-          <ul>
-            <li>
-              <i className="fa-regular fa-calendar-days"></i>
-              <b>Ηλικία:</b>
-              {user.age}
-            </li>
-            <li>
-              <i className="fa-solid fa-graduation-cap"></i>
-              <b>Σπουδές:</b>
-              {user.education}
-            </li>
-            <li>
-              <i class="fa-solid fa-location-dot"></i>
-              <b>Περιοχή Εργασίας:</b>
-              {user.work_area}
-            </li>
-          </ul>
+          <p>{profileData.description}</p>
         </div>
         <div className={styles.contact_data}>
           <h1>Στοιχεία Επικοινωνίας</h1>
           <ul>
             <li>
+              <b>Ηλικία: </b>{profileData.age} ετών
+            </li>
+            <li>
               <i className="fa-solid fa-envelope"></i>
-              <b>Email: </b>{user.email}
+              <b>Email: </b>{profileData.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
-              <b>Τηλέφωνο: </b>{user.phone}
+              <b>Τηλέφωνο: </b>{profileData.phone}
+            </li>
+            <li>
+              <i className="fa-solid fa-location-dot"></i>
+              <b>Περιοχή Εργασίας: </b>{profileData.address}
             </li>
           </ul>
         </div>
@@ -311,6 +247,14 @@ export default function NannyProfile() {
           </div>
         </div>
       </div>
+      {isEditPopupVisible && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={profileData}
+          onSave={handleSaveProfile}
+        />
+      )}
     </div>
   )
 }
