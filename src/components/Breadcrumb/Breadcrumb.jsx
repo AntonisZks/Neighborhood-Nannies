@@ -8,7 +8,8 @@ var dict={
 	'nanny-profile': 'Προφίλ Επιμελητή',
 	'p_dashboard': 'Προφίλ Κηδεμόνα',
 	'search': 'Αναζήτηση Επιμελητών',
-	'nanny-profile-overview': 'Προβολή Προφίλ Επιμελητή'
+	'nanny-profile-overview': 'Προφίλ Επιμελητή',
+	'collaboration-request': 'Αίτηση Συνεργασίας'
 }
 
 const Breadcrumbs = () => {
