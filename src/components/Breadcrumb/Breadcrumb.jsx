@@ -5,7 +5,9 @@ import styles from "./Breadcrumb.module.css";
 var dict={
 	'anouncement': 'Ανακοινώσεις',
 	'p_dashboard': 'Προφίλ Κηδεμόνα',
-	'search': 'Αναζήτηση Επιμελητών'
+	'search': 'Αναζήτηση Επιμελητών',
+	'nanny-profile-overview': 'Προφίλ Επιμελητή',
+	'collaboration-request': 'Αίτηση Συνεργασίας'
 }
 
 const Breadcrumbs = () => {

@@ -39,5 +39,9 @@
 
 .breadcrumbs span {
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--text_color_black)
+    color: var(--text_color_black);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
