@@ -1,6 +1,15 @@
 import styles from "./NannySearchPanel.module.css";
 
+import { useNavigate } from "react-router-dom";
+
 export default function NannySearchPanel(props) {
+  const navigate = useNavigate();
+
+  const viewProfile = () => {
+    const userID = props.id;
+    navigate(`/search/nanny-profile-overview?nid=${userID}`);
+  }
+
   return (
     <div className={styles.outer_container}>
       <div className={styles.profile_container}>
@@ -38,7 +47,7 @@ export default function NannySearchPanel(props) {
         </div>
       </div>
       <div className={styles.button_container}>
-        <button>
+        <button onClick={viewProfile}>
           <i className="fa-solid fa-eye"></i>
           <p>Προβολή Προφίλ</p>
         </button>
