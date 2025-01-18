@@ -1,15 +1,85 @@
 import jimmy from '../../assets/imgs/jimmy.png';
 import alex from '../../assets/imgs/alex.png';
-import React from "react";
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 
-
+import { useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function NannyProfile() {
+  const [user, setUser] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [schedule, setSchedule] = useState([]);
+  const navigate = useNavigate();
+  const nanny_id = searchParams.get('nid');
+
+  const signout = () => {
+    window.localStorage.clear();
+    sessionStorage.clear();
+    navigate('/');
+  }
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Nannies"));
+        const nanniesArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        // Search for the parent with the given id
+        const nanny = nanniesArray.find(nanny => nanny.id === nanny_id);
+        setUser(nanny);
+        
+        if (nanny) {
+          const reviewsSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/reviews`));
+          const reviewsArray = reviewsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setReviews(reviewsArray);
+          
+        }
+        if (nanny) {
+          const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/schedule`));
+          const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setSchedule(scheduleArray);
+          
+        }
+      } 
+
+
+      
+      catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      }
+      finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [nanny_id])
+  if (loading) { return <p>Loading...</p>; }
+  if (error) { return <p>Error: {error}</p>; }
+
+  
+
+  
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -21,46 +91,46 @@ export default function NannyProfile() {
           </button>
         </div>
         <div className={styles.profile_data}>
-          <img src={alex} alt="profile picture" />
-          <h1>Αλέξανδρος Δημητρίου</h1>
+          <img src={user.profileImageUrl} alt="profile picture" />  
+          <h1>
+            {user.first_name} {user.last_name}
+          </h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>
-          Είμαι ο Αλέξανδρος, σπουδάζω ψυχολογία και επιθύμω να αποκτήσω 
-          πρακτική εμπειρία στον τομέα της φροντίδας βρεφών και νηπίων. 
-          Αναζητώ αυτήν την εργασία για να εμπλουτίσω την εμπειρία μου 
-          και να υποστηρίξω τα οικονόμικά μου κατά την διάρκεια των σπουδών μου.
-          </p>
+          <p>{user.description}</p>
+        </div>
+        <div className={styles.user_data}>
+          <h1>Χαρακτηριστικά</h1>
+          <ul>
+            <li>
+              <i className="fa-regular fa-calendar-days"></i>
+              <b>Ηλικία:</b>
+              {user.age}
+            </li>
+            <li>
+              <i className="fa-solid fa-graduation-cap"></i>
+              <b>Σπουδές:</b>
+              {user.education}
+            </li>
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <b>Περιοχή Εργασίας:</b>
+              {user.work_area}
+            </li>
+          </ul>
         </div>
         <div className={styles.contact_data}>
           <h1>Στοιχεία Επικοινωνίας</h1>
           <ul>
-          <li>
-              <b>Ηλικία: </b>25 ετών
-            </li>
-            <li>
-              <i class="fa-solid fa-graduation-cap"></i>
-              <b>Σπουδές: </b>Φοιτητής Ψυχολογίας
-            </li>
             <li>
               <i className="fa-solid fa-envelope"></i>
-              <b>Email: </b>alexdimitriou@gmail.com
+              <b>Email: </b>{user.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
-              <b>Τηλέφωνο: </b>6912345678
+              <b>Τηλέφωνο: </b>{user.phone}
             </li>
-            <li>
-            <i class="fa-solid fa-location-dot"></i>
-              <b>Περιοχή Εργασίας: </b>Περιστέρι
-            </li>
-          </ul>
-        </div>
-        <div className={styles.child_data}>
-          <h1>Αξιολόγηση Χρηστών : Εξαιρετικός</h1>
-          <ul>
-            
           </ul>
         </div>
         <div className={styles.logout_button_container}>
@@ -229,7 +299,15 @@ export default function NannyProfile() {
           </div>
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
-            <Schedule />
+            <Schedule
+                monday={schedule[0].Monday}
+                tuesday={schedule[0].Tuesday}
+                wednesday={schedule[0].Wednesday}
+                thursday={schedule[0].Thursday}
+                friday={schedule[0].Friday}
+                saturday={schedule[0].Saturday}
+                sunday={schedule[0].Sunday}
+            />
           </div>
         </div>
       </div>

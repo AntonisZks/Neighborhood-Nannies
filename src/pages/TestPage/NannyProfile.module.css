@@ -73,29 +73,6 @@
   margin: 0.5rem 0;
 }
 
-.contact_data ul, .child_data ul {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  list-style-type: none;
-  padding: 0;
-}
-
-.contact_data ul li, .child_data ul li {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-  margin: 0.3rem 0;
-  font-size: 0.8rem;
-}
-
-.contact_data ul li i, .child_data ul li i {
-  color: var(--theme_color_fg);
-  margin-right: 0.3rem;
-}
 
 .logout_button_container {
   position: absolute;
@@ -464,3 +441,59 @@
  .cell-free{
   display: none;
  }
+
+
+
+ .user_data ul,
+.contact_data ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  list-style-type: none;
+  padding: 0;
+}
+
+.user_data ul li,
+.contact_data ul li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.3rem 0;
+  font-size: 0.8rem;
+}
+
+.user_data ul li i,
+.contact_data ul li i {
+  color: var(--theme_color_fg);
+  margin-right: 0.3rem;
+}
+
+.user_data ul li:nth-child(1) i {
+  margin: 0 0.45rem 0 0.15rem;
+}
+
+.user_data ul li:nth-child(3) i {
+  margin: 0 0.5rem 0 0.2rem;
+}
+
+.profile_description, .user_data, .contact_data, .rate_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: start;
+  margin: 0.4rem 0;
+  color: var(--text_color_black);
+}
+
+.profile_description {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+}
+
+.profile_description h1, .user_data h1, .contact_data h1, .rate_container h1 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}

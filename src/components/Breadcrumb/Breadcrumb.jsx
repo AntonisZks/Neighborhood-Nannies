@@ -7,7 +7,8 @@ var dict={
 	'parent-profile': 'Προφίλ Κηδεμόνα',
 	'nanny-profile': 'Προφίλ Επιμελητή',
 	'p_dashboard': 'Προφίλ Κηδεμόνα',
-	'search': 'Αναζήτηση Επιμελητών'
+	'search': 'Αναζήτηση Επιμελητών',
+	'nanny-profile-overview': 'Προβολή Προφίλ Επιμελητή'
 }
 
 const Breadcrumbs = () => {
@@ -21,14 +22,15 @@ const Breadcrumbs = () => {
 			{pathnames.map((name, index) => {
 				breadcrumbPath += `/${name}`;
 				const isLast = index === pathnames.length - 1;
+			
 				return isLast ? (
 					<span key={breadcrumbPath}>
 						/ {dict[name]}
 					</span>
 				) : (
 					<span key={breadcrumbPath}>
-						{" "}
-						/ <Link to={breadcrumbPath}>{dict[name]}</Link>
+						{" "} 
+						/ <Link to={breadcrumbPath}>  {dict[name]}</Link>
 					</span>
 				);
 			})}
