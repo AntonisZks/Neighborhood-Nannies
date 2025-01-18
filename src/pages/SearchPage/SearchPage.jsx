@@ -22,7 +22,7 @@ export default function SearchPage() {
     // Fetch data from Firestore
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(firestore, "Users"));
+        const querySnapshot = await getDocs(collection(firestore, "Nannies"));
         const dataArray = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
@@ -46,6 +46,9 @@ export default function SearchPage() {
   if (error) {
     return <p>Error: {error}</p>;
   }
+
+  console.log(data);
+  
 
   return (
     <div className={styles.outer_container}>
@@ -84,12 +87,13 @@ export default function SearchPage() {
           {data.map((user) => (
             <NannySearchPanel 
               key={user.id}
+              id={user.id}
               profile_picture={alex}
               first_name={user.first_name}
               last_name={user.last_name}
-              work_area="Αθήνα"
+              work_area={user.work_area}
               age={user.age}
-              collaborations="3"
+              collaborations={user.collaborations}
               stars={user.stars}
               half_star={false}
             />

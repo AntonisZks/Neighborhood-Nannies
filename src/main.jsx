@@ -7,13 +7,14 @@ import Contacts from './pages/Contacts/Contacts';
 import HomePage from './pages/HomePage/HomePage'; // Ensure HomePage is correctly imported
 import AnouncementPage from './pages/AnouncementPage/AnouncemntPage.jsx';
 import PaymentPage from './pages/PaymentPage/PaymentPage.jsx';
-import ParentProfile from './pages/ParentProfile/ParentProfile.jsx';
+import ParentDashboard from './pages/ParentDashboard/ParentDashboard.jsx';
+import NannyProfile from './pages/TestPage/NannyProfile.jsx';
 import Chat from './pages/chat/chat.jsx'; // Import the Chat component
 import SearchPage from './pages/SearchPage/SearchPage.jsx';
 import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
 import NannyLoginPage from './pages/LoginPages/NannyLoginPage.jsx';
-import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
-import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegistration.jsx';
+import NannyProfileOverview from './pages/NannyProfileOverview/NannyProfileOverview.jsx';
+
 
 // Import the global styles of the application
 import './index.css';
@@ -50,8 +51,8 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/parent-profile',
-    element: <ParentProfile />,
+    path: '/p_dashboard',
+    element: <ParentDashboard />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
@@ -75,16 +76,15 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/GuardianRegistration',
-    element: <GuardianRegistration />,
+    path: '/search/nanny-profile-overview',
+    element: <NannyProfileOverview />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/CaretakerRegistration',
-    element: <CaretakerRegistration />,
+    path: '/nanny-profile',
+    element: <NannyProfile />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
-
 ]);
 
 createRoot(document.getElementById('root')).render(

@@ -5,6 +5,8 @@ import styles from "./Breadcrumb.module.css";
 var dict={
 	'anouncement': 'Ανακοινώσεις',
 	'parent-profile': 'Προφίλ Κηδεμόνα',
+	'nanny-profile': 'Προφίλ Επιμελητή',
+	'p_dashboard': 'Προφίλ Κηδεμόνα',
 	'search': 'Αναζήτηση Επιμελητών'
 }
 

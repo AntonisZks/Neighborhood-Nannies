@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./ParentLoginPage.module.css";
 
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
+
+
 
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
@@ -11,6 +14,7 @@ import { firestore } from "../../firebase";
 export default function ParentLoginPage() {
 
   const [parents, setParents] = useState([]);
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Fetch data from Firestore
@@ -45,7 +49,10 @@ export default function ParentLoginPage() {
 
     if (parent) {
       console.log("Parent exists!");
-    } else {
+      window.localStorage.setItem("parentID", parent.id);
+      navigate(`/p_dashboard?pid=${parent.id}`);
+    } 
+    else {
       console.log("Parent does not exist!");
     }
 
