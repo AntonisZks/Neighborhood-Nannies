@@ -22,11 +22,9 @@ export default function NannyProfileOverview() {
   const navigate = useNavigate();
   const nanny_id = searchParams.get("nid");
 
-  const signout = () => {
-    window.localStorage.clear();
-    sessionStorage.clear();
-    navigate("/");
-  };
+  const askForCollaboration = () => {
+    navigate(`/search/nanny-profile-overview/collaboration-request?nid=${nanny_id}`);
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -104,6 +102,11 @@ export default function NannyProfileOverview() {
               <b>Περιοχή Εργασίας:</b>
               {user.work_area}
             </li>
+            <li>
+              <i className="fa-solid fa-handshake-simple"></i>
+              <b>Συνεργασίες:</b>
+              {user.collaborations}
+            </li>
           </ul>
         </div>
         <div className={styles.contact_data}>
@@ -142,7 +145,7 @@ export default function NannyProfileOverview() {
             <i className="fa-solid fa-message"></i>
             <p>Στείλτε Μύνημα</p>
           </button>
-          <button>
+          <button onClick={askForCollaboration}>
             <i className="fa-solid fa-handshake-simple"></i>
             <p>Αίτηση Συνεργασίας</p>
           </button>

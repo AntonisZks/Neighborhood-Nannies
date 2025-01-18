@@ -7,7 +7,9 @@ var dict={
 	'parent-profile': 'Προφίλ Κηδεμόνα',
 	'nanny-profile': 'Προφίλ Επιμελητή',
 	'p_dashboard': 'Προφίλ Κηδεμόνα',
-	'search': 'Αναζήτηση Επιμελητών'
+	'search': 'Αναζήτηση Επιμελητών',
+	'nanny-profile-overview': 'Προφίλ Επιμελητή',
+	'collaboration-request': 'Αίτηση Συνεργασίας'
 }
 
 const Breadcrumbs = () => {

@@ -18,6 +18,7 @@ import NannyProfileOverview from './pages/NannyProfileOverview/NannyProfileOverv
 
 // Import the global styles of the application
 import './index.css';
+import FirstStepPage from './pages/CollaborationRequestPages/FirstStepPage/FirstStepPage.jsx';
 
 // Create a browser router with the routes of the application
 const router = createBrowserRouter([
@@ -78,6 +79,16 @@ const router = createBrowserRouter([
   {
     path: '/search/nanny-profile-overview',
     element: <NannyProfileOverview />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/search/nanny-profile-overview/collaboration-request',
+    element: <FirstStepPage />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
