@@ -1,13 +1,38 @@
 import jimmy from '../../assets/imgs/jimmy.png';
 import alex from '../../assets/imgs/alex.png';
 import React, { useState } from "react";
+import React, { useState } from "react";
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 export default function NannyProfile() {
+  const [isEditPopupVisible, setEditPopupVisible] = useState(false);
+  const [profileData, setProfileData] = useState({
+    firstName: "Αλέξανδρος",
+    lastName: "Δημητρίου",
+    description: "Είμαι ο Αλέξανδρος, σπουδάζω ψυχολογία και επιθύμω να αποκτήσω πρακτική εμπειρία στον τομέα της φροντίδας βρεφών και νηπίων. Αναζητώ αυτήν την εργασία για να εμπλουτίσω την εμπειρία μου και να υποστηρίξω τα οικονόμικά μου κατά την διάρκεια των σπουδών μου.",
+    age: 25,
+    address: "Περιστέρι",
+    phone: "6912345678",
+    email: "alexdimitriou@gmail.com"
+  });
+
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setEditPopupVisible(false);
+  };
+
+  const handleSaveProfile = (updatedProfileData) => {
+    setProfileData(updatedProfileData);
+  };
+
   const [isEditPopupVisible, setEditPopupVisible] = useState(false);
   const [profileData, setProfileData] = useState({
     firstName: "Αλέξανδρος",
@@ -37,11 +62,13 @@ export default function NannyProfile() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button} onClick={handleEditClick}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
         <div className={styles.profile_data}>
+          <img src={alex} alt="profile picture" />
+          <h1>{profileData.firstName} {profileData.lastName}</h1>
           <img src={alex} alt="profile picture" />
           <h1>{profileData.firstName} {profileData.lastName}</h1>
         </div>
@@ -384,7 +411,11 @@ export default function NannyProfile() {
               <b>Ηλικία: </b>{profileData.age} ετών
             </li>
             <li>
+              <b>Ηλικία: </b>{profileData.age} ετών
+            </li>
+            <li>
               <i className="fa-solid fa-envelope"></i>
+              <b>Email: </b>{profileData.email}
               <b>Email: </b>{profileData.email}
             </li>
             <li>
@@ -394,7 +425,18 @@ export default function NannyProfile() {
             <li>
               <i className="fa-solid fa-location-dot"></i>
               <b>Περιοχή Εργασίας: </b>{profileData.address}
+              <b>Τηλέφωνο: </b>{profileData.phone}
             </li>
+            <li>
+              <i className="fa-solid fa-location-dot"></i>
+              <b>Περιοχή Εργασίας: </b>{profileData.address}
+            </li>
+          </ul>
+        </div>
+        <div className={styles.child_data}>
+          <h1>Αξιολόγηση Χρηστών : Εξαιρετικός</h1>
+          <ul>
+            
           </ul>
         </div>
         <div className={styles.child_data}>
@@ -570,9 +612,18 @@ export default function NannyProfile() {
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
             <Schedule />
+            <Schedule />
           </div>
         </div>
       </div>
+      {isEditPopupVisible && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={profileData}
+          onSave={handleSaveProfile}
+        />
+      )}
       {isEditPopupVisible && (
         <EditProfilePopup
           isOpen={isEditPopupVisible}
