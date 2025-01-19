@@ -23,7 +23,7 @@ export default function FirstStepPage() {
             <p>Προσωρινή Αποθήκευση</p>
           </button>
           <button className={styles.next_button}>
-            <i class="fa-solid fa-arrow-right"></i>
+            <i className="fa-solid fa-arrow-right"></i>
             <p>Επόμενο</p>
           </button>
         </div>

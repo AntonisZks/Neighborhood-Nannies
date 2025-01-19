@@ -6,7 +6,8 @@
   --text_color_black: rgb(94, 94, 94);
   --text_color_grey: rgb(155, 155, 155);
   --text_color_green: rgb(14, 194, 14);
-  --text_color_red: rgb(252, 120, 120);
+  --text_color_red: rgb(255, 80, 80);
+  --text_color_red_brighter: rgb(255, 40, 40);
   --theme_color_bg_values: 105, 164, 247;
   --theme_color_fg_values: 28, 123, 255;
   --theme_color_brighter_values: 36, 87, 237;
@@ -24,6 +25,7 @@
   --text_color_grey: rgb(155, 155, 155); 
   --text_color_green: rgb(14, 194, 14);
   --text_color_red: rgb(252, 120, 120); 
+  --text_color_red_brighter: rgb(255, 40, 40);
   --theme_color_bg_values: 247, 178, 105;
   --theme_color_fg_values: 255, 123, 28;
   --theme_color_brighter_values: 237, 130, 36;
@@ -41,6 +43,7 @@
   --text_color_grey: rgb(155, 155, 155);
   --text_color_green: rgb(14, 194, 14);
   --text_color_red: rgb(252, 120, 120); 
+  --text_color_red_brighter: rgb(255, 40, 40);
   --theme_color_bg_values: 159, 105, 247;
   --theme_color_fg_values: 96, 28, 255;
   --theme_color_brighter_values: 90, 36, 237;

@@ -10,24 +10,27 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
 
-import PaymentCalendar from "../../components/PaymentCalendar/PaymentCalendar";
 
 export default function NannyProfileOverview() {
-  const [user, setUser] = useState(null);
+  const [nanny, setNanny] = useState(null);
+  const [parent, setParent] = useState(null);
+
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const navigate = useNavigate();
   const nanny_id = searchParams.get("nid");
+  const parent_id = window.localStorage.getItem("parentID");
 
   const askForCollaboration = () => {
     navigate(`/search/nanny-profile-overview/collaboration-request?nid=${nanny_id}`);
   }
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchNannyData = async () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, "Nannies"));
         const nanniesArray = querySnapshot.docs.map((doc) => ({
@@ -37,7 +40,7 @@ export default function NannyProfileOverview() {
 
         // Search for the parent with the given id
         const nanny = nanniesArray.find((nanny) => nanny.id === nanny_id);
-        setUser(nanny);
+        setNanny(nanny);
 
         // Fetch reviews subcollection
         if (nanny) {
@@ -67,8 +70,29 @@ export default function NannyProfileOverview() {
         setLoading(false);
       }
     };
+    
+    const fetchParentData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-    fetchUserData();
+        // Search for the parent with the given id
+        const parent = parentsArray.find((parent) => parent.id === parent_id);
+        setParent(parent);
+      } catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNannyData();
+    fetchParentData();
+
   }, [nanny_id]);
 
   if (loading) {
@@ -87,14 +111,14 @@ export default function NannyProfileOverview() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_data}>
-          <img src={user.profileImageUrl} alt="profile picture" />
+          <img src={nanny.profileImageUrl} alt="profile picture" />
           <h1>
-            {user.first_name} {user.last_name}
+            {nanny.first_name} {nanny.last_name}
           </h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>{user.description}</p>
+          <p>{nanny.description}</p>
         </div>
         <div className={styles.user_data}>
           <h1>Χαρακτηριστικά</h1>
@@ -102,22 +126,22 @@ export default function NannyProfileOverview() {
             <li>
               <i className="fa-regular fa-calendar-days"></i>
               <b>Ηλικία:</b>
-              {user.age}
+              {nanny.age}
             </li>
             <li>
               <i className="fa-solid fa-graduation-cap"></i>
               <b>Σπουδές:</b>
-              {user.education}
+              {nanny.education}
             </li>
             <li>
-              <i class="fa-solid fa-location-dot"></i>
+              <i className="fa-solid fa-location-dot"></i>
               <b>Περιοχή Εργασίας:</b>
-              {user.work_area}
+              {nanny.work_area}
             </li>
             <li>
               <i className="fa-solid fa-handshake-simple"></i>
               <b>Συνεργασίες:</b>
-              {user.collaborations}
+              {nanny.collaborations}
             </li>
           </ul>
         </div>
@@ -127,12 +151,12 @@ export default function NannyProfileOverview() {
             <li>
               <i className="fa-solid fa-envelope"></i>
               <b>Email: </b>
-              {user.email}
+              {nanny.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
               <b>Τηλέφωνο: </b>
-              {user.phone}
+              {nanny.phone}
             </li>
           </ul>
         </div>
@@ -140,33 +164,46 @@ export default function NannyProfileOverview() {
           <h1>Αξιολόγηση Κηδεμόνων</h1>
           <div className={styles.rating}>
             <div className={styles.stars_container}>
-              {[...Array(user.stars)].map((_, index) => (
+              {[...Array(nanny.stars)].map((_, index) => (
                 <i key={index} className="fa-solid fa-star"></i>
               ))}
-              {[...Array(5 - user.stars)].map((_, index) => (
+              {[...Array(5 - nanny.stars)].map((_, index) => (
                 <i key={index} className="fa-regular fa-star"></i>
               ))}
             </div>
             <div className={styles.grade_container}>
-              <p>{user.stars}/5</p>
+              <p>{nanny.stars}/5</p>
             </div>
           </div>
         </div>
         <div className={styles.buttons_container}>
-          <button>
+          <button className={styles.message_button}>
             <i className="fa-solid fa-message"></i>
             <p>Στείλτε Μύνημα</p>
           </button>
-          <button onClick={askForCollaboration}>
-            <i className="fa-solid fa-handshake-simple"></i>
-            <p>Αίτηση Συνεργασίας</p>
-          </button>
+          {parent.active_collaboration_id === nanny_id ? (
+            <button onClick={askForCollaboration} className={styles.payment_button}>
+              <i className="fa-solid fa-dollar-sign"></i>
+              <p>Πληρωμή Μήνα</p>
+            </button>
+          ) : (
+            <button onClick={askForCollaboration} className={styles.ask_for_collaboration_button}>
+              <i className="fa-solid fa-handshake-simple"></i>
+              <p>Αίτηση Συνεργασίας</p>
+            </button>
+          )}
+          {parent.active_collaboration_id === nanny_id && (
+            <button className={styles.end_collaboration_button}>
+              <i className="fa-solid fa-handshake-simple-slash"></i>
+              <p>Λήξη Συνεργασίας</p>
+            </button>
+          )}
         </div>
       </div>
       <div className={styles.right_side_content}>
         <div className={styles.inner_container}>
           <div className={styles.schedule_container}>
-            <h1>Πρόγραμμα Εργασίας</h1>
+            {/* <h1>Πρόγραμμα Εργασίας</h1>
             <Schedule
               clickable={false}
               monday={schedule[0].Monday}
@@ -176,7 +213,7 @@ export default function NannyProfileOverview() {
               friday={schedule[0].Friday}
               saturday={schedule[0].Saturday}
               sunday={schedule[0].Sunday} 
-             />
+             /> */}
           <div className={styles.reviews_container}>
             <h1>Αξιολογήσεις</h1>
             {reviews.map((review) => (
