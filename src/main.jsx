@@ -14,7 +14,7 @@ import SearchPage from './pages/SearchPage/SearchPage.jsx';
 import ParentLoginPage from './pages/LoginPages/ParentLoginPage.jsx';
 import NannyLoginPage from './pages/LoginPages/NannyLoginPage.jsx';
 import NannyProfileOverview from './pages/NannyProfileOverview/NannyProfileOverview.jsx';
-
+import VoucherCard from "./pages/Voucher/VoucherCard.jsx";
 
 // Import the global styles of the application
 import './index.css';
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   {
     path: '/nanny-login',
     element: <NannyLoginPage />,
-    errorElement: <div>Custom 404 Not</div>,
+    errorElement: <div>Custom 404 Not Found</div>,
   },
   {
     path: '/guardians',
@@ -95,6 +95,16 @@ const router = createBrowserRouter([
   {
     path: '/nanny-profile',
     element: <NannyProfile />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/parent-profile',
+    element: <NannyProfile />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/voucher-card',
+    element: <VoucherCard />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);

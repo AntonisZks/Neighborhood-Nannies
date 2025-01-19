@@ -5,6 +5,7 @@ import Header from '../../components/Header/Header';
 import PaymentCalendar from '../../components/PaymentCalendar/PaymentCalendar';
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from './ParentDashboard.module.css';
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -30,10 +31,6 @@ export default function ParentDashboard() {
     window.localStorage.clear();
     sessionStorage.clear();
     navigate('/');
-  }
-
-  const searchNannies = () => {
-    navigate('/search');
   }
 
   useEffect(() => {
@@ -110,7 +107,7 @@ export default function ParentDashboard() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
@@ -132,6 +129,10 @@ export default function ParentDashboard() {
             <li>
               <i className="fa-solid fa-phone"></i>
               <b>Τηλέφωνο: </b>{user.phone}
+            </li>
+            <li>
+              <i className="fa-solid fa-location-dot"></i>
+              <b>Περιοχή: </b>{user.address}
             </li>
           </ul>
         </div>
@@ -289,6 +290,14 @@ export default function ParentDashboard() {
           </div>
         </div>
       </div>
+      {isEditPopupVisible && user && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={user}
+          onSave={handleSaveProfile}
+        />
+      )}
     </div>
   )
 }

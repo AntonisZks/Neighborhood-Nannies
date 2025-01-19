@@ -4,6 +4,21 @@ import styles from './ScheduleTable.module.css';
 
 
 function Schedule (props) {
+  const [highlightedCells, setHighlightedCells] = React.useState(
+    Array(7).fill(null).map(() => Array(14).fill(false))
+  );
+
+  const handle_click = (dayIndex, hourIndex,days) => {
+    const newHighlightedCells = highlightedCells.map((day, dIndex) =>
+      day.map((cell, hIndex) =>
+        dIndex === dayIndex && hIndex === hourIndex ? !cell : cell
+      )
+    );
+    days[dayIndex][hourIndex] = !days[dayIndex][hourIndex];
+    setHighlightedCells(newHighlightedCells);
+  };
+
+  var clickable=props.clickable;
   var monday=props.monday;
   var tuesday=props.tuesday;
   var wednesday=props.wednesday;
@@ -47,7 +62,9 @@ function Schedule (props) {
             {Array(7)
               .fill(null)
               .map((_, colIndex) => (
-                <td key={colIndex} className={styles.cell}>
+                <td key={colIndex} className={`${styles.cell} ${clickable ? styles.open : ''}  
+                  ${highlightedCells[colIndex][rowIndex] ? styles.highlighted : styles.cell}`} 
+                  onClick={() => clickable ? handle_click(colIndex,rowIndex, days) : null}>  
                   {days[colIndex][rowIndex] ? time : ''}
                 </td>
               ))}

@@ -1,10 +1,11 @@
-import jimmy from '../../assets/imgs/jimmy.png';
-import alex from '../../assets/imgs/alex.png';
+
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 
+import jimmy from '../../assets/imgs/jimmy.png';
+import alex from '../../assets/imgs/alex.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -86,7 +87,7 @@ export default function NannyProfile() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_edit_button_container}>
-          <button className={styles.profile_edit_button}>
+          <button className={styles.profile_edit_button} onClick={handleEditClick}>
             <i className="fa-solid fa-pencil"></i>
           </button>
         </div>
@@ -134,7 +135,7 @@ export default function NannyProfile() {
           </ul>
         </div>
         <div className={styles.logout_button_container}>
-          <button onClick={signout} className={styles.logout_button}>
+          <button className={styles.logout_button}>
             <i className="fa-solid fa-sign-out"></i>
             <p>Αποσύνδεση</p>
           </button>
@@ -311,6 +312,14 @@ export default function NannyProfile() {
           </div>
         </div>
       </div>
+      {isEditPopupVisible && (
+        <EditProfilePopup
+          isOpen={isEditPopupVisible}
+          onClose={handleClosePopup}
+          profileData={profileData}
+          onSave={handleSaveProfile}
+        />
+      )}
     </div>
   )
 }
