@@ -134,7 +134,7 @@ export default function NannyProfile() {
           </ul>
         </div>
         <div className={styles.logout_button_container}>
-          <button className={styles.logout_button}>
+          <button onClick={signout} className={styles.logout_button}>
             <i className="fa-solid fa-sign-out"></i>
             <p>Αποσύνδεση</p>
           </button>
