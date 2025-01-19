@@ -84,6 +84,11 @@ const router = createBrowserRouter([
     path: '/nanny-profile',
     element: <NannyProfile />,
     errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/parent-profile',
+    element: <NannyProfile />,
+    errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
 
