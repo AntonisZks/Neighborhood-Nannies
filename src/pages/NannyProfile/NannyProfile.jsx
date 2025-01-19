@@ -114,7 +114,7 @@ export default function NannyProfile() {
               {user.education}
             </li>
             <li>
-              <i class="fa-solid fa-location-dot"></i>
+              <i className="fa-solid fa-location-dot"></i>
               <b>Περιοχή Εργασίας:</b>
               {user.work_area}
             </li>
