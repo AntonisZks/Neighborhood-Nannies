@@ -2,7 +2,7 @@ import styles from "./NannyProfileOverview.module.css";
 
 import Header from "../../components/Header/Header";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-
+import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import alex from "../../assets/imgs/alex.png";
 
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ export default function NannyProfileOverview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [reviews, setReviews] = useState([]);
-
+  const [schedule, setSchedule] = useState([]);
   const navigate = useNavigate();
   const nanny_id = searchParams.get("nid");
 
@@ -47,7 +47,19 @@ export default function NannyProfileOverview() {
             ...doc.data(),
           }));
           setReviews(reviewsArray);
+
+          
         }
+
+        if (nanny) {
+          const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/schedule`));
+          const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setSchedule(scheduleArray);
+        }
+
       } catch (error) {
         console.log(error.message);
         setError(error.message);
@@ -153,6 +165,18 @@ export default function NannyProfileOverview() {
       </div>
       <div className={styles.right_side_content}>
         <div className={styles.inner_container}>
+          <div className={styles.schedule_container}>
+            <h1>Πρόγραμμα Εργασίας</h1>
+            <Schedule
+              clickable={false}
+              monday={schedule[0].Monday}
+              tuesday={schedule[0].Tuesday}
+              wednesday={schedule[0].Wednesday}
+              thursday={schedule[0].Thursday}
+              friday={schedule[0].Friday}
+              saturday={schedule[0].Saturday}
+              sunday={schedule[0].Sunday} 
+             />
           <div className={styles.reviews_container}>
             <h1>Αξιολογήσεις</h1>
             {reviews.map((review) => (
@@ -171,6 +195,7 @@ export default function NannyProfileOverview() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

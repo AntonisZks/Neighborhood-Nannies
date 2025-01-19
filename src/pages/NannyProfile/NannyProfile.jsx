@@ -300,6 +300,7 @@ export default function NannyProfile() {
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
             <Schedule
+                clickable={true}
                 monday={schedule[0].Monday}
                 tuesday={schedule[0].Tuesday}
                 wednesday={schedule[0].Wednesday}
