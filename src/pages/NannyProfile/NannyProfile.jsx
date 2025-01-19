@@ -89,19 +89,6 @@ export default function NannyProfile() {
   }, [nanny_id])
   if (loading) { return <p>Loading...</p>; }
   if (error) { return <p>Error: {error}</p>; }
-
-  
-  const handleEditClick = () => {
-    setIsEditPopupVisible(true);
-  }
-
-  const handleClosePopup = () => {
-    setIsEditPopupVisible(false);
-  }
-
-  const handleSaveProfile = () => {
-    
-  }
   
   
   return (
