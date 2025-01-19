@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 
 export default function NannyProfile() {
@@ -26,6 +27,18 @@ export default function NannyProfile() {
     window.localStorage.clear();
     sessionStorage.clear();
     navigate('/');
+  }
+
+  const handleEditClick = () => {
+    setIsEditPopupVisible(true);
+  }
+
+  const handleClosePopup = () => {
+    setIsEditPopupVisible(false);
+  }
+
+  const handleSaveProfile = () => {
+    
   }
 
   useEffect(() => {
@@ -76,19 +89,6 @@ export default function NannyProfile() {
   }, [nanny_id])
   if (loading) { return <p>Loading...</p>; }
   if (error) { return <p>Error: {error}</p>; }
-
-  
-  const handleEditClick = () => {
-    setIsEditPopupVisible(true);
-  }
-
-  const handleClosePopup = () => {
-    setIsEditPopupVisible(false);
-  }
-
-  const handleSaveProfile = () => {
-    
-  }
   
   
   return (
