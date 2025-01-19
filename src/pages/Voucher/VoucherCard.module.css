@@ -1,0 +1,125 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e6f2ff; /* Light blue background */
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.header {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #005bb5;
+  margin-bottom: 15px;
+}
+
+.infoGroup {
+  margin-bottom: 15px;
+}
+
+.infoTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #004080;
+  margin-bottom: 5px;
+}
+
+.infoText {
+  font-size: 1em;
+  color: #333333;
+  margin: 2px 0;
+}
+
+.paymentSection {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.totalPayment {
+  font-size: 1.6em;
+  color: #005bb5;
+  margin: 10px 0;
+}
+
+.confirmation {
+  font-size: 0.9em;
+  color: #666666;
+  text-align: center;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* Stack the label and checkbox */
+  margin: 15px 0;
+}
+
+.checkboxLabel {
+  font-size: 1em;
+  color: #333333;
+  margin-top: 5px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 5px 0;
+  cursor: pointer;
+
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  width: 45%;
+  transition: all 0.3s ease-in-out;
+}
+
+.rejectButton {
+  background-color: #dc3545; /* Red for rejection */
+  color: white;
+}
+
+.rejectButton:hover {
+  background-color: #c82333;
+}
+
+.acceptButton {
+  background-color: #28a745; /* Green for acceptance */
+  color: white;
+}
+
+.acceptButton:hover {
+  background-color: #218838;
+}
