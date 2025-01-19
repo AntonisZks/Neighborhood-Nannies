@@ -19,6 +19,7 @@ export default function ParentDashboard() {
   const [payments, setPayments] = useState([]);
   const [finalizedDeclarations, setFinalizedDeclarations] = useState([]);
   const [unfinalizedDeclarations, setUnfinalizedDeclarations] = useState([]);
+  const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
 
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,14 @@ export default function ParentDashboard() {
     window.localStorage.clear();
     sessionStorage.clear();
     navigate('/');
+  }
+
+  const searchNannies = () => {
+    navigate('/search');
+  }
+
+  const handleEditClick = () => {
+
   }
 
   useEffect(() => {

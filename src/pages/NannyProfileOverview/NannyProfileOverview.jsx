@@ -203,7 +203,7 @@ export default function NannyProfileOverview() {
       <div className={styles.right_side_content}>
         <div className={styles.inner_container}>
           <div className={styles.schedule_container}>
-            <h1>Πρόγραμμα Εργασίας</h1>
+            {/* <h1>Πρόγραμμα Εργασίας</h1>
             <Schedule
               clickable={false}
               monday={schedule[0].Monday}
@@ -213,7 +213,7 @@ export default function NannyProfileOverview() {
               friday={schedule[0].Friday}
               saturday={schedule[0].Saturday}
               sunday={schedule[0].Sunday} 
-             />
+             /> */}
           <div className={styles.reviews_container}>
             <h1>Αξιολογήσεις</h1>
             {reviews.map((review) => (
