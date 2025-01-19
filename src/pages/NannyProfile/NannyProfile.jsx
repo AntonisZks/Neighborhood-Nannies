@@ -1,10 +1,11 @@
-import jimmy from '../../assets/imgs/jimmy.png';
-import alex from '../../assets/imgs/alex.png';
+
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 
+import jimmy from '../../assets/imgs/jimmy.png';
+import alex from '../../assets/imgs/alex.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
