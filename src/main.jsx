@@ -93,6 +93,11 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/parent-profile',
+    element: <NannyProfile />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
     path: '/GuardianRegistration',
     element: <GuardianRegistration />,
     errorElement: <div>Custom 404 Not Found</div>,
