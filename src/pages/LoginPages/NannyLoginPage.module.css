@@ -38,16 +38,29 @@
   width: 420px;
   border-top-right-radius: var(--border_radius);
   border-bottom-right-radius: var(--border_radius);
+  display: flex;
+  flex-direction: row;
+  background-color: var(--theme_color_bg);
+  justify-content: center;
+  align-items: center;
+}
+
+.image_container img {
+  width: 20rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .image_container .stock_image {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to bottom right,
     rgba(var(--theme_color_fg_values), 0.6), 
     rgba(var(--theme_color_bg_values), 0.3)
   ), url('../../assets/imgs/nanny_stock_image.jpg');
   background-position: 27% 50%;
-  background-size: cover;
+  background-size: cover; */
   width: 100%;
   height: 100%;
   border-top-right-radius: var(--border_radius);

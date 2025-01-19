@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
 
+import nanny_image from "../../assets/imgs/nanny_image.jpg";
 
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
@@ -76,7 +77,7 @@ export default function NannyLoginPage() {
                 <input type="password" autoComplete="off"/>
               </div>
               <a href="#" className={styles.forgot_password_link}>Ξεχάσατε τον κωδικό πρόσβασης;</a>
-              <a href="/nanny-login" className={styles.are_you_nanny_link}>Είστε Κηδεμόνας;</a>
+              <a href="/parent-login" className={styles.are_you_nanny_link}>Είστε Κηδεμόνας;</a>
               <button>
                 <i className="fa-solid fa-sign-in"></i>
                 <p>Σύνδεση</p>
@@ -88,7 +89,8 @@ export default function NannyLoginPage() {
             </div>
           </div>
           <div className={styles.image_container}>
-            <div className={styles.stock_image}></div>
+            {/* <div className={styles.stock_image}></div> */}
+            <img src={nanny_image} alt="parent picture" />
           </div>
         </div>
       </div>

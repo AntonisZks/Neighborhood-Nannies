@@ -5,7 +5,7 @@ import styles from "./ParentLoginPage.module.css";
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
 
-
+import parents_image from "../../assets/imgs/parents_image.jpg";
 
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
@@ -64,7 +64,8 @@ export default function ParentLoginPage() {
       <div className={styles.outer_container}>
         <div className={styles.inner_container}>
           <div className={styles.image_container}>
-            <div className={styles.stock_image}></div>
+            {/* <div className={styles.stock_image}></div> */}
+            <img src={parents_image} alt="parent picture" />
           </div>
           <div className={styles.form_container}>
             <h1>Συνδεθείτε ως Κηδεμόνας</h1>
