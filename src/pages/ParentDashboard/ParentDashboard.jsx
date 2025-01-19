@@ -39,7 +39,15 @@ export default function ParentDashboard() {
   }
 
   const handleEditClick = () => {
+    setIsEditPopupVisible(true);
+  }
 
+  const handleClosePopup = () => {
+    setIsEditPopupVisible(false);
+  }
+
+  const handleSaveProfile = () => {
+    
   }
 
   useEffect(() => {
@@ -506,11 +514,9 @@ function Payment(props) {
         setNanny(nanny);
       }
       catch (error) {
-        console.log(error.message);
         setError(error.message);
       }
       finally {
-        console.log(nanny);
         setLoading(false);
       }
     }

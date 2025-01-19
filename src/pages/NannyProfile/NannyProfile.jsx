@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 
 export default function NannyProfile() {
@@ -22,11 +23,24 @@ export default function NannyProfile() {
   const [schedule, setSchedule] = useState([]);
   const navigate = useNavigate();
   const nanny_id = searchParams.get('nid');
+  const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
 
   const signout = () => {
     window.localStorage.clear();
     sessionStorage.clear();
     navigate('/');
+  }
+
+  const handleEditClick = () => {
+    setIsEditPopupVisible(true);
+  }
+
+  const handleClosePopup = () => {
+    setIsEditPopupVisible(false);
+  }
+
+  const handleSaveProfile = () => {
+    
   }
 
   useEffect(() => {

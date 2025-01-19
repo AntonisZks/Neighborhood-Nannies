@@ -10,15 +10,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
 
-
 export default function NannyProfileOverview() {
-  const [nanny, setNanny] = useState(null);
   const [parent, setParent] = useState(null);
-
+  const [user, setUser] = useState(null);
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const navigate = useNavigate();
@@ -30,7 +27,7 @@ export default function NannyProfileOverview() {
   }
 
   useEffect(() => {
-    const fetchNannyData = async () => {
+    const fetchUserData = async () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, "Nannies"));
         const nanniesArray = querySnapshot.docs.map((doc) => ({
@@ -40,7 +37,7 @@ export default function NannyProfileOverview() {
 
         // Search for the parent with the given id
         const nanny = nanniesArray.find((nanny) => nanny.id === nanny_id);
-        setNanny(nanny);
+        setUser(nanny);
 
         // Fetch reviews subcollection
         if (nanny) {
@@ -63,18 +60,8 @@ export default function NannyProfileOverview() {
           setSchedule(scheduleArray);
         }
 
-      } catch (error) {
-        console.log(error.message);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    const fetchParentData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, "Parents"));
-        const parentsArray = querySnapshot.docs.map((doc) => ({
+        const parentQuerySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = parentQuerySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -82,16 +69,16 @@ export default function NannyProfileOverview() {
         // Search for the parent with the given id
         const parent = parentsArray.find((parent) => parent.id === parent_id);
         setParent(parent);
+
       } catch (error) {
         console.log(error.message);
         setError(error.message);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchNannyData();
-    fetchParentData();
+    fetchUserData();
 
   }, [nanny_id]);
 
@@ -111,14 +98,14 @@ export default function NannyProfileOverview() {
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
         <div className={styles.profile_data}>
-          <img src={nanny.profileImageUrl} alt="profile picture" />
+          <img src={user.profileImageUrl} alt="profile picture" />
           <h1>
-            {nanny.first_name} {nanny.last_name}
+            {user.first_name} {user.last_name}
           </h1>
         </div>
         <div className={styles.profile_description}>
           <h1>Σύντομη Περιγραφή</h1>
-          <p>{nanny.description}</p>
+          <p>{user.description}</p>
         </div>
         <div className={styles.user_data}>
           <h1>Χαρακτηριστικά</h1>
@@ -126,22 +113,22 @@ export default function NannyProfileOverview() {
             <li>
               <i className="fa-regular fa-calendar-days"></i>
               <b>Ηλικία:</b>
-              {nanny.age}
+              {user.age}
             </li>
             <li>
               <i className="fa-solid fa-graduation-cap"></i>
               <b>Σπουδές:</b>
-              {nanny.education}
+              {user.education}
             </li>
             <li>
               <i className="fa-solid fa-location-dot"></i>
               <b>Περιοχή Εργασίας:</b>
-              {nanny.work_area}
+              {user.work_area}
             </li>
             <li>
               <i className="fa-solid fa-handshake-simple"></i>
               <b>Συνεργασίες:</b>
-              {nanny.collaborations}
+              {user.collaborations}
             </li>
           </ul>
         </div>
@@ -151,12 +138,12 @@ export default function NannyProfileOverview() {
             <li>
               <i className="fa-solid fa-envelope"></i>
               <b>Email: </b>
-              {nanny.email}
+              {user.email}
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
               <b>Τηλέφωνο: </b>
-              {nanny.phone}
+              {user.phone}
             </li>
           </ul>
         </div>
@@ -164,15 +151,15 @@ export default function NannyProfileOverview() {
           <h1>Αξιολόγηση Κηδεμόνων</h1>
           <div className={styles.rating}>
             <div className={styles.stars_container}>
-              {[...Array(nanny.stars)].map((_, index) => (
+              {[...Array(user.stars)].map((_, index) => (
                 <i key={index} className="fa-solid fa-star"></i>
               ))}
-              {[...Array(5 - nanny.stars)].map((_, index) => (
+              {[...Array(5 - user.stars)].map((_, index) => (
                 <i key={index} className="fa-regular fa-star"></i>
               ))}
             </div>
             <div className={styles.grade_container}>
-              <p>{nanny.stars}/5</p>
+              <p>{user.stars}/5</p>
             </div>
           </div>
         </div>
@@ -203,7 +190,7 @@ export default function NannyProfileOverview() {
       <div className={styles.right_side_content}>
         <div className={styles.inner_container}>
           <div className={styles.schedule_container}>
-            {/* <h1>Πρόγραμμα Εργασίας</h1>
+            <h1>Πρόγραμμα Εργασίας</h1>
             <Schedule
               clickable={false}
               monday={schedule[0].Monday}
@@ -213,7 +200,7 @@ export default function NannyProfileOverview() {
               friday={schedule[0].Friday}
               saturday={schedule[0].Saturday}
               sunday={schedule[0].Sunday} 
-             /> */}
+             />
           <div className={styles.reviews_container}>
             <h1>Αξιολογήσεις</h1>
             {reviews.map((review) => (
