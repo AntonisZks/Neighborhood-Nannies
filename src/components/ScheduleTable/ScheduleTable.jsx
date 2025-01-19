@@ -3,9 +3,16 @@ import styles from './ScheduleTable.module.css';
 
 
 
-
-
-const Schedule = () => {
+function Schedule (props) {
+  var monday=props.monday;
+  var tuesday=props.tuesday;
+  var wednesday=props.wednesday;
+  var thursday=props.thursday;
+  var friday=props.friday;
+  var saturday=props.saturday;
+  var sunday=props.sunday;
+  var days=[monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+  
   return (
     <table className={styles.schedule_table}>
       <thead>
@@ -41,7 +48,7 @@ const Schedule = () => {
               .fill(null)
               .map((_, colIndex) => (
                 <td key={colIndex} className={styles.cell}>
-                  {time}
+                  {days[colIndex][rowIndex] ? time : ''}
                 </td>
               ))}
           </tr>

@@ -124,6 +124,10 @@ export default function ParentDashboard() {
         </div>
       </div>
       <div className={styles.right_side_content}>
+        <button onClick={searchNannies} className={styles.search_button}>
+          <i className="fa-solid fa-search"></i>
+          <p>Αναζήτηση Επιμελητών</p>
+        </button>
         <div className={styles.inner_container}>
           <div className={`${styles.users_panel} ${styles.active_collaboration_panel}`}>
             <h1>Ενεργή Συνεργασία</h1>
