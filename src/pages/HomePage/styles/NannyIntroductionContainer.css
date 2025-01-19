@@ -1,0 +1,73 @@
+@import "../../../styles/config.css";
+
+.nanny_container {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-columns: auto 300px;
+  grid-template-rows: 30% 50 20%;
+  grid-template-areas: 
+  "title nanny_image"
+  "description nanny_image"
+  "button nanny_image";
+  padding-top: 100px;
+}
+
+.nanny_container .nanny_image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  grid-area: nanny_image;
+}
+
+.nanny_container .title {
+  width: 100%;
+  justify-self: right;
+  text-align: right;
+  color: var(--text_color_black);
+  font-size: 2.5rem;
+  font-weight: bold;
+  grid-area: title;
+  align-self: center;
+  width: 700px;
+}
+
+.nanny_container .description {
+  width: 80%;
+  justify-self: right;
+  text-align: right;
+  margin-right: 20px;
+  color: var(--text_color_black);
+  grid-area: description;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.nanny_container button {
+  justify-self: right;
+  width: 25%;
+  height: 70%;
+  border: 2px solid var(--theme_color_fg);
+  border-radius: 30px;
+  color: var(--theme_color_fg);
+  background-color: white;
+  transition: 0.2s;
+}
+
+.nanny_container button:hover {
+  background-color: var(--theme_color_fg_lighter);
+  cursor: pointer;
+}
+
+.nanny_container button .button_content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.nanny_container button .button_content p  {
+  font-size: 1.2rem;
+}

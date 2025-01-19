@@ -1,0 +1,222 @@
+@import url('../../styles/config.css');
+
+:root {
+  --border_radius: 3rem;
+}
+
+.logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.outer_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+}
+
+.inner_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 70%;
+  width: 100%;
+  max-width: 882px;
+  max-height: 690px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border_radius);
+  background-color: white;
+}
+
+.image_container {
+  height: 100%;
+  width: 420px;
+  border-top-right-radius: var(--border_radius);
+  border-bottom-right-radius: var(--border_radius);
+  display: flex;
+  flex-direction: row;
+  background-color: var(--theme_color_bg);
+  justify-content: center;
+  align-items: center;
+}
+
+.image_container img {
+  width: 20rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image_container .stock_image {
+  /* background-image: linear-gradient(
+    to bottom right,
+    rgba(var(--theme_color_fg_values), 0.6), 
+    rgba(var(--theme_color_bg_values), 0.3)
+  ), url('../../assets/imgs/nanny_stock_image.jpg');
+  background-position: 27% 50%;
+  background-size: cover; */
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: var(--border_radius);
+  border-bottom-right-radius: var(--border_radius);
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60%;
+  width: 50%;
+  padding: 1rem 2rem;
+  padding-right: 0;
+}
+
+.form_container h1 {
+  font-size: 1.8rem;
+  color: var(--theme_color_fg);
+  margin-bottom: 1.5rem;
+}
+
+.form_container .login_form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: 
+    "email email"
+    "password password"
+    "forgot_link nanny_link"
+    "button button";
+
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.input_container label {
+  font-size: 0.9rem;
+  color: var(--text_color_black);
+  align-self: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.3rem;
+}
+
+.input_container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.4rem 0 0 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(0, 0, 0, 0);
+  outline: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--text_color_black);
+}
+
+.input_container input:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.input_container input:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--theme_color_fg);
+}
+
+.email_container {
+  grid-area: email;
+}
+
+.password_container {
+  grid-area: password;
+}
+
+.forgot_password_link {
+  grid-area: forgot_link;
+  font-size: 0.8rem;
+  text-align: left;
+  text-decoration: none;
+  color: var(--theme_color_fg);
+}
+
+.forgot_password_link:hover {
+  text-decoration: underline;
+}
+
+.are_you_nanny_link {
+  grid-area: nanny_link;
+  font-size: 0.8rem;
+  text-align: right;
+  text-decoration: none;
+  color: var(--theme_color_fg);
+}
+
+.are_you_nanny_link:hover {
+  text-decoration: underline;
+}
+
+.form_container button {
+  grid-area: button;
+  font-size: 1.5rem;
+  padding: 0.7rem 0;
+  margin: 3rem 0 0 0;
+  background-color: white;
+  border: 2px solid var(--theme_color_fg);
+  color: var(--theme_color_fg);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form_container button:hover {
+  background-color: var(--theme_color_fg);
+  color: white;
+}
+
+.signup_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  color: var(--text_color_black);
+}
+
+.signup_container a {
+  color: var(--theme_color_fg);
+  text-decoration: none;
+}
+
+.signup_container a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
