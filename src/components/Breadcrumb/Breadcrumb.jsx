@@ -9,7 +9,8 @@ var dict={
 	'p_dashboard': 'Προφίλ Κηδεμόνα',
 	'search': 'Αναζήτηση Επιμελητών',
 	'nanny-profile-overview': 'Προφίλ Επιμελητή',
-	'collaboration-request': 'Αίτηση Συνεργασίας'
+	'collaboration-request': 'Αίτηση Συνεργασίας',
+	'active-collaboration-overview': 'Ενεργή Συνεργασία', 
 }
 
 const Breadcrumbs = () => {

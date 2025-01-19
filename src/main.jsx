@@ -83,6 +83,11 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/p_dashboard/active-collaboration-overview',
+    element: <NannyProfileOverview />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
     path: '/search/nanny-profile-overview/collaboration-request',
     element: <FirstStepPage />,
     errorElement: <div>Custom 404 Not Found</div>,

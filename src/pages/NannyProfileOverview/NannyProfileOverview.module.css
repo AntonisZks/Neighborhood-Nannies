@@ -151,9 +151,22 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   text-align: center;
+  height: 100%;
+  position: relative;
+}
+
+.buttons_container .end_collaboration_button {
+  background-color: var(--text_color_red);
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 2rem;
+}
+
+.buttons_container .end_collaboration_button:hover {
+  background-color: var(--text_color_red_brighter);
 }
 
 .buttons_container button {

@@ -88,7 +88,7 @@ export default function SearchPage() {
             <NannySearchPanel 
               key={user.id}
               id={user.id}
-              profile_picture={alex}
+              profile_picture={user.profileImageUrl}
               first_name={user.first_name}
               last_name={user.last_name}
               work_area={user.work_area}
