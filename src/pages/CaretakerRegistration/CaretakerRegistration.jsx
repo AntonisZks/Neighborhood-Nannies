@@ -3,6 +3,8 @@ import styles from './CaretakerRegistration.module.css';
 import Logo from '../../components/Logo/Logo';
 import SmallFooter from '../../components/SmallFooter/SmallFooter';
 
+
+
 export default function CaretakerRegistration() {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -151,7 +153,9 @@ export default function CaretakerRegistration() {
                 </label>
               </div>
             </div>
-            <button type="submit" className={styles.submitButton}>Επόμενο</button>
+            <a href='/define-availability'> 
+              <button type="submit" className={styles.submitButton}>Επόμενο</button>
+            </a>   
           </form>
         </div>
       </div>

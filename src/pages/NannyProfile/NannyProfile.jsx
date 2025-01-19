@@ -3,9 +3,8 @@ import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 import jimmy from '../../assets/imgs/jimmy.png';
-import alex from '../../assets/imgs/alex.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -24,7 +23,6 @@ export default function NannyProfile() {
   const navigate = useNavigate();
   const nanny_id = searchParams.get('nid');
   const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
-
   const signout = () => {
     window.localStorage.clear();
     sessionStorage.clear();
@@ -93,7 +91,18 @@ export default function NannyProfile() {
   if (error) { return <p>Error: {error}</p>; }
 
   
+  const handleEditClick = () => {
+    setIsEditPopupVisible(true);
+  }
 
+  const handleClosePopup = () => {
+    setIsEditPopupVisible(false);
+  }
+
+  const handleSaveProfile = () => {
+    
+  }
+  
   
   return (
     <div className={styles.outer_container}>
@@ -330,7 +339,7 @@ export default function NannyProfile() {
         <EditProfilePopup
           isOpen={isEditPopupVisible}
           onClose={handleClosePopup}
-          profileData={profileData}
+          profileData={user}
           onSave={handleSaveProfile}
         />
       )}

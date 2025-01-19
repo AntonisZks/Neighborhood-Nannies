@@ -14,7 +14,6 @@ function Schedule (props) {
         dIndex === dayIndex && hIndex === hourIndex ? !cell : cell
       )
     );
-    days[dayIndex][hourIndex] = !days[dayIndex][hourIndex];
     setHighlightedCells(newHighlightedCells);
   };
 
