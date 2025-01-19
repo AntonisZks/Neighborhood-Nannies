@@ -1,6 +1,7 @@
 import jimmy from '../../assets/imgs/jimmy.png';
 import alex from '../../assets/imgs/alex.png';
 import React, { useState } from "react";
+import React, { useState } from "react";
 import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
@@ -67,6 +68,12 @@ export default function NannyProfile() {
               <i className="fa-solid fa-location-dot"></i>
               <b>Περιοχή Εργασίας: </b>{profileData.address}
             </li>
+          </ul>
+        </div>
+        <div className={styles.child_data}>
+          <h1>Αξιολόγηση Χρηστών : Εξαιρετικός</h1>
+          <ul>
+            
           </ul>
         </div>
         <div className={styles.logout_button_container}>
@@ -235,15 +242,7 @@ export default function NannyProfile() {
           </div>
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
-            <Schedule
-                monday={schedule[0].Monday}
-                tuesday={schedule[0].Tuesday}
-                wednesday={schedule[0].Wednesday}
-                thursday={schedule[0].Thursday}
-                friday={schedule[0].Friday}
-                saturday={schedule[0].Saturday}
-                sunday={schedule[0].Sunday}
-            />
+            <Schedule />
           </div>
         </div>
       </div>
