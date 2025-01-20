@@ -78,14 +78,13 @@
 .grid_container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto ;
   grid-template-areas: 
     "fname lname"
     "email email"
     "password password"
     "gender dateOfBirth"
-    "livingArea phoneNumber"
-    "terms terms";
+    "livingArea phoneNumber";
   gap: 1rem;
 }
 
