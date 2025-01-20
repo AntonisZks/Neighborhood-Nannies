@@ -44,9 +44,12 @@ function Schedule (props) {
   };
 
   const getUpdatedSchedule = (highlightedCells) => {
-    return highlightedCells.map((day, dayIndex) =>
-      day.map((cell, hourIndex) => cell)
-    );
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const schedule = highlightedCells.reduce((acc, day, dayIndex) => {
+      acc[daysOfWeek[dayIndex]] = day;
+      return acc;
+    }, {});
+    return [schedule];
   };
   var is_parent=props.is_parent;
   var clickable = props.clickable;
