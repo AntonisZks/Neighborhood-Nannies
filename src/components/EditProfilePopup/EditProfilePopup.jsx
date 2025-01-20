@@ -5,7 +5,7 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
   if (!isOpen) return null;
 
   const [formData, setFormData] = React.useState(profileData);
-  var [newSchedule, setNewSchedule] = React.useState(schedule);
+  const [newSchedule, setNewSchedule] = React.useState(schedule);
   
   
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
 
 
   const handleScheduleUpdate1 = (updatedSchedule) => {
-    newSchedule = updatedSchedule;
+    schedule = updatedSchedule;
     console.log(updatedSchedule);
   };
 
@@ -67,24 +67,28 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
             Τηλέφωνο:
             <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
           </label>
+          
           <button type="submit">Αποθήκευση</button>
+          
         </form>
+        
       </div>
       <div className={styles.table_container}>
                 <h1>Επιλέξτε ώρες Διαθεσημότητας</h1>
                 <Schedule
                 clickable={true}
-                monday={newSchedule.Monday}
-                tuesday={newSchedule.Tuesday}
-                wednesday={newSchedule.Wednesday}
-                thursday={newSchedule.Thursday}
-                friday={newSchedule.Friday}
-                saturday={newSchedule.Saturday}
-                sunday={newSchedule.Sunday}
+                monday={schedule.Monday}
+                tuesday={schedule.Tuesday}
+                wednesday={schedule.Wednesday}
+                thursday={schedule.Thursday}
+                friday={schedule.Friday}
+                saturday={schedule.Saturday}
+                sunday={schedule.Sunday}
                 is_parent={false}
                 onScheduleUpdate={handleScheduleUpdate1}
                 />
-              </div>
+          </div>
     </div>
+
   );
 }

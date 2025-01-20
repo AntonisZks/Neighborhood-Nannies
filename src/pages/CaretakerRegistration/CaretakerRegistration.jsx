@@ -20,13 +20,16 @@ export default function CaretakerRegistration() {
     education: '',
     experience: '',
     schedule: [
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      {
+        Monday: Array(14).fill(0),
+        Tuesday: Array(14).fill(0),
+        Wednesday: Array(14).fill(0),
+        Thursday: Array(14).fill(0),
+        Friday: Array(14).fill(0),
+        Saturday: Array(14).fill(0),
+        Sunday: Array(14).fill(0)
+      }
+      
 
     ],
     age: '',
@@ -120,13 +123,13 @@ export default function CaretakerRegistration() {
         });
         const nannyId = docRef.id;
         const newRef = addDoc(collection(firestore, 'Nannies', nannyId, 'schedule'), {
-          Monday: formData.schedule[0],
-          Tuesday: formData.schedule[1],
-          Wednesday: formData.schedule[2],
-          Thursday: formData.schedule[3],
-          Friday: formData.schedule[4],
-          Saturday: formData.schedule[5],
-          Sunday: formData.schedule[6]
+          Monday: formData.schedule[0].Monday,
+          Tuesday: formData.schedule[0].Tuesday,
+          Wednesday: formData.schedule[0].Wednesday,
+          Thursday: formData.schedule[0].Thursday,
+          Friday: formData.schedule[0].Friday,
+          Saturday: formData.schedule[0].Saturday,
+          Sunday: formData.schedule[0].Sunday
         });
 
         const scheduleId = newRef.id;
@@ -352,13 +355,13 @@ export default function CaretakerRegistration() {
                 <h1>Επιλέξτε ώρες Διαθεσημότητας</h1>
                 <Schedule
                     clickable={true}
-                    monday={formData.schedule[0]}
-                    tuesday={formData.schedule[1]}
-                    wednesday={formData.schedule[2]}
-                    thursday={formData.schedule[3]}
-                    friday={formData.schedule[4]}
-                    saturday={formData.schedule[5]}
-                    sunday={formData.schedule[6]}
+                    monday={formData.schedule[0].Monday}
+                    tuesday={formData.schedule[0].Tuesday}
+                    wednesday={formData.schedule[0].Wednesday}
+                    thursday={formData.schedule[0].Thursday}
+                    friday={formData.schedule[0].Friday}
+                    saturday={formData.schedule[0].Saturday}
+                    sunday={formData.schedule[0].Sunday}
                     is_parent={false}
                     onScheduleUpdate={handleScheduleUpdate}
                 />
@@ -448,13 +451,13 @@ export default function CaretakerRegistration() {
               <div className={styles.table_container}>
                 <Schedule
                     clickable={false}
-                    monday={formData.schedule[0]}
-                    tuesday={formData.schedule[1]}
-                    wednesday={formData.schedule[2]}
-                    thursday={formData.schedule[3]}
-                    friday={formData.schedule[4]}
-                    saturday={formData.schedule[5]}
-                    sunday={formData.schedule[6]}
+                    monday={formData.schedule[0].Monday}
+                    tuesday={formData.schedule[0].Tuesday}
+                    wednesday={formData.schedule[0].Wednesday}
+                    thursday={formData.schedule[0].Thursday}
+                    friday={formData.schedule[0].Friday}
+                    saturday={formData.schedule[0].Saturday}
+                    sunday={formData.schedule[0].Sunday}
                 />
               </div>
               <div className={`${styles.input_container} ${styles.terms_container}`}>
