@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
-import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 
 export default function NannyProfile() {
