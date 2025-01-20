@@ -408,7 +408,7 @@ export default function CaretakerRegistration() {
                   <h1>Χαρακτηριστηκά</h1>
                   <ul>
                     <li>
-                      <i class="fa-solid fa-venus-mars"></i>
+                      <i className="fa-solid fa-venus-mars"></i>
                       <b>Φύλο :</b>
                       {formData.gender}
                     </li>

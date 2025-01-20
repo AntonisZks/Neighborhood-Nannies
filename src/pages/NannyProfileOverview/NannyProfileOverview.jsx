@@ -23,7 +23,7 @@ export default function NannyProfileOverview() {
   const parent_id = window.localStorage.getItem("parentID");
 
   const askForCollaboration = () => {
-    navigate(`/search/nanny-profile-overview/collaboration-request?nid=${nanny_id}`);
+    navigate(`/search/nanny-profile-overview/collaboration-request?step=1&nid=${nanny_id}`);
   }
 
   useEffect(() => {
