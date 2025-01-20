@@ -149,7 +149,7 @@ export default function ParentDashboard() {
             </li>
             <li>
               <i className="fa-solid fa-location-dot"></i>
-              <b>Περιοχή: </b>{user.address}
+              <b>Περιοχή: </b>{user.living_area}
             </li>
           </ul>
         </div>
@@ -162,7 +162,7 @@ export default function ParentDashboard() {
             </li>
             <li>
               <i className="fa-regular fa-calendar-days"></i>
-              <b>Ηλικία: </b>{user.child_age}
+              <b>Ημερομηνία Γέννησης: </b>{user.child_birth_date}
             </li>
           </ul>
         </div>

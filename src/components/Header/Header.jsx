@@ -10,6 +10,7 @@ import Logo from "../Logo/Logo";
 import { collection, doc, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 
+
 export default function Header() {
   const location = useLocation();
   const isSpecialPage = location.pathname === '/guardians' || location.pathname === '/caretakers';
@@ -20,7 +21,7 @@ export default function Header() {
       <div className={`${styles.container} ${isSpecialPage ? styles.specialPage : ''}`}>
         <Logo />
         <NavigationBar />
-        {userID === null ? <AuthenticationContainer /> : <UserProfileContainer />}
+        {userID === null ? <AuthenticationContainer /> : <UserProfileContainer parentID={userID}/>}
       </div>
     </>
   )
@@ -54,7 +55,7 @@ function AuthenticationContainer() {
 
 function UserProfileContainer(props) {
 
-  const [userProfileImageURL, setUserProfileImageURL] = React.useState(null);
+  const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
@@ -63,10 +64,13 @@ function UserProfileContainer(props) {
       try {
 
         const querySnapshot = await getDocs(collection(firestore, 'Parents'));
-        const parentsArray = querySnapshot.docs.map(doc => doc.data());
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         
-        const currentUser = parentsArray.find(parent => parent.id === props.userID);
-        setUserProfileImageURL(currentUser.profileImageUrl);
+        const currentUser = parentsArray.find(parent => parent.id === props.parentID);
+        setUser(currentUser);
       }
       catch (error) {
         console.error(error);
@@ -84,9 +88,10 @@ function UserProfileContainer(props) {
   if (loading) { return <div>Loading...</div> }
   if (error) { return <div>Error: {error}</div> }
 
+
   return (
     <div className={styles.profile_container}>
-      <img src={userProfileImageURL} alt="profile picture" />
+      <img src={user.profileImageUrl} alt="profile picture" />
       <h1>Εγώ</h1>
       <i className="fa-solid fa-caret-down"></i>
     </div>

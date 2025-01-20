@@ -5,22 +5,22 @@ import SmallFooter from '../../components/SmallFooter/SmallFooter';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import default_profile_image from '../../assets/imgs/default_profile_picture.jpg';
 
+import { firestore } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+
 export default function GuardianRegistration() {
   const [formData, setFormData] = useState({
-    fullName: '',
+    active_collaboration_id: '',
+    active_collaboration_start_date: '',
     email: '',
     password: '',
-    gender: '',
-    birthDate: '',
-    address: '',
-    education: '',
-    experience: '',
-    availability: '',
+    child_gender: '',
+    child_birth_date: '',
+    living_area: '',
     phone: '',
-    userType: 'Guardian',
-    termsAccepted: false,
-    captcha: '',
-    profileImage: default_profile_image,
+    profileImageUrl: default_profile_image,
     description: ''
   });
 
@@ -46,11 +46,16 @@ export default function GuardianRegistration() {
       reader.onloadend = () => {
         setFormData({
           ...formData,
-          profileImage: reader.result
+          profileImageUrl: reader.result
         });
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    document.getElementById('profileImageUrl').click();
   };
 
   const navigate = useNavigate();
@@ -67,10 +72,22 @@ export default function GuardianRegistration() {
     navigate('/guardian-registration?step=3');
   };
 
+  const addParentToDatabase = async () => {
+    try {
+      const docRef = await addDoc(collection(firestore, 'Parents'), formData);
+      const parentId = docRef.id;
+      // localStorage.removeItem('guardianFormData');
+      localStorage.setItem('parentID', parentId);
+      navigate(`/p_dashboard?pid=${parentId}`);
+    } 
+    catch (error) {
+      console.error('Error adding document: ', error);
+      alert('An error occurred during registration. Please try again.');
+    }
+  };
+
   const [searchParams] = useSearchParams();
   const currentStep = searchParams.get('step');
-  console.log('Current step:', currentStep);
-  console.log('Form data:', formData);
 
   return (
     <>
@@ -134,8 +151,8 @@ export default function GuardianRegistration() {
                     />
                   </div>
                   <div className={`${styles.input_container} ${styles.gender_container}`}>
-                    <label htmlFor="gender">Φύλο παιδιού *</label>
-                    <select name="gender" value={formData.gender} onChange={handleChange} required>
+                    <label htmlFor="child_gender">Φύλο παιδιού *</label>
+                    <select name="child_gender" value={formData.child_gender} onChange={handleChange} required>
                       <option value=""></option>
                       <option value="Αγόρι">Αγόρι</option>
                       <option value="Κορίτσι">Κορίτσι</option>
@@ -143,23 +160,23 @@ export default function GuardianRegistration() {
                     </select>
                   </div>
                   <div className={`${styles.input_container} ${styles.birth_date_container}`}>
-                    <label htmlFor="birthDate"> Γενέθλια Παιδιού * </label>
+                    <label htmlFor="child_birth_date"> Γενέθλια Παιδιού * </label>
                     <input
                       type="date"
-                      id="birthDate"
-                      name="birthDate"
-                      value={formData.birthDate}
+                      id="child_birth_date"
+                      name="child_birth_date"
+                      value={formData.child_birth_date}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div className={`${styles.input_container} ${styles.address_container}`}>
-                    <label htmlFor="address">Περιοχή διαμονής *</label>
+                    <label htmlFor="living_area">Περιοχή διαμονής *</label>
                     <input
                       type="text"
-                      id="address"
-                      name="address"
-                      value={formData.address}
+                      id="living_area"
+                      name="living_area"
+                      value={formData.living_area}
                       onChange={handleChange}
                       required
                     />
@@ -197,16 +214,21 @@ export default function GuardianRegistration() {
                 <div className={styles.image_select_container}>
                   <h1>Επιλέξτε την εικόνα προφίλ σας</h1>
                   <div className={styles.input_container}>
-                    <img src={formData.profileImage} alt="profile picture" width="60px" />
+                    <img
+                      src={formData.profileImageUrl}
+                      alt="profile picture"
+                      width="60px"
+                      style={{ cursor: 'pointer' }}
+                    />
                     <div className={styles.upload_button_container}>
                       <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
                         style={{ display: 'none' }}
-                        id="profileImage"
+                        id="profileImageUrl"
                       />
-                      <label htmlFor="profileImage">
+                      <label onClick={handleImageClick} htmlFor="profileImageUrl">
                         <i className="fa-solid fa-pencil"></i>
                       </label>
                     </div>
@@ -247,7 +269,7 @@ export default function GuardianRegistration() {
               <div className={styles.inner_container}>
                 <div className={styles.profile_overview_container}>
                   <div className={styles.profile_image_name_container}>
-                    <img src={formData.profileImage} alt="profile picture" width="60px" />
+                    <img src={formData.profileImageUrl} alt="profile picture" width="60px" />
                     <h1>{formData.firstName} {formData.lastName}</h1>
                   </div>
                   <div className={styles.overview_description_container}>
@@ -274,7 +296,7 @@ export default function GuardianRegistration() {
                       <li>
                         <i className="fa-solid fa-location-dot"></i>
                         <b>Περιοχή:</b>
-                        {formData.address}
+                        {formData.living_area}
                       </li>
                     </ul>
                   </div>
@@ -282,14 +304,14 @@ export default function GuardianRegistration() {
                     <h1>Στοιχεία Παιδιού</h1>
                     <ul>
                       <li>
-                        <i class="fa-solid fa-venus-mars"></i>
+                        <i className="fa-solid fa-venus-mars"></i>
                         <b>Φύλο Παιδιού:</b>
-                        {formData.gender}
+                        {formData.child_gender}
                       </li>
                       <li>
                         <i className="fa-solid fa-calendar-days"></i>
                         <b>Ημερομηνία Γέννησης:</b>
-                        {formData.birthDate}
+                        {formData.child_birth_date}
                       </li>
                     </ul>
                   </div>
@@ -299,7 +321,6 @@ export default function GuardianRegistration() {
                     type="checkbox"
                     name="termsAccepted"
                     checked={formData.termsAccepted}
-                    onChange={handleChange}
                     required
                   />
                   <h2>Αποδοχή όρων χρήσης</h2>
@@ -309,8 +330,8 @@ export default function GuardianRegistration() {
                     <i className="fa-solid fa-arrow-left"></i>
                     Προηγούμενο
                   </a>
-                  <a type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
-                    <i class="fa-solid fa-right-to-bracket"></i>
+                  <a onClick={addParentToDatabase} type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
+                    <i className="fa-solid fa-right-to-bracket"></i>
                     Εγγραφή
                   </a>
                 </div>
