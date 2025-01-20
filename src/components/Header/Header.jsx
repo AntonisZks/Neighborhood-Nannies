@@ -59,6 +59,8 @@ function UserProfileContainer(props) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -88,12 +90,57 @@ function UserProfileContainer(props) {
   if (loading) { return <div>Loading...</div> }
   if (error) { return <div>Error: {error}</div> }
 
+  const signout = () => {
+    window.localStorage.clear();
+    navigate('/');
+  }
+
 
   return (
-    <div className={styles.profile_container}>
-      <img src={user.profileImageUrl} alt="profile picture" />
-      <h1>Εγώ</h1>
-      <i className="fa-solid fa-caret-down"></i>
+    <div className={styles.profile_outer_container}>
+      <div className={styles.profile_container}>
+        <img src={user.profileImageUrl} alt="profile picture" />
+        <h1>Εγώ</h1>
+        <i className="fa-solid fa-caret-down"></i>
+      </div>
+      <ul className={styles.dropdown}>
+        <a href={`/p_dashboard?pid=${props.parentID}`}>
+          <li>
+            <i class="fa-solid fa-user"></i>
+            <p>Το Προφίλ μου</p>
+          </li>
+        </a>
+        <a href={`/search`}>
+          <li>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Αναζήτηση</p>
+          </li>
+        </a>
+        <a>
+          <li>
+            <i class="fa-solid fa-dollar-sign"></i>
+            <p>Πληρωμές</p>
+          </li>
+        </a>
+        <a>
+          <li>
+            <i class="fa-solid fa-clipboard-list"></i>
+            <p>Δηλώσεις</p>
+          </li>
+        </a>
+        <a>
+          <li>
+            <i class="fa-solid fa-handshake-simple"></i>
+            <p>Συνεργασίες</p>
+          </li>
+        </a>
+        <a onClick={signout}>
+          <li>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Αποσύνδεση</p>
+          </li>
+        </a>
+      </ul>
     </div>
   )
 }
