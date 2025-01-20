@@ -40,6 +40,11 @@ export default function NannyProfile() {
     
   }
 
+  const handleScheduleUpdate = (updatedSchedule) => {
+    formData.schedule = updatedSchedule;
+    console.log(updatedSchedule);
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -89,7 +94,7 @@ export default function NannyProfile() {
   if (loading) { return <p>Loading...</p>; }
   if (error) { return <p>Error: {error}</p>; }
   
-  
+  console.log(schedule[0].Monday);
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -318,6 +323,7 @@ export default function NannyProfile() {
                 friday={schedule[0].Friday}
                 saturday={schedule[0].Saturday}
                 sunday={schedule[0].Sunday}
+                onScheduleUpdate={handleScheduleUpdate}
             />
           </div>
         </div>

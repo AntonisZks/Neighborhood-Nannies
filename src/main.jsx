@@ -17,7 +17,6 @@ import NannyProfileOverview from './pages/NannyProfileOverview/NannyProfileOverv
 import VoucherCard from "./pages/Voucher/VoucherCard.jsx";
 import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegistration.jsx';
 import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
-import  DefineAvailability from './pages/DefineAvailability/DefineAvailability.jsx';
 // Import the global styles of the application
 import './index.css';
 import FirstStepPage from './pages/CollaborationRequestPages/FirstStepPage/FirstStepPage.jsx';
@@ -112,11 +111,6 @@ const router = createBrowserRouter([
   {
     path: '/caretaker-registration',
     element: <CaretakerRegistration />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  {
-    path: '/caretaker-registration/define-availability',
-    element: <DefineAvailability />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {

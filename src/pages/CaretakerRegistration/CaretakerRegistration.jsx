@@ -5,20 +5,21 @@ import Schedule from '../../components/ScheduleTable/ScheduleTable';
 import SmallFooter from '../../components/SmallFooter/SmallFooter';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import default_profile_image from '../../assets/imgs/default_profile_picture.jpg';
-
+import { firestore } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 
 export default function CaretakerRegistration() {
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     gender: '',
-    birthDate: '',
-    address: '',
+    work_area: '',
     education: '',
     experience: '',
-    availability: [
+    schedule: [
       [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -27,7 +28,7 @@ export default function CaretakerRegistration() {
       [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false, false, false, false, false]      
     ],
-    
+    age: '',
     phone: '',
     userType: 'caretaker',
     termsAccepted: false,
@@ -46,7 +47,7 @@ export default function CaretakerRegistration() {
 
   
     const handleScheduleUpdate = (updatedSchedule) => {
-      formData.availability = updatedSchedule;
+      formData.schedule = updatedSchedule;
       console.log(updatedSchedule);
     };
 
@@ -57,6 +58,8 @@ export default function CaretakerRegistration() {
       [name]: type === 'checkbox' ? checked : value
     });
   };
+
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -69,6 +72,12 @@ export default function CaretakerRegistration() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    document.getElementById('profileImageUrl').click();
   };
 
    const navigate = useNavigate();
@@ -91,12 +100,48 @@ export default function CaretakerRegistration() {
       navigate('/caretaker-registration?step=4');
     };
 
+
+    const addNannyToDatabase = async () => {
+      try {
+        const docRef = await addDoc(collection(firestore, 'Nannies'), {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          age: formData.age,
+          work_area: formData.work_area,
+          education: formData.education,
+          description: formData.description,
+          phone: formData.phone,
+          colaborations:0,
+          profileImageUrl: formData.profileImage
+        });
+        const nannyId = docRef.id;
+        const newRef = addDoc(collection(firestore, 'Nannies', nannyId, 'schedule'), {
+          Monday: formData.schedule[0],
+          Tuesday: formData.schedule[1],
+          Wednesday: formData.schedule[2],
+          Thursday: formData.schedule[3],
+          Friday: formData.schedule[4],
+          Saturday: formData.schedule[5],
+          Sunday: formData.schedule[6]
+        });
+
+        const scheduleId = newRef.id;
+
+        // localStorage.removeItem('guardianFormData');
+        localStorage.setItem('nannyID', nannyId);
+        navigate(`/nanny-profile?nid=${nannyId}`);
+      } 
+      catch (error) {
+        console.error('Error adding document: ', error);
+        alert('An error occurred during registration. Please try again.');
+      }
+    };
+
   
     const [searchParams] = useSearchParams();
     const currentStep = searchParams.get('step');
-    console.log('Current step:', currentStep);
-    console.log('Form data:', formData);
-  
 
   return (
     <>
@@ -171,23 +216,23 @@ export default function CaretakerRegistration() {
                     </select>
                 </div>
                 <div className={`${styles.input_container} ${styles.age_container}`}>
-                  <label htmlFor="birthDate">Ηλικία</label>
+                  <label htmlFor="age">Ηλικία</label>
                   <input
-                    type="date"
-                    id="birthDate"
-                    name="birthDate"
-                    value={formData.birthDate}
+                    type="text"
+                    id="age"
+                    name="age"
+                    value={formData.age}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div className={`${styles.input_container} ${styles.address_container}`}>
-                  <label htmlFor="address">Περιοχή εξυπηρέτησης</label>
+                  <label htmlFor="work_area">Περιοχή εξυπηρέτησης</label>
                   <input
                     type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
+                    id="work_area"
+                    name="work_area"
+                    value={formData.work_area}
                     onChange={handleChange}
                     required
                   />
@@ -251,7 +296,7 @@ export default function CaretakerRegistration() {
                     style={{ display: 'none' }}
                     id="profileImage"
                   />
-                  <label htmlFor="profileImage">
+                  <label onClick={handleImageClick} htmlFor="profileImageUrl">
                     <i className="fa-solid fa-pencil"></i>
                   </label>
                 </div>
@@ -299,13 +344,13 @@ export default function CaretakerRegistration() {
                 <h1>Επιλέξτε ώρες Διαθεσημότητας</h1>
                 <Schedule
                     clickable={true}
-                    monday={formData.availability[0]}
-                    tuesday={formData.availability[1]}
-                    wednesday={formData.availability[2]}
-                    thursday={formData.availability[3]}
-                    friday={formData.availability[4]}
-                    saturday={formData.availability[5]}
-                    sunday={formData.availability[6]}
+                    monday={formData.schedule[0]}
+                    tuesday={formData.schedule[1]}
+                    wednesday={formData.schedule[2]}
+                    thursday={formData.schedule[3]}
+                    friday={formData.schedule[4]}
+                    saturday={formData.schedule[5]}
+                    sunday={formData.schedule[6]}
 
                     onScheduleUpdate={handleScheduleUpdate}
                 />
@@ -387,7 +432,7 @@ export default function CaretakerRegistration() {
                     <li>
                       <i className="fa-solid fa-location-dot"></i>
                       <b>Περιοχή:</b>
-                      {formData.address}
+                      {formData.work_area}
                     </li>
                   </ul>
                 </div>
@@ -395,13 +440,13 @@ export default function CaretakerRegistration() {
               <div className={styles.table_container}>
                 <Schedule
                     clickable={false}
-                    monday={formData.availability[0]}
-                    tuesday={formData.availability[1]}
-                    wednesday={formData.availability[2]}
-                    thursday={formData.availability[3]}
-                    friday={formData.availability[4]}
-                    saturday={formData.availability[5]}
-                    sunday={formData.availability[6]}
+                    monday={formData.schedule[0]}
+                    tuesday={formData.schedule[1]}
+                    wednesday={formData.schedule[2]}
+                    thursday={formData.schedule[3]}
+                    friday={formData.schedule[4]}
+                    saturday={formData.schedule[5]}
+                    sunday={formData.schedule[6]}
                 />
               </div>
               <div className={`${styles.input_container} ${styles.terms_container}`}>
@@ -419,8 +464,8 @@ export default function CaretakerRegistration() {
                   <i className="fa-solid fa-arrow-left"></i>
                   Προηγούμενο
                 </a>
-                <a type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
-                  <i class="fa-solid fa-right-to-bracket"></i>
+                <a onClick={addNannyToDatabase} type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
+                                    <i className="fa-solid fa-right-to-bracket"></i>
                   Εγγραφή
                 </a>
               </div>
