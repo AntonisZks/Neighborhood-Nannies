@@ -34,7 +34,6 @@ export default function CaretakerRegistration() {
     userType: 'caretaker',
     termsAccepted: false,
     captcha: '',
-    description: '',
     profileImage: default_profile_image
   });
 
@@ -78,7 +77,7 @@ export default function CaretakerRegistration() {
   
   const handleImageClick = (e) => {
     e.preventDefault();
-    document.getElementById('profileImageUrl').click();
+    document.getElementById('profileImage').click();
   };
 
    const navigate = useNavigate();
@@ -112,7 +111,7 @@ export default function CaretakerRegistration() {
           age: formData.age,
           work_area: formData.work_area,
           education: formData.education,
-          description: formData.description,
+          experience: formData.experience,
           phone: formData.phone,
           colaborations:0,
           stars:0,
@@ -152,7 +151,7 @@ export default function CaretakerRegistration() {
       <div className={styles.centered_container}>
         {currentStep === '1' ? (
           <div className={styles.form_container}>
-          <h1>Εγγραφή Επιμελητή</h1>
+            <h1>Εγγραφή Επιμελητή</h1>
             <>
               <div className={styles.progress_steps_container}>
                 <a className={styles.current_step}>1</a>
@@ -212,10 +211,10 @@ export default function CaretakerRegistration() {
                 <div className={`${styles.input_container} ${styles.gender_container}`}>
                   <label htmlFor="gender">Φύλο</label>
                     <select name="gender" value={formData.gender} onChange={handleChange} required>
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
+                      <option value=""></option>
+                      <option value="male">Άνδρας</option>
+                      <option value="female">Γυναίκα</option>
+                      <option value="other">Άλλο</option>
                     </select>
                 </div>
                 <div className={`${styles.input_container} ${styles.age_container}`}>
@@ -252,7 +251,7 @@ export default function CaretakerRegistration() {
                   />
                 </div>
                 <div className={`${styles.input_container} ${styles.education_container}`}>
-                  <label htmlFor="education">Επίπεδο σπουδών/Ειδίκευση</label>
+                  <label htmlFor="education">Επίπεδο σπουδών / Ειδίκευση</label>
                   <input
                     type="text"
                     id="education"
@@ -290,7 +289,13 @@ export default function CaretakerRegistration() {
             <div className={styles.image_select_container}>
               <h1>Επιλέξτε την εικόνα προφίλ σας</h1>
               <div className={styles.input_container}>
-                <img src={formData.profileImage} alt="profile picture" width="60px" />
+                <img
+                  src={formData.profileImage}
+                  alt="profile picture"
+                  width="60px"
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleImageClick}
+                />
                 <div className={styles.upload_button_container}>
                   <input
                     type="file"
@@ -299,7 +304,7 @@ export default function CaretakerRegistration() {
                     style={{ display: 'none' }}
                     id="profileImage"
                   />
-                  <label onClick={handleImageClick} htmlFor="profileImageUrl">
+                  <label onClick={handleImageClick} htmlFor="profileImage">
                     <i className="fa-solid fa-pencil"></i>
                   </label>
                 </div>
@@ -309,8 +314,8 @@ export default function CaretakerRegistration() {
               <h1>Δώστε μία περιγραφή για το σκοπό σας</h1>
               <div className={styles.input_container}>
                 <textarea
-                  name="description"
-                  value={formData.description}
+                  name="experience"
+                  value={formData.experience}
                   onChange={handleChange}
                   required
                 ></textarea>
@@ -358,22 +363,22 @@ export default function CaretakerRegistration() {
                     onScheduleUpdate={handleScheduleUpdate}
                 />
               </div>
-          <div className={styles.buttons3_container}>
-            <a href='/caretaker-registration?step=2' type="submit" className={styles.previous_button}>
-              <i className="fa-solid fa-arrow-left"></i>
-              Προηγούμενο
-            </a>
-            <a href='/caretaker-registration?step=4' type="submit" className={styles.next_button} onClick={handleStep3Submit}>
-              Επόμενο
-              <i className="fa-solid fa-arrow-right"></i>
-            </a>
-            </div>
+              <div className={styles.buttons3_container}>
+                <a href='/caretaker-registration?step=2' type="submit" className={styles.previous_button}>
+                  <i className="fa-solid fa-arrow-left"></i>
+                  Προηγούμενο
+                </a>
+                <a href='/caretaker-registration?step=4' type="submit" className={styles.next_button} onClick={handleStep3Submit}>
+                  Επόμενο
+                  <i className="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
           </form>
         </>
       </div>
           ) : (
           <div className={styles.form4_container}>
-          <h1>Εγγραφή Επιμελητή</h1>
+            <h1>Εγγραφή Επιμελητή</h1>
             <>
               <div className={styles.progress_steps_container}>
                 <a className={styles.previous_step} href="/caretaker-registration?step=1">1</a>

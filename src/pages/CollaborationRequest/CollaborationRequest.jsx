@@ -86,8 +86,6 @@ export default function CollaborationRequest() {
             friday={schedule[0].Friday}
             saturday={schedule[0].Saturday}
             sunday={schedule[0].Sunday} 
-            onScheduleUpdate={handleScheduleUpdate}
-            is_parent={true}
           />
           <h2>Επιλέξτε το ωρομίσθιο</h2>
           <input type="number" placeholder="Ωρομίσθιο" />

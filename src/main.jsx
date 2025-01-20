@@ -17,6 +17,7 @@ import NannyProfileOverview from './pages/NannyProfileOverview/NannyProfileOverv
 import VoucherCard from "./pages/Voucher/VoucherCard.jsx";
 import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegistration.jsx';
 import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
+import Endcollaboration from './pages/Endcollaboration/Endcollaboration.jsx';
 import CollaborationRequest from './pages/CollaborationRequest/CollaborationRequest.jsx';
 import './index.css';
 
@@ -119,6 +120,11 @@ const router = createBrowserRouter([
   {
     path: '/search/nanny-profile-overview/collaboration-request',
     element: <CollaborationRequest />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+   {
+     path: '/end-collaboration',
+    element: <Endcollaboration />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
