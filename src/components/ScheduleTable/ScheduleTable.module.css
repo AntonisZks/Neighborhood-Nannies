@@ -70,3 +70,16 @@
     cursor: pointer;
     background-color: var(--theme_color_fg);
   }
+
+  .cell.chosen {
+    background-color:rgb(12, 203, 12);
+    color: rgb(255, 251, 251);
+    opacity: 1;
+  }
+
+  .cell.chosen:hover {
+    cursor: pointer;
+    background-color:rgb(49, 252, 49);
+    
+  }
+
