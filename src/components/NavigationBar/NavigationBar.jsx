@@ -18,7 +18,7 @@ export default function NavigationBar() {
                 <p>Σύνδεση</p>
               </li>
             </a>
-            <a href="">
+            <a href="/guardian-registration?step=1">
               <li>
                 <i className="fa-solid fa-user-plus"></i>
                 <p>Εγγραφή</p>

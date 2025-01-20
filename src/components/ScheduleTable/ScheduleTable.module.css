@@ -3,7 +3,7 @@
 .schedule_table {
     grid-area: schedule;
     width: 100%;
-    margin: 20px auto;
+    margin-bottom: 20px;
     font-family: Arial, sans-serif;
   }
   
@@ -37,14 +37,33 @@
     
   }
 
+  cell.open{
+    padding: 12px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    opacity: 1;
+  }
+
   .cell.open:hover {
     cursor: pointer;
     background-color: whitesmoke;
   }
 
+  .cell.closed {
+    padding: 12px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    opacity: 0.5;
+  }
+
   .cell.highlighted {
     background-color: var(--theme_color_fg);
     color: white;
+    opacity: 1;
   }
 
   .cell.highlighted:hover {

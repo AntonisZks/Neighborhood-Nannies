@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
-import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 
 
 export default function NannyProfile() {
@@ -40,6 +39,11 @@ export default function NannyProfile() {
   const handleSaveProfile = () => {
     
   }
+
+  const handleScheduleUpdate = (updatedSchedule) => {
+    formData.schedule = updatedSchedule;
+    console.log(updatedSchedule);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -90,7 +94,7 @@ export default function NannyProfile() {
   if (loading) { return <p>Loading...</p>; }
   if (error) { return <p>Error: {error}</p>; }
   
-  
+  console.log(schedule[0].Monday);
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -311,6 +315,7 @@ export default function NannyProfile() {
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
             <Schedule
+                clickable={false}
                 monday={schedule[0].Monday}
                 tuesday={schedule[0].Tuesday}
                 wednesday={schedule[0].Wednesday}
@@ -318,6 +323,7 @@ export default function NannyProfile() {
                 friday={schedule[0].Friday}
                 saturday={schedule[0].Saturday}
                 sunday={schedule[0].Sunday}
+                onScheduleUpdate={handleScheduleUpdate}
             />
           </div>
         </div>
