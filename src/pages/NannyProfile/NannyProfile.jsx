@@ -7,10 +7,10 @@ import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup
 import jimmy from '../../assets/imgs/jimmy.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
-
+import { doc} from "firebase/firestore";
 
 export default function NannyProfile() {
   const [user, setUser] = useState(null);
@@ -36,12 +36,22 @@ export default function NannyProfile() {
     setIsEditPopupVisible(false);
   }
 
-  const handleSaveProfile = () => {
-    
-  }
+  const handleSaveProfile = async (newUser) => {
 
+    try {
+      const docref= doc(firestore, "Nannies", nanny_id);
+     await updateDoc(docref, {
+        
+        age : newUser.age
+        
+     });
+      console.log("Profile saved!");
+    } catch (error) {
+      console.error("Error saving profile: ", error);
+    }
+  };
   const handleScheduleUpdate = (updatedSchedule) => {
-    formData.schedule = updatedSchedule;
+    schedule[0] = updatedSchedule;
     console.log(updatedSchedule);
   };
 
@@ -94,7 +104,9 @@ export default function NannyProfile() {
   if (loading) { return <p>Loading...</p>; }
   if (error) { return <p>Error: {error}</p>; }
   
-  console.log(schedule[0].Monday);
+  
+  console.log(user.age)
+
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -334,6 +346,8 @@ export default function NannyProfile() {
           onClose={handleClosePopup}
           profileData={user}
           onSave={handleSaveProfile}
+          schedule={schedule[0]}
+          onScheduleUpdate={handleScheduleUpdate}
         />
       )}
     </div>
