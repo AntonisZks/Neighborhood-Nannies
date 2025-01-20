@@ -2,6 +2,7 @@ import styles from "./Header.module.css";
 
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Logo from "../Logo/Logo";
@@ -34,10 +35,16 @@ function LanguageSelector() {
 }
 
 function AuthenticationContainer() {
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate('/guardian-registration?step=1');
+  }
+
   return (
     <div className={` ${styles.misc_container} ${styles.auth_container}`}>
       <a className={styles.login_link} href="/parent-login">Σύνδεση</a>
-      <button className={styles.signup_button}>
+      <button onClick={handleOnClick} className={styles.signup_button}>
         <i className="fas fa-user-plus"></i>
         Εγγραφή
       </button>

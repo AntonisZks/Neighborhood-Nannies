@@ -93,7 +93,7 @@ export default function ParentLoginPage() {
             </form>
             <div className={styles.signup_container}>
               <p>Δεν έχετε λογαριασμό κηδεμόνα;</p>
-              <a href="#">Δημιουργήστε έναν</a>
+              <a href="/guardian-registration?step=1">Δημιουργήστε έναν</a>
             </div>
           </div>
         </div>

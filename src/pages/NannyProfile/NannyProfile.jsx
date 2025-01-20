@@ -12,7 +12,6 @@ import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
 
-
 export default function NannyProfile() {
   const [user, setUser] = useState(null);
   const [searchParams] = useSearchParams();
