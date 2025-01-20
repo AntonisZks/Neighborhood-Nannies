@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
-import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
+
 
 
 export default function NannyProfile() {
@@ -311,6 +311,7 @@ export default function NannyProfile() {
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
             <Schedule
+                clickable={false}
                 monday={schedule[0].Monday}
                 tuesday={schedule[0].Tuesday}
                 wednesday={schedule[0].Wednesday}

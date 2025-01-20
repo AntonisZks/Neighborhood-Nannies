@@ -153,9 +153,9 @@ export default function CaretakerRegistration() {
                 </label>
               </div>
             </div>
-            <a href='/define-availability'> 
-              <button type="submit" className={styles.submitButton}>Επόμενο</button>
-            </a>   
+            <div className={styles.button_container}> 
+              <button  className={styles.submitButton} onClick={()=>handleSubmit() ? window.location.href = '/caretaker-registration/define-availability': null} >Επόμενο</button>
+            </div>   
           </form>
         </div>
       </div>

@@ -89,7 +89,7 @@ export default function NannyProfileOverview() {
     return <p>Error: {error}</p>;
   }
 
-  console.log(reviews);
+  console.log(parent_id);
   
 
   return (

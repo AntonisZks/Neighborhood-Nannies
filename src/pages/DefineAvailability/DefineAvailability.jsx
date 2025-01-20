@@ -26,7 +26,13 @@ export default function DefineAvailability() {
                     sunday={[true, true, true, true, true, true, true, true, true, true, true, true, true, true]}
 
                      />
-                     <button type="submit" className={styles.submitButton}>Επόμενο</button>    
+                    <div className={styles.button_container}> 
+                        <button type="submit" className={styles.submitButton} onClick={() => {
+                                       window.location.href = '/caretaker-registration';}}>Προηγούμενο</button> 
+                        <button type="submit" className={styles.submitButton} onClick={() => {
+                                       window.location.href = '/caretaker-registration/define-availability';}}>Επόμενο</button>   
+                    </div>
+                    
                 </div>
                
             </div>
