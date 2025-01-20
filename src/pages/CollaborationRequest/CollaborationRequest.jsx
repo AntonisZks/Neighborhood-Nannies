@@ -56,6 +56,11 @@ export default function CollaborationRequest() {
   if (error) { return <div>Error: {error.message}</div>; }
 
   console.log(schedule);
+
+  const handleScheduleUpdate = (updatedSchedule) => {
+    formData.schedule = updatedSchedule;
+    console.log(updatedSchedule);
+  };
   
 
   return (
@@ -79,7 +84,8 @@ export default function CollaborationRequest() {
             thursday={schedule[0].Thursday}
             friday={schedule[0].Friday}
             saturday={schedule[0].Saturday}
-            sunday={schedule[0].Sunday} 
+            sunday={schedule[0].Sunday}
+            onScheduleUpdate={handleScheduleUpdate} 
           />
           <h2>Επιλέξτε το ωρομίσθιο</h2>
           <input type="number" placeholder="Ωρομίσθιο" />
