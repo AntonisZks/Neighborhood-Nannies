@@ -105,7 +105,7 @@ const router = createBrowserRouter([
     path: '/guardian-registration',
     element: <GuardianRegistration />,
     errorElement: <div>Custom 404 Not Found</div>,
-  }
+  },
   {
     path: '/caretaker-registration',
     element: <CaretakerRegistration />,
