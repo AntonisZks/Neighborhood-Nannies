@@ -20,13 +20,14 @@ export default function CaretakerRegistration() {
     education: '',
     experience: '',
     schedule: [
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false, false, false, false]      
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
     ],
     age: '',
     phone: '',
@@ -104,8 +105,8 @@ export default function CaretakerRegistration() {
     const addNannyToDatabase = async () => {
       try {
         const docRef = await addDoc(collection(firestore, 'Nannies'), {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
           email: formData.email,
           password: formData.password,
           age: formData.age,
@@ -114,6 +115,8 @@ export default function CaretakerRegistration() {
           description: formData.description,
           phone: formData.phone,
           colaborations:0,
+          stars:0,
+          half_star:false,
           profileImageUrl: formData.profileImage
         });
         const nannyId = docRef.id;
@@ -351,7 +354,7 @@ export default function CaretakerRegistration() {
                     friday={formData.schedule[4]}
                     saturday={formData.schedule[5]}
                     sunday={formData.schedule[6]}
-
+                    is_parent={false}
                     onScheduleUpdate={handleScheduleUpdate}
                 />
               </div>
