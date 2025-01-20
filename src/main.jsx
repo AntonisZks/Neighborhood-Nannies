@@ -102,13 +102,13 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
+    path: '/guardian-registration',
+    element: <GuardianRegistration />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  }
+  {
     path: '/caretaker-registration',
     element: <CaretakerRegistration />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  {
-    path: '/caretaker-registration/define-availability',
-    element: <DefineAvailability />,
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
