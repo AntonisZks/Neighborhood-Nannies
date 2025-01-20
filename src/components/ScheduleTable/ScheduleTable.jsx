@@ -95,7 +95,8 @@ function Schedule (props) {
                   ${highlightedCells[colIndex][rowIndex] === 2 && clickable && is_parent ? styles.chosen : ''}
 
 
-
+                  ${days[colIndex][rowIndex] === 2 && clickable ? styles.highlighted : ''}
+                  ${highlightedCells[colIndex][rowIndex] === 2  ? styles.highlighted : ''}
                   ${highlightedCells[colIndex][rowIndex] === 1 && !clickable ? styles.cell : styles.closed}
                   ${days[colIndex][rowIndex] === 1 && !clickable ? styles.cell : ''}`} 
                   onClick={() => clickable ? handle_click(colIndex, rowIndex) : null}>  
