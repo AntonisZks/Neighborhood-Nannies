@@ -106,37 +106,37 @@ function UserProfileContainer(props) {
       <ul className={styles.dropdown}>
         <a href={`/p_dashboard?pid=${props.parentID}`}>
           <li>
-            <i class="fa-solid fa-user"></i>
+            <i className="fa-solid fa-user"></i>
             <p>Το Προφίλ μου</p>
           </li>
         </a>
         <a href={`/search`}>
           <li>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
             <p>Αναζήτηση</p>
           </li>
         </a>
         <a>
           <li>
-            <i class="fa-solid fa-dollar-sign"></i>
+            <i className="fa-solid fa-dollar-sign"></i>
             <p>Πληρωμές</p>
           </li>
         </a>
         <a>
           <li>
-            <i class="fa-solid fa-clipboard-list"></i>
+            <i className="fa-solid fa-clipboard-list"></i>
             <p>Δηλώσεις</p>
           </li>
         </a>
         <a>
           <li>
-            <i class="fa-solid fa-handshake-simple"></i>
+            <i className="fa-solid fa-handshake-simple"></i>
             <p>Συνεργασίες</p>
           </li>
         </a>
         <a onClick={signout}>
           <li>
-            <i class="fa-solid fa-right-from-bracket"></i>
+            <i className="fa-solid fa-right-from-bracket"></i>
             <p>Αποσύνδεση</p>
           </li>
         </a>

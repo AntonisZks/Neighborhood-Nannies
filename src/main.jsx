@@ -18,9 +18,8 @@ import VoucherCard from "./pages/Voucher/VoucherCard.jsx";
 import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegistration.jsx';
 import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
 import  DefineAvailability from './pages/DefineAvailability/DefineAvailability.jsx';
-// Import the global styles of the application
+import CollaborationRequest from './pages/CollaborationRequest/CollaborationRequest.jsx';
 import './index.css';
-import FirstStepPage from './pages/CollaborationRequestPages/FirstStepPage/FirstStepPage.jsx';
 
 // Create a browser router with the routes of the application
 const router = createBrowserRouter([
@@ -89,12 +88,6 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/search/nanny-profile-overview/collaboration-request',
-    element: <FirstStepPage />,
-    errorElement: <div>Custom 404 Not Found</div>,
-  },
-  
-  {
     path: '/nanny-profile',
     element: <NannyProfile />,
     errorElement: <div>Custom 404 Not Found</div>,
@@ -122,6 +115,11 @@ const router = createBrowserRouter([
   {
     path: '/guardian-registration',
     element: <GuardianRegistration />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/search/nanny-profile-overview/collaboration-request',
+    element: <CollaborationRequest />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);
