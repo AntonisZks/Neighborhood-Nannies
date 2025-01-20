@@ -7,8 +7,6 @@ import default_profile_image from '../../assets/imgs/default_profile_picture.jpg
 
 import { firestore } from '../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
 
 export default function GuardianRegistration() {
   const [formData, setFormData] = useState({
@@ -23,6 +21,8 @@ export default function GuardianRegistration() {
     profileImageUrl: default_profile_image,
     description: ''
   });
+
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const storedFormData = localStorage.getItem('guardianFormData');
@@ -60,10 +60,26 @@ export default function GuardianRegistration() {
 
   const navigate = useNavigate();
 
+  const validateStep1 = () => {
+    const newErrors = {};
+    if (!formData.firstName) newErrors.firstName = 'Το όνομα είναι υποχρεωτικό';
+    if (!formData.lastName) newErrors.lastName = 'Το επώνυμο είναι υποχρεωτικό';
+    if (!formData.email) newErrors.email = 'Το email είναι υποχρεωτικό';
+    if (!formData.password) newErrors.password = 'Ο κωδικός πρόσβασης είναι υποχρεωτικός';
+    if (!formData.child_gender) newErrors.child_gender = 'Το φύλο παιδιού είναι υποχρεωτικό';
+    if (!formData.child_birth_date) newErrors.child_birth_date = 'Η ημερομηνία γέννησης είναι υποχρεωτική';
+    if (!formData.living_area) newErrors.living_area = 'Η περιοχή διαμονής είναι υποχρεωτική';
+    if (!formData.phone) newErrors.phone = 'Το τηλέφωνο είναι υποχρεωτικό';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleStep1Submit = (e) => {
     e.preventDefault();
-    localStorage.setItem('guardianFormData', JSON.stringify(formData));
-    navigate('/guardian-registration?step=2');
+    if (validateStep1()) {
+      localStorage.setItem('guardianFormData', JSON.stringify(formData));
+      navigate('/guardian-registration?step=2');
+    }
   };
 
   const handleStep2Submit = (e) => {
@@ -76,13 +92,12 @@ export default function GuardianRegistration() {
     try {
       const docRef = await addDoc(collection(firestore, 'Parents'), formData);
       const parentId = docRef.id;
-      // localStorage.removeItem('guardianFormData');
       localStorage.setItem('parentID', parentId);
       navigate(`/p_dashboard?pid=${parentId}`);
     } 
     catch (error) {
       console.error('Error adding document: ', error);
-      alert('An error occurred during registration. Please try again.');
+      alert('Παρουσιάστηκε σφάλμα κατά την εγγραφή. Παρακαλώ δοκιμάστε ξανά.');
     }
   };
 
@@ -116,6 +131,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.firstName && <span className={styles.error}>{errors.firstName}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.last_name_container}`}>
                     <label htmlFor="lastName">Επώνυμο *</label>
@@ -127,6 +143,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.lastName && <span className={styles.error}>{errors.lastName}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.email_container}`}>
                     <label htmlFor="email">Ηλεκτρονικό Ταχυδρομείο (Email) *</label>
@@ -138,6 +155,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.email && <span className={styles.error}>{errors.email}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.password_container}`}>
                     <label htmlFor="password">Κωδικός πρόσβασης *</label>
@@ -149,6 +167,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.password && <span className={styles.error}>{errors.password}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.gender_container}`}>
                     <label htmlFor="child_gender">Φύλο παιδιού *</label>
@@ -158,6 +177,7 @@ export default function GuardianRegistration() {
                       <option value="Κορίτσι">Κορίτσι</option>
                       <option value="Άλλο">Άλλο</option>
                     </select>
+                    {errors.child_gender && <span className={styles.error}>{errors.child_gender}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.birth_date_container}`}>
                     <label htmlFor="child_birth_date"> Γενέθλια Παιδιού * </label>
@@ -169,6 +189,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.child_birth_date && <span className={styles.error}>{errors.child_birth_date}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.address_container}`}>
                     <label htmlFor="living_area">Περιοχή διαμονής *</label>
@@ -180,6 +201,7 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.living_area && <span className={styles.error}>{errors.living_area}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.phone_container}`}>
                     <label htmlFor="phone">Τηλέφωνο επικοινωνίας *</label>
@@ -191,13 +213,14 @@ export default function GuardianRegistration() {
                       onChange={handleChange}
                       required
                     />
+                    {errors.phone && <span className={styles.error}>{errors.phone}</span>}
                   </div>
                 </div>
                 <div className={styles.buttons_container}>
-                  <a href='/guardian-registration?step=2' type="submit" className={styles.next_button} onClick={handleStep1Submit}>
+                  <button type="submit" className={styles.next_button}>
                     Επόμενο
                     <i className="fa-solid fa-arrow-right"></i>
-                  </a>
+                  </button>
                 </div>
               </form>
             </>
@@ -250,10 +273,10 @@ export default function GuardianRegistration() {
                     <i className="fa-solid fa-arrow-left"></i>
                     Προηγούμενο
                   </a>
-                  <a href='/guardian-registration?step=3' type="submit" className={styles.next_button} onClick={handleStep2Submit}>
+                  <button type="submit" className={styles.next_button}>
                     Επόμενο
                     <i className="fa-solid fa-arrow-right"></i>
-                  </a>
+                  </button>
                 </div>
               </form>
             </>
@@ -330,10 +353,10 @@ export default function GuardianRegistration() {
                     <i className="fa-solid fa-arrow-left"></i>
                     Προηγούμενο
                   </a>
-                  <a onClick={addParentToDatabase} type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
+                  <button onClick={addParentToDatabase} type="submit" className={`${styles.next_button} ${styles.signup_button}`}>
                     <i className="fa-solid fa-right-to-bracket"></i>
                     Εγγραφή
-                  </a>
+                  </button>
                 </div>
               </div>
             </>

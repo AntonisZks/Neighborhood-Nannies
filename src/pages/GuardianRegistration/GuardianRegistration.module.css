@@ -463,3 +463,9 @@
   margin-bottom: 1rem;
   color: var(--text_color_grey);
 }
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
