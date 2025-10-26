@@ -342,7 +342,7 @@ export default function ParentDashboard() {
           </div>
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ημερολόγιο</h1>
-            <PaymentCalendar />
+            <PaymentCalendar loggedInParentID={parent_id} />
           </div>
         </div>
       </div>
@@ -385,7 +385,6 @@ function ActiveCollaboration(props) {
         setNanny(nanny);
         const parent=parentsArray.find(parent => parent.id === props.parent_id);
         setParent(parent);
-        console.log("Parent data:", parent );
       }
 
       

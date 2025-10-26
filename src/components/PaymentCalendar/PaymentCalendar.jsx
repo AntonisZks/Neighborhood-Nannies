@@ -1,18 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './PaymentCalendar.module.css';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../../firebase';
 
-export default function PaymentCalendar() {
+export default function PaymentCalendar({ loggedInParentID }) {
+
+  const daysTranslation = {
+    "Monday": "Δευτέρα",
+    "Tuesday": "Τρίτη",
+    "Wednesday": "Τετάρτη",
+    "Thursday": "Πέμπτη",
+    "Friday": "Παρασκευή",
+    "Saturday": "Σάββατο",
+    "Sunday": "Κυριακή"
+  };
 
   const daysOfWeek = ["Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"];
   const today = new Date();
 
-  const workDays = ["Πέμπτη", "Παρασκευή", "Κυριακή"];
+  const [activeCollaborationID, setActiveCollaborationID] = useState(null);
+  const [schedule, setSchedule] = useState([]);
+  const [workDays, setWorkDays] = useState([]);
 
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = (new Date(currentYear, currentMonth).getDay() + 6) % 7;
+
+  useEffect(() => {
+    const fetchActiveCollaborationID = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parents = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        const loggedInParent = parents.find(parent => parent.id === loggedInParentID);
+        const activeCollaborationID = loggedInParent.active_collaboration_id;
+        setActiveCollaborationID(activeCollaborationID);
+      }
+      catch (error) {
+        console.error("Error fetching parent data: ", error);
+      }
+    };
+
+    fetchActiveCollaborationID();
+
+  }, []);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        if (activeCollaborationID) {
+          const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${activeCollaborationID}/schedule`));
+          const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          console.log("Fetched work days: ", scheduleArray);
+          setSchedule(scheduleArray);
+        }
+      }
+      catch (error) {
+        console.error("Error fetching work days: ", error);
+      }
+    }
+    
+    fetchSchedule();
+
+  }, [activeCollaborationID]);
+
+  useEffect(() => {
+    try {
+      if (schedule) {
+        const workDaysArray = [];
+        for (const [day, hours] of Object.entries(schedule[0])) {
+          if (day !== 'id') {
+            for (const [key, value] of Object.entries(hours)) {
+              if (value === 2) {
+                workDaysArray.push(day);
+                break;
+              }
+            }
+          }
+        }
+        setWorkDays(workDaysArray.map(day => daysTranslation[day]));
+      }
+    }
+    catch (error) {
+      console.error("Error processing schedule: ", error);
+    }
+  }, [schedule]);
 
   const goToPreviousMonth = () => {
     if (currentMonth === 0) {
