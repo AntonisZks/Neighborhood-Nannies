@@ -171,6 +171,19 @@ export default function CollaborationRequest() {
       submittedAt: new Date(),
     });
 
+    const unfinalizedRef = doc(firestore, `Parents/${parent_id}/unfinalized_declarations/${nanny_id}`);
+    const unfinalizedScheduleRef = collection(unfinalizedRef, 'schedule');
+    const unfinalizedScheduleSnap = await getDocs(unfinalizedScheduleRef);
+
+    // Delete schedule docs first
+    for (const schedDoc of unfinalizedScheduleSnap.docs) {
+      await deleteDoc(schedDoc.ref);
+    }
+
+    // Delete the main unfinalized declaration doc
+    await deleteDoc(unfinalizedRef);
+
+
     alert('Η αίτηση συνεργασίας υποβλήθηκε με επιτυχία!');
   } catch (err) {
     console.error('Error submitting collaboration request:', err);
