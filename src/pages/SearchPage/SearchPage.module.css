@@ -15,7 +15,9 @@
   width: 100%;
   position: sticky;
   top: 134px;
-  height: calc(100vh - 175px);
+  /* προσαρμόσιμο ύψος: μεγαλώνει με τα πεδία αλλά δεν υπερβαίνει το viewport */
+  height: auto;
+  max-height: calc(100vh - 175px);
   padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -23,6 +25,8 @@
   margin: 2rem 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1.5rem;
+  overflow-y: auto; /* επιτρέπει scroll μέσα στο panel όταν χρειάζεται */
+  box-sizing: border-box;
 }
 
 .filters_area h1 {
@@ -107,4 +111,110 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* single column layout */
+  gap: 12px;
+  align-items: start;
+}
+
+/* κάνουμε τα inline groups κατακόρυφα ώστε όλα τα controls να είναι σε μία στήλη */
+.inlineRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+
+/* μικρή προσαρμογή για τα labels μέσα σε inlineRow ώστε να μην έχουν μεγάλο δεξί margin */
+.inlineRow label {
+  margin-right: 0;
+}
+
+.fullWidthButton {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  cursor: pointer;
+  /* αν χρειαστεί προσαρμόστε χρώμα/σύνορα ώστε να ταιριάζει με το υπάρχον theme */
+}
+
+.results_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 1rem auto;
+  gap: 12px;
+}
+
+.results_count {
+  font-weight: 600;
+  color: var(--text_color_black);
+}
+
+.sort_control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort_select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: white;
+  color: var(--text_color_black);
+}
+
+/* list και item styling */
+.results_list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem auto 2rem;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* multiple items per row */
+  gap: 16px;
+  align-items: start;
+  justify-items: stretch;
+  box-sizing: border-box;
+}
+
+.result_item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(20,20,20,0.06);
+  padding: 12px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  width: 100%; /* καταλαμβάνει όλο το grid cell */
+  display: block;
+}
+
+.result_item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(20,20,20,0.08);
+}
+
+.no_results {
+  width: 95%;
+  margin: 1rem auto;
+  padding: 18px;
+  text-align: center;
+  color: var(--text_color_black);
+  background: rgba(0,0,0,0.03);
+  border-radius: 8px;
+}
+
+/* responsive: πιο στενό layout σε μικρές οθόνες */
+@media (max-width: 720px) {
+  .results_header,
+  .results_list,
+  .no_results {
+    width: 100%;
+    padding: 0 1rem;
+  }
 }
