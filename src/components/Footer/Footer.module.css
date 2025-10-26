@@ -1,10 +1,13 @@
 @import "../../styles/config.css";
 
 .container {
-  background-color: var(--theme_color_bg);
+  background: linear-gradient(
+    to right,
+    hsl(from var(--theme_color_bg) h s calc(l/2.5)),
+    hsl(from var(--theme_color_bg) h s calc(l/3))
+  );
   grid-area: footer;
   width: 110%;
-  border-radius: 50% 50% 0 0;
   justify-self: center;
   display: flex;
   justify-content: center;

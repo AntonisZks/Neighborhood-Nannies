@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./SearchPage.module.css";
 
 import alex from "../../assets/imgs/alex.png";
@@ -11,11 +12,14 @@ import {collection, getDocs} from "firebase/firestore";
 import {firestore} from "../../firebase";
 
 export default function SearchPage() {
+  const [searchParams] = useSearchParams();
+  const cityParam = searchParams.get('city');
+  
   const [experience, setExperience] = useState(0);
   const [collaborations, setCollaborations] = useState(0);
 
   const [employment, setEmployment] = useState("any"); // "any" | "full" | "part"
-  const [serviceArea, setServiceArea] = useState("");
+  const [serviceArea, setServiceArea] = useState(cityParam || "");
   const [childAge, setChildAge] = useState("");
   const [workingDays, setWorkingDays] = useState([]); // ["Mon","Tue",...]
   const [education, setEducation] = useState("any");
@@ -49,6 +53,13 @@ export default function SearchPage() {
     fetchData();
 
   }, []);
+
+  // Apply filters automatically when data is loaded and there's a city parameter
+  useEffect(() => {
+    if (!loading && cityParam) {
+      applyFilters();
+    }
+  }, [loading, data]);
 
   const toggleDay = (day) => {
     setWorkingDays(prev => prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]);
