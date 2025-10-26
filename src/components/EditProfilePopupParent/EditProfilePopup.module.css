@@ -1,0 +1,105 @@
+.popup_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.popup {
+  background: white;
+  padding: 1em;
+  border-radius: 8px;
+  margin-top: 8em;
+  
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.close_button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit_form {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows:  auto auto auto auto auto ;
+  grid-template-areas:
+    "label1 label2 label2"
+    "label5 label6 label4"
+    "label3 label3 label3"
+    "button button button";
+}
+
+label:nth-of-type(1) { grid-area: label1; }
+label:nth-of-type(2) { grid-area: label2; }
+label:nth-of-type(3) { grid-area: label3; }
+label:nth-of-type(4) { grid-area: label4; }
+label:nth-of-type(5) { grid-area: label5; }
+label:nth-of-type(6) { grid-area: label6; }
+
+
+.label {
+  margin-bottom: 10px;
+  padding-right: 2em;
+  font-weight: bold;
+  padding-top: 2em;
+}
+
+
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  grid-area: button;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}

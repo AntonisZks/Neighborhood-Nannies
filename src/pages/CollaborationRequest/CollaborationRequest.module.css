@@ -263,6 +263,14 @@
   background-color: rgb(23, 138, 39);
 }
 
+.buttons_container2 .reject_button {
+  background-color: rgb(219, 50, 50);
+}
+
+.buttons_container2 .reject_button:hover {
+  background-color: rgb(161, 34, 34);
+}
+
 .description_container .no_description {
   color: var(--text_color_grey);
   text-align: center;

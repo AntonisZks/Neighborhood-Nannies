@@ -8,13 +8,12 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
   const [newSchedule, setNewSchedule] = React.useState(schedule);
   
   
-  useEffect(() => {
-    setFormData(profileData);
-  }, [profileData]);
-
-  useEffect(() => {
-    setNewSchedule(schedule);
-  }, [schedule]);
+ useEffect(() => {
+    if (isOpen) {
+      setFormData(profileData);
+      setNewSchedule(schedule);
+    }
+  }, [isOpen, profileData, schedule]);
 
 
   const handleChange = (e) => {
@@ -23,16 +22,24 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  
+  if (JSON.stringify(formData) !== JSON.stringify(profileData)) {
     onSave(formData);
+  }
+
+  if (JSON.stringify(newSchedule) !== JSON.stringify(schedule)) {
     onScheduleUpdate(newSchedule);
-    onClose();
-  };
+  }
+
+  onClose();
+};
 
 
-  const handleScheduleUpdate1 = (updatedSchedule) => {
-    schedule = updatedSchedule;
-    console.log(updatedSchedule);
+  const handleScheduleUpdate = (updatedSchedule) => {
+    setNewSchedule(updatedSchedule);
+  
   };
 
   
@@ -41,40 +48,34 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
     <div className={styles.popup_overlay}>
       <div className={styles.popup}>
         <button className={styles.close_button} onClick={onClose}>X</button>
-        <h2>Επεξεργασία Προφίλ</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
+        <h1>Επεξεργασία Προφίλ</h1>
+        <form className={styles.edit_form} onSubmit={handleSubmit}>
+          <label className={styles.label}>
             Όνομα:
-            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+            <input type="text" name="firstName" value={formData.first_name} onChange={handleChange} />
           </label>
-          <label>
+          <label className={styles.label}>
             Επώνυμο:
-            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+            <input type="text" name="lastName" value={formData.last_name} onChange={handleChange} />
           </label>
-          <label>
+          <label className={styles.label}>
             Περιγραφή:
             <textarea name="description" value={formData.description} onChange={handleChange} />
           </label>
-          <label>
+          <label className={styles.label}>
             Ηλικία:
             <input type="number" name="age" value={formData.age} onChange={handleChange} />
           </label>
-          <label>
+          <label className={styles.label}>
             Περιοχή:
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
+            <input type="text" name="work_area" value={formData.work_area} onChange={handleChange} />
           </label>
-          <label>
+          <label className={styles.label}>
             Τηλέφωνο:
             <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
           </label>
-          
-          <button type="submit">Αποθήκευση</button>
-          
-        </form>
-        
-      </div>
-      <div className={styles.table_container}>
-                <h1>Επιλέξτε ώρες Διαθεσημότητας</h1>
+          <div className={styles.table_container}>
+                <h2>Επιλέξτε ώρες Διαθεσημότητας</h2>
                 <Schedule
                 clickable={true}
                 monday={schedule.Monday}
@@ -85,9 +86,15 @@ export default function EditProfilePopup({ isOpen, onClose, profileData, onSave,
                 saturday={schedule.Saturday}
                 sunday={schedule.Sunday}
                 is_parent={false}
-                onScheduleUpdate={handleScheduleUpdate1}
+                onScheduleUpdate={handleScheduleUpdate}
                 />
           </div>
+          <button type="submit">Αποθήκευση</button>
+          
+        </form>
+        
+      </div>
+      
     </div>
 
   );

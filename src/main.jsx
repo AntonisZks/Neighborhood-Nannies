@@ -19,6 +19,7 @@ import CaretakerRegistration from './pages/CaretakerRegistration/CaretakerRegist
 import GuardianRegistration from './pages/GuardianRegistration/GuardianRegistration.jsx';
 import Endcollaboration from './pages/Endcollaboration/Endcollaboration.jsx';
 import CollaborationRequest from './pages/CollaborationRequest/CollaborationRequest.jsx';
+import CollaborationRequestNanny from './pages/CollaborationRequest/CollaborationRequestNanny.jsx';
 import './index.css';
 
 // Create a browser router with the routes of the application
@@ -125,6 +126,11 @@ const router = createBrowserRouter([
    {
      path: '/end-collaboration',
     element: <Endcollaboration />,
+    errorElement: <div>Custom 404 Not Found</div>,
+  },
+  {
+    path: '/nanny-profile/collaboration-request-nanny',
+    element: <CollaborationRequestNanny />,
     errorElement: <div>Custom 404 Not Found</div>,
   }
 ]);

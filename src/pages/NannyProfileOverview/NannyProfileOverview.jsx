@@ -18,11 +18,14 @@ export default function NannyProfileOverview() {
   const [error, setError] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState([]);
+  const [hourlyPay, setHourlyPay] = useState('');
   const navigate = useNavigate();
   const nanny_id = searchParams.get("nid");
   const parent_id = window.localStorage.getItem("parentID");
 
   const askForCollaboration = () => {
+    localStorage.setItem('schedule', JSON.stringify(schedule));
+    localStorage.setItem('hourlyPay', hourlyPay);
     navigate(`/search/nanny-profile-overview/collaboration-request?step=1&nid=${nanny_id}`);
   }
 

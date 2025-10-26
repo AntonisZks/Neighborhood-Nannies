@@ -205,6 +205,8 @@
   cursor: default;
 }
 
+
+
 .active_collaboration img {
   grid-area: image;
   width: 40px;

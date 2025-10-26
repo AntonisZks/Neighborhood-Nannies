@@ -62,8 +62,8 @@ export default function GuardianRegistration() {
 
   const validateStep1 = () => {
     const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = 'Το όνομα είναι υποχρεωτικό';
-    if (!formData.lastName) newErrors.lastName = 'Το επώνυμο είναι υποχρεωτικό';
+    if (!formData.first_name) newErrors.first_name = 'Το όνομα είναι υποχρεωτικό';
+    if (!formData.last_name) newErrors.last_name = 'Το επώνυμο είναι υποχρεωτικό';
     if (!formData.email) newErrors.email = 'Το email είναι υποχρεωτικό';
     if (!formData.password) newErrors.password = 'Ο κωδικός πρόσβασης είναι υποχρεωτικός';
     if (!formData.child_gender) newErrors.child_gender = 'Το φύλο παιδιού είναι υποχρεωτικό';
@@ -122,28 +122,28 @@ export default function GuardianRegistration() {
               <form onSubmit={handleStep1Submit} className={`${styles.login_form} ${styles.inner_container}`}>
                 <div className={styles.grid_container}>
                   <div className={`${styles.input_container} ${styles.first_name_container}`}>
-                    <label htmlFor="firstName">Όνομα *</label>
+                    <label htmlFor="first_name">Όνομα *</label>
                     <input
                       type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
+                      id="first_naame"
+                      name="first_name"
+                      value={formData.first_name}
                       onChange={handleChange}
                       required
                     />
-                    {errors.firstName && <span className={styles.error}>{errors.firstName}</span>}
+                    {errors.first_name && <span className={styles.error}>{errors.first_name}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.last_name_container}`}>
-                    <label htmlFor="lastName">Επώνυμο *</label>
+                    <label htmlFor="last_name">Επώνυμο *</label>
                     <input
                       type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
+                      id="last_name"
+                      name="last_name"
+                      value={formData.last_name}
                       onChange={handleChange}
                       required
                     />
-                    {errors.lastName && <span className={styles.error}>{errors.lastName}</span>}
+                    {errors.last_name && <span className={styles.error}>{errors.last_name}</span>}
                   </div>
                   <div className={`${styles.input_container} ${styles.email_container}`}>
                     <label htmlFor="email">Ηλεκτρονικό Ταχυδρομείο (Email) *</label>
@@ -293,7 +293,7 @@ export default function GuardianRegistration() {
                 <div className={styles.profile_overview_container}>
                   <div className={styles.profile_image_name_container}>
                     <img src={formData.profileImageUrl} alt="profile picture" width="60px" />
-                    <h1>{formData.firstName} {formData.lastName}</h1>
+                    <h1>{formData.first_name} {formData.last_name}</h1>
                   </div>
                   <div className={styles.overview_description_container}>
                     <h1>Σύντομη Περιγραφή</h1>

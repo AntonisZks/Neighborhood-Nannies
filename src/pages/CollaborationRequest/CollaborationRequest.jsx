@@ -1,13 +1,14 @@
 import styles from './CollaborationRequest.module.css';
 
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, addDoc, setDoc, getDoc, doc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useSearchParams } from 'react-router-dom';
-
+import { getAuth } from 'firebase/auth';
 import Header from '../../components/Header/Header';
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumb';
 import Schedule from '../../components/ScheduleTable/ScheduleTable';
+import { useNavigate } from "react-router-dom";
 
 export default function CollaborationRequest() {
   var [schedule, setSchedule] = useState([]);
@@ -15,79 +16,170 @@ export default function CollaborationRequest() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
+  const [hourlyPay, setHourlyPay] = useState('');
+  const navigate = useNavigate();
 
+  
+  
   const nanny_id = searchParams.get('nid');
   const step = searchParams.get('step');
+  const parent_id = window.localStorage.getItem("parentID");
+
 
   useEffect(() => {
-    const fetchNannyData = async () => {
-      try {
+  const fetchNannyData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(firestore, 'Nannies'));
+      const nanniesArray = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-        const querySnapshot = await getDocs(collection(firestore, 'Nannies'));
-        const nanniesArray = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        
-        // Search for the nanny with the given id
-        const nanny = nanniesArray.find((nanny) => nanny.id === nanny_id);
-        setNanny(nanny);
-        console.log("Nanny:", nanny);
+      const nanny = nanniesArray.find((n) => n.id === nanny_id);
+      setNanny(nanny);
 
-        const storedSchedule = localStorage.getItem('schedule');
-        if (storedSchedule) {
-          setSchedule(JSON.parse(storedSchedule));
-          console.log("Got schedule from local storage");
-        }
+      // --- Check for unfinalized declaration first ---
+      const savedDeclRef = doc(firestore, `Parents/${parent_id}/unfinalized_declarations/${nanny_id}`);
+      const savedDeclSnap = await getDoc(savedDeclRef);
 
-        
-        if (nanny && !storedSchedule) {
-          console.log("Fetching schedule");
-          const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/schedule`));
-          const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
+      if (savedDeclSnap.exists()) {
+        // Load saved hourly pay (if any)
+        const savedData = savedDeclSnap.data();
+        if (savedData.hourlyPay) setHourlyPay(savedData.hourlyPay.toString());
+
+        // Load saved schedule
+        const savedScheduleSnap = await getDocs(collection(savedDeclRef, 'schedule'));
+        if (!savedScheduleSnap.empty) {
+          const savedScheduleArray = savedScheduleSnap.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-          setSchedule(scheduleArray);
-          console.log("Previous schedule:", schedule);
+          setSchedule(savedScheduleArray);
+          setLoading(false);
+          return; // ✅ stop here since we loaded from saved declaration
         }
-        
-        console.log("Scedule:", schedule);
       }
-      catch (error) {
-        setError(error);
-      }
-      finally {
-        setLoading(false);
-      }
-    };
 
-    fetchNannyData();
-  }, []);
+      // --- Fallback: check localStorage ---
+      const storedSchedule = localStorage.getItem('schedule');
+      if (storedSchedule) {
+        setSchedule(JSON.parse(storedSchedule));
+      } else if (nanny) {
+        // --- Fallback: fetch from nanny schedule ---
+        const scheduleSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/schedule`));
+        const scheduleArray = scheduleSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSchedule(scheduleArray);
+      }
+
+      const storedHourlyPay = localStorage.getItem('hourlyPay');
+      if (storedHourlyPay) {
+        setHourlyPay(storedHourlyPay);
+      }
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchNannyData();
+}, []);
+
 
   if (loading) { return <div>Loading...</div>; }
   if (error) { return <div>Error: {error.message}</div>; }
   
   const handleScheduleUpdate = (updatedSchedule) => {
-    // setSchedule(updatedSchedule);
-    // for (let i = 0; i < 14; i++) {
-    //   schedule[0].Monday[i] = updatedSchedule[0][i];
-    //   schedule[0].Tuesday[i] = updatedSchedule[1][i];
-    //   schedule[0].Wednesday[i] = updatedSchedule[2][i];
-    //   schedule[0].Thursday[i] = updatedSchedule[3][i];
-    //   schedule[0].Friday[i] = updatedSchedule[4][i];
-    //   schedule[0].Saturday[i] = updatedSchedule[5][i];
-    //   schedule[0].Sunday[i] = updatedSchedule[6][i];
-    // }
     schedule = updatedSchedule;
-    console.log("Updated schedule:", schedule);
-    console.log("Updated schedule:", updatedSchedule);
+    setSchedule(schedule);
   };
 
   const handleNextStep = () => {
     localStorage.setItem('schedule', JSON.stringify(schedule));
+    localStorage.setItem('hourlyPay', hourlyPay);
     window.location.href = `collaboration-request?step=2&nid=${nanny_id}`;
   };
+
+
+  const handleSaveDeclaration = async () => {
+  try {
+
+    // Reference: Parents/{parentId}/saved_declarations/{nanny_id}
+    const savedRef = doc(firestore, `Parents/${parent_id}/unfinalized_declarations/${nanny_id}`);
+    
+    await setDoc(savedRef, { 
+      hourlyPay: parseFloat(hourlyPay),
+      nanny_id: nanny_id,
+      savedAt: new Date(),
+    });
+
+    const scheduleRef = collection(savedRef, 'schedule');
+    await addDoc(scheduleRef, {
+        Monday: schedule[0].Monday,
+        Tuesday: schedule[0].Tuesday,
+        Wednesday: schedule[0].Wednesday,
+        Thursday: schedule[0].Thursday,
+        Friday: schedule[0].Friday,
+        Saturday: schedule[0].Saturday,
+        Sunday: schedule[0].Sunday,
+    });
+
+    alert('Η δήλωση αποθηκεύτηκε προσωρινά.');
+  } catch (error) {
+    console.error('Error saving declaration:', error);
+    alert('Παρουσιάστηκε σφάλμα κατά την αποθήκευση.');
+  }
+  navigate(`/p_dashboard?pid=${parent_id}`);
+};
+
+
+
+
+  const handleFinalSubmit = async () => {
+  try {
+    
+    // Step 1: reference to nanny’s collaborationRequests subcollection
+    const collabRef = doc(firestore, `Nannies/${nanny_id}/collaboration_requests/${parent_id}`);
+
+    // Step 2: create or update a document for this parent
+     await setDoc(collabRef, {
+      parent_id: parent_id,
+      hourlyPay: parseFloat(hourlyPay),
+      createdAt: new Date(),
+    });
+
+    // Step 3: store the schedule as a subcollection under this collaboration request
+    const scheduleRef = collection(collabRef, 'schedule');
+    await addDoc(scheduleRef, {
+        Monday: schedule[0].Monday,
+        Tuesday: schedule[0].Tuesday,
+        Wednesday: schedule[0].Wednesday,
+        Thursday: schedule[0].Thursday,
+        Friday: schedule[0].Friday,
+        Saturday: schedule[0].Saturday,
+        Sunday: schedule[0].Sunday,
+    });
+
+    const finalizedRef = doc(firestore, `Parents/${parent_id}/finalized_declarations/${nanny_id}`);
+    await setDoc(finalizedRef, {
+      nanny_id: nanny_id,
+      accepted: null,
+      submittedAt: new Date(),
+    });
+
+    alert('Η αίτηση συνεργασίας υποβλήθηκε με επιτυχία!');
+  } catch (err) {
+    console.error('Error submitting collaboration request:', err);
+    alert('Παρουσιάστηκε σφάλμα κατά την υποβολή της αίτησης.');
+  }
+  window.localStorage.removeItem('schedule');
+  window.localStorage.removeItem('hourlyPay');
+  navigate(`/p_dashboard?pid=${parent_id}`);
+};
 
   return (
     <>
@@ -117,9 +209,14 @@ export default function CollaborationRequest() {
                 is_parent={true}
               />
               <h2>Επιλέξτε το ωρομίσθιο</h2>
-              <input type="number" placeholder="Ωρομίσθιο" />
+              <input 
+                type="number" 
+                placeholder="Ωρομίσθιο" 
+                value={hourlyPay}
+                onChange={(e) => setHourlyPay(e.target.value)} 
+              />
               <div className={styles.buttons_container1}>
-                <a href={`collaboration-request?step=2&nid=${nanny_id}`} type="submit" className={styles.save_button}>
+                <a onClick={handleSaveDeclaration} className={styles.save_button}>
                   <i className="fa-solid fa-download"></i>
                   Προσωρινή Αποθήκευση
                 </a>
@@ -180,16 +277,8 @@ export default function CollaborationRequest() {
                     <h1>Πληροφορίες Πληρωμής</h1>
                     <ul>
                       <li>
-                        <i className="fa-solid fa-business-time"></i>
-                        <p><b>Δηλωμένες Ώρες εργασίας:</b> 24</p>
-                      </li>
-                      <li>
                         <i className="fa-solid fa-comments-dollar"></i>
-                        <p><b>Δηλωμένο ωρομίσθιο:</b> 8€</p>
-                      </li>
-                      <li>
-                        <i className="fa-solid fa-circle-check"></i>
-                        <p><b>Μηνιαίος Μισθός:</b> 24</p>
+                        <p><b>Δηλωμένο ωρομίσθιο:</b> {hourlyPay ? `${hourlyPay}€` : '—'}</p>
                       </li>
                     </ul>
                   </div>
@@ -214,7 +303,7 @@ export default function CollaborationRequest() {
                   <i className="fa-solid fa-arrow-left"></i>
                   Προηγούμενο
                 </a>
-                <a href={`collaboration-request?step=2&nid=${nanny_id}`} type="submit" className={styles.submit_button}>
+                <a onClick={handleFinalSubmit} className={styles.submit_button}>
                   <i className="fa-solid fa-check"></i>
                   Οριστική Υποβολή
                 </a>

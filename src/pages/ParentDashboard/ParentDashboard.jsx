@@ -5,11 +5,11 @@ import Header from '../../components/Header/Header';
 import PaymentCalendar from '../../components/PaymentCalendar/PaymentCalendar';
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from './ParentDashboard.module.css';
-import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
+import EditProfilePopup from "../../components/EditProfilePopupParent/EditProfilePopup";
 
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs,getDoc, updateDoc, doc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -46,9 +46,33 @@ export default function ParentDashboard() {
     setIsEditPopupVisible(false);
   }
 
-  const handleSaveProfile = () => {
-    
-  }
+  const handleSaveProfile = async (newUser) => {
+  
+      try {
+        const docref= doc(firestore, "Parents", parent_id);
+        const updatedFields = {};
+        if (newUser.first_name !== undefined) updatedFields.first_name = newUser.first_name;
+        if (newUser.last_name !== undefined) updatedFields.last_name = newUser.last_name;
+        if (newUser.description !== undefined) updatedFields.description = newUser.description;
+        if (newUser.living_area !== undefined) updatedFields.living_area = newUser.living_area;
+        if (newUser.phone !== undefined) updatedFields.phone = newUser.phone;
+       
+        await updateDoc(docref,updatedFields); 
+          
+            
+  
+        
+        setUser(newUser);
+        
+        console.log("Profile saved!");
+      } catch (error) {
+        console.error("Error saving profile: ", error);
+      }
+    };
+
+  
+
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -199,16 +223,23 @@ export default function ParentDashboard() {
               <>
                 <table>
                   <tbody>
-                    {finalizedDeclarations.map(declaration => (
-                      <tr key={declaration.id}>
-                        <td>
-                          <Declaration
-                            nanny_id={declaration.nanny_id}
-                            accepted={declaration.accepted}
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                    {finalizedDeclarations
+                      .slice() // make a shallow copy so you don’t mutate state
+                      .sort((a, b) => {
+                        const dateA = a.submittedAt?.seconds || 0;
+                        const dateB = b.submittedAt?.seconds || 0;
+                        return dateB - dateA; // newest first
+                      })
+                      .map((declaration) => (
+                        <tr key={declaration.id}>
+                          <td>
+                            <Declaration
+                              nanny_id={declaration.nanny_id}
+                              accepted={declaration.accepted}
+                            />
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
                 <a className={styles.all_link} href="#">Προβολή Όλων</a>
@@ -225,12 +256,20 @@ export default function ParentDashboard() {
               <>
                 <table>
                   <tbody>
-                    {unfinalizedDeclarations.map(declaration => (
-                      <tr key={declaration.id}>
+                    
+                    {unfinalizedDeclarations
+                    .slice() // make a shallow copy so you don’t mutate state
+                    .sort((a, b) => {
+                      const dateA = a.submittedAt?.seconds || 0;
+                      const dateB = b.submittedAt?.seconds || 0;
+                      return dateB - dateA; // newest first
+                    })
+                    .map(declaration => (
+                      <tr key={declaration.id }>
                         <td>
-                          <Declaration
+                          <UnfinalizedDeclaration
                             nanny_id={declaration.nanny_id}
-                            accepted={declaration.accepted}
+                  
                           />
                         </td>
                       </tr>
@@ -323,6 +362,7 @@ function ActiveCollaboration(props) {
   const [nanny, setNanny] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [parent, setParent] = useState(null);
 
   const navigate = useNavigate();
 
@@ -335,10 +375,20 @@ function ActiveCollaboration(props) {
           ...doc.data()
         }));
 
+        const querySnapshot2 = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot2.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         // Get the nanny with the given id
         const nanny = nanniesArray.find(nanny => nanny.id === props.nanny_id);
         setNanny(nanny);
+        const parent=parentsArray.find(parent => parent.id === props.parent_id);
+        setParent(parent);
+        console.log("Parent data:", parent );
       }
+
+      
       catch (error) {
         console.log(error.message);
         setError(error.message);
@@ -365,7 +415,7 @@ function ActiveCollaboration(props) {
     <div className={styles.active_collaboration}>
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
-      <p>Ξεκίνησε στις {props.start_date}</p>
+      <p>Ξεκίνησε στις {parent.active_collaboration_id_start_date[0]}</p>
       <button onClick={viewProfile} className={styles.view_profile_button}>
         <i className="fa-solid fa-eye"></i>
       </button>
@@ -377,6 +427,7 @@ function PreviousCollaboration(props) {
   const [nanny, setNanny] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     const fetchNannyByID = async () => {
@@ -390,6 +441,9 @@ function PreviousCollaboration(props) {
         // Get the nanny with the given id
         const nanny = nanniesArray.find(nanny => nanny.id === props.nanny_id);
         setNanny(nanny);
+
+        
+
       }
       catch (error) {
         console.log(error.message);
@@ -434,7 +488,92 @@ function PreviousCollaboration(props) {
 function Declaration(props) {
   const [nanny, setNanny] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accepted, setAccepted] = useState(null);
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  const parent_id = searchParams.get('pid');
+
+  useEffect(() => {
+    const fetchNannyByID = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Nannies"));
+        const nanniesArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        // Get the nanny with the given id
+        const nanny = nanniesArray.find(nanny => nanny.id === props.nanny_id);
+        setNanny(nanny);
+
+        const collabRequest=doc(firestore, `Parents/${parent_id}/finalized_declarations/${nanny.id}`);
+        const collabSnap = await getDoc(collabRequest);
+        if (collabSnap.exists()) {
+          setAccepted(collabSnap.data().accepted);
+        } else {
+          setAccepted(null);
+        }
+      }
+      catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      }
+      finally {
+        console.log(nanny);
+        setLoading(false);
+      }
+    }
+    fetchNannyByID();
+  }, [])
+
+  if (loading) { return <p>Loading...</p>; }
+  if (error) { return <p>Error: {error}</p>; }
+
+  return (
+    <div className={styles.declaration}>
+      <img src={nanny.profileImageUrl} alt="profile picture" />
+      <h1>{nanny.first_name} {nanny.last_name}</h1>
+      <div className={styles.description_container}>
+        {accepted === null
+          ? <p className={styles.state}>Αναμένεται απάντηση</p>
+          : accepted 
+            ? <>
+                <p className={styles.description}>Έχει οριστικοποιηθεί</p>
+                <p className={`${styles.accepted} ${styles.state}`}>
+                  Έγινε αποδεκτή
+                  <i className="fa-solid fa-check"></i>
+                </p> 
+              </>
+            : <>
+                <p className={styles.description}>Έχει οριστικοποιηθεί</p>
+                <p className={`${styles.rejected} ${styles.state}`}>
+                  Απορρίφθηκε
+                  <i className="fa-solid fa-xmark"></i>
+                </p>
+              </>
+        }
+      </div>
+      <button className={styles.view_declaration_button}>
+        <i className="fa-solid fa-eye"></i>
+      </button>
+    </div>
+  )
+}
+
+
+
+
+function UnfinalizedDeclaration(props) {
+  const [nanny, setNanny] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const navigate = useNavigate();
+
+  const handleViewClick = () => {
+    navigate(`/search/nanny-profile-overview/collaboration-request?step=1&nid=${props.nanny_id}`);
+  };
 
   useEffect(() => {
     const fetchNannyByID = async () => {
@@ -469,26 +608,9 @@ function Declaration(props) {
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
       <div className={styles.description_container}>
-        {props.accepted === null
-          ? <p className={styles.state}>Εκκρεμεί Οριστική Υποβολή</p>
-          : props.accepted 
-            ? <>
-                <p className={styles.description}>Έχει οριστικοποιηθεί</p>
-                <p className={`${styles.accepted} ${styles.state}`}>
-                  Έγινε αποδεκτή
-                  <i className="fa-solid fa-check"></i>
-                </p> 
-              </>
-            : <>
-                <p className={styles.description}>Έχει οριστικοποιηθεί</p>
-                <p className={`${styles.rejected} ${styles.state}`}>
-                  Απορρίφθηκε
-                  <i className="fa-solid fa-xmark"></i>
-                </p>
-              </>
-        }
+          <p className={styles.state}>Αναμένεται οριστικοποίηση</p>
       </div>
-      <button className={styles.view_declaration_button}>
+      <button onClick={handleViewClick} className={styles.view_declaration_button}>
         <i className="fa-solid fa-eye"></i>
       </button>
     </div>
@@ -545,7 +667,7 @@ function Payment(props) {
           </p>
         )}
       </div>
-      <button className={styles.view_declaration_button}>
+      <button  className={styles.view_declaration_button}>
         <i className="fa-solid fa-eye"></i>
       </button>
     </div>

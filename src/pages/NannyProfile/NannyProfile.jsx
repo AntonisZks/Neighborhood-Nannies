@@ -3,14 +3,15 @@ import styles from "./NannyProfile.module.css";
 import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
-import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
+import EditProfilePopup from "../../components/EditProfilePopupNanny/EditProfilePopup";
 import jimmy from '../../assets/imgs/jimmy.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, getDocs,getDoc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { doc} from "firebase/firestore";
+
 
 export default function NannyProfile() {
   const [user, setUser] = useState(null);
@@ -19,9 +20,14 @@ export default function NannyProfile() {
   const [error, setError] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState([]);
+  const [CollaborationRequests, setCollaborationRequests] = useState([]);
+  const [ActiveCollaboration, setActiveCollaboration] = useState([]);
   const navigate = useNavigate();
   const nanny_id = searchParams.get('nid');
   const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
+  
+  
+  
   const signout = () => {
     window.localStorage.clear();
     sessionStorage.clear();
@@ -40,20 +46,59 @@ export default function NannyProfile() {
 
     try {
       const docref= doc(firestore, "Nannies", nanny_id);
-     await updateDoc(docref, {
+      const updatedFields = {};
+      if (newUser.firstName !== undefined) updatedFields.first_name = newUser.firstName;
+      if (newUser.lastName !== undefined) updatedFields.last_name = newUser.lastName;
+      if (newUser.description !== undefined) updatedFields.description = newUser.description;
+      if (newUser.work_area !== undefined) updatedFields.work_area = newUser.work_area;
+      if (newUser.phone !== undefined) updatedFields.phone = newUser.phone;
+      if (newUser.age !== undefined) updatedFields.age = newUser.age;
+      await updateDoc(docref,updatedFields); 
         
-        age : newUser.age
-        
-     });
+          
+
+      
+      setUser(newUser);
+      
       console.log("Profile saved!");
     } catch (error) {
       console.error("Error saving profile: ", error);
     }
   };
-  const handleScheduleUpdate = (updatedSchedule) => {
-    schedule[0] = updatedSchedule;
-    console.log(updatedSchedule);
-  };
+  const handleScheduleUpdate = async (updatedSchedule) => {
+  try {
+    if (schedule.length === 0) {
+      console.error("No schedule document found to update");
+      return;
+    }
+    
+    const scheduleDocId = schedule[0].id; // use the actual doc ID
+    console.log("Updating schedule with ID:", schedule);
+   
+      
+    const scheduleData = {
+      Monday: updatedSchedule[0].Monday || schedule[0].Monday,
+      Tuesday: updatedSchedule[0].Tuesday || schedule[0].Tuesday,
+      Wednesday: updatedSchedule[0].Wednesday || schedule[0].Wednesday,
+      Thursday: updatedSchedule[0].Thursday || schedule[0].Thursday,
+      Friday: updatedSchedule[0].Friday || schedule[0].Friday,
+      Saturday: updatedSchedule[0].Saturday || schedule[0].Saturday,
+      Sunday: updatedSchedule[0].Sunday || schedule[0].Sunday,
+    };
+    const scheduleRef = doc(firestore, "Nannies", nanny_id, "schedule", scheduleDocId);
+     console.log("Schedule document updated with ID:", [scheduleData]);
+    await updateDoc(scheduleRef, scheduleData);
+   
+  
+
+
+    console.log("Updated schedule data:", schedule);
+   
+    console.log("Schedule updated successfully!");
+  } catch (error) {
+    console.error("Error updating schedule: ", error);
+  }
+};
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -86,9 +131,29 @@ export default function NannyProfile() {
           setSchedule(scheduleArray);
           
         }
+        if (nanny) {
+          const CollaborationRequestsSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/collaboration_requests`));
+          const CollaborationRequestsArray = CollaborationRequestsSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setCollaborationRequests(CollaborationRequestsArray);
+        }
+        
+        if (nanny) {
+          const ActiveCollaborationSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/active_collaboration`));
+          const ActiveCollaborationArray = ActiveCollaborationSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setActiveCollaboration(ActiveCollaborationArray);
+        }
+        
       } 
+      
 
-
+      
+       
       
       catch (error) {
         console.log(error.message);
@@ -105,8 +170,7 @@ export default function NannyProfile() {
   if (error) { return <p>Error: {error}</p>; }
   
   
-  console.log(user.age)
-
+  
   return (
     <div className={styles.outer_container}>
       <Header />
@@ -161,7 +225,7 @@ export default function NannyProfile() {
           </ul>
         </div>
         <div className={styles.logout_button_container}>
-          <button className={styles.logout_button}>
+          <button onClick={signout} className={styles.logout_button}>
             <i className="fa-solid fa-sign-out"></i>
             <p>Αποσύνδεση</p>
           </button>
@@ -171,50 +235,47 @@ export default function NannyProfile() {
         <div className={styles.inner_container}>
           <div className={`${styles.users_panel} ${styles.active_collaboration_panel}`}>
             <h1>Ενεργή Συνεργασία</h1>
-            <ActiveCollaboration
-              profile_picture={jimmy}
-              first_name="Δημήτρης"
-              last_name="Παπαδόπουλος"
-              />
+                {ActiveCollaboration
+                .map((active_collaboration) => (
+                    <tr key={active_collaboration.id}>
+                        <Active_Collaboration
+                          parent_id={active_collaboration.parent_id}
+                        />
+                    </tr>
+                  ))}
           </div>
           <div className={`${styles.users_panel} ${styles.finalized_declarations_panel}`}>
-            <h1>Αιτήματα Συνεργασίας (8)</h1>
+            <h1>Αιτήματα Συνεργασίας ({CollaborationRequests.length})</h1>
+          {CollaborationRequests.length > 0 ? (
+          <>
             <table>
               <tbody>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={false}
-                  />
-                  </td>
-                </tr>
+                {CollaborationRequests
+                  .slice() // make a shallow copy so you don’t mutate state
+                  .sort((a, b) => {
+                    const dateA = a.createdAt?.seconds || 0;
+                    const dateB = b.createdAt?.seconds || 0;
+                    return dateB - dateA; // newest first
+                  })
+                  .map((declaration) => (
+                    <tr key={declaration.id}>
+                      <td>
+                        <Declaration
+                          parent_id={declaration.parent_id}
+                        />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <a className={styles.all_link} href="#">Προβολή Όλων</a>
+          </>
+        ) : (
+          <div className={styles.no_finalized_declarations_container}>
+            <h2>Δεν υπάρχουν οριστικοποιημένες δηλώσεις</h2>
           </div>
+        )}
+      </div>
           <div className={`${styles.users_panel} ${styles.previous_collaborations_panel}`}>
             <h1>Προηγούμενες Συνεργασίες (4)</h1>
             <table>
@@ -354,11 +415,42 @@ export default function NannyProfile() {
   )
 }
 
-function ActiveCollaboration(props) {
+function Active_Collaboration(props) {
+  const [parent, setParent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 1️⃣ Get the parent's info
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        const parent = parentsArray.find(parent => parent.id === props.parent_id);
+        setParent(parent);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!parent) return <p>Parent not found</p>;
+
   return (
     <div className={styles.active_collaboration}>
-      <img src={props.profile_picture} alt="profile picture" />
-      <h1>{props.first_name} {props.last_name}</h1>
+      <img src={parent.profileImageUrl} alt="profile picture" />
+      <h1>{parent.first_name} {parent.last_name}</h1>
       <p>Πριν από 3 ημέρες</p>
       <button className={styles.view_profile_button}>
         <i className="fa-solid fa-eye"></i>
@@ -392,33 +484,86 @@ function PreviousCollaboration(props) {
 }
 
 function Declaration(props) {
+  const [parent, setParent] = useState(null);
+  const [accepted, setAccepted] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const nanny_id=searchParams.get('nid');
+
+  const handleViewClick = () => {
+    navigate(`/nanny-profile/collaboration-request-nanny?step=1&pid=${props.parent_id}`);
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 1️⃣ Get the parent's info
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        const parent = parentsArray.find(parent => parent.id === props.parent_id);
+        setParent(parent);
+
+        // 2️⃣ Get the collaboration request for this parent
+        const requestRef = doc(firestore, `Nannies/${nanny_id}/collaboration_requests/${parent.id}`);
+        const requestSnap = await getDoc(requestRef);
+
+        if (requestSnap.exists()) {
+          const data = requestSnap.data();
+          setAccepted(data.accepted ?? null);
+          console.log("Collaboration request data:", data);
+        } else {
+          setAccepted(null);
+        }
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [props.parent_id, props.nanny_id]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!parent) return <p>Parent not found</p>;
+
   return (
     <div className={styles.declaration}>
-      <img src={props.profile_picture} alt="profile picture" />
-      <h1>{props.first_name} {props.last_name}</h1>
+      <img src={parent.profileImageUrl} alt="profile picture" />
+      <h1>{parent.first_name} {parent.last_name}</h1>
       <div className={styles.description_container}>
-        {props.accepted === null
-          ? <p className={styles.state}>Εκκρεμεί Οριστική Υποβολή</p>
-          : props.accepted 
-            ? <>
+        {accepted === null
+          ? <p className={styles.state}>Αναμένεται απάντηση</p>
+          : accepted 
+            ? (
+              <>
                 <p className={styles.description}>Έχει οριστικοποιηθεί</p>
                 <p className={`${styles.accepted} ${styles.state}`}>
-                  Έγινε αποδεκτή
-                  <i className="fa-solid fa-check"></i>
+                  Έγινε αποδεκτή <i className="fa-solid fa-check"></i>
                 </p> 
               </>
-            : <>
+            )
+            : (
+              <>
                 <p className={styles.description}>Έχει οριστικοποιηθεί</p>
                 <p className={`${styles.rejected} ${styles.state}`}>
-                  Απορρίφθηκε
-                  <i className="fa-solid fa-xmark"></i>
+                  Απορρίφθηκε <i className="fa-solid fa-xmark"></i>
                 </p>
               </>
+            )
         }
       </div>
-      <button className={styles.view_declaration_button}>
+      <button onClick={handleViewClick} className={styles.view_declaration_button}>
         <i className="fa-solid fa-eye"></i>
       </button>
     </div>
-  )
+  );
 }
