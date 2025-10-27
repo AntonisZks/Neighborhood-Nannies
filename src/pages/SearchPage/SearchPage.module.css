@@ -3,11 +3,12 @@
 .outer_container {
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas: 
     "header header"
     "breadcrumb breadcrumb"
     "filters_area search_area";
+  min-height: 100vh;
 }
 
 .filters_area {
@@ -24,9 +25,10 @@
   text-align: center;
   margin: 2rem 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 1.5rem;
+  border-radius: 0.5rem;
   overflow-y: auto; /* επιτρέπει scroll μέσα στο panel όταν χρειάζεται */
   box-sizing: border-box;
+  align-self: start;
 }
 
 .filters_area h1 {
@@ -41,43 +43,112 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  margin: 1rem 0;
+  margin: 1.2rem 0;
 }
 
-.filter label {
+.filter > label:first-child {
   color: var(--text_color_black);
-  margin-left: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.2rem;
 }
 
-.filter input {
+.filter input[type="text"],
+.filter input[type="number"],
+.filter select {
   width: 100%;
-  font-size: 1rem;
-  padding: 0.2rem 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.8rem;
+  margin: 0.3rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
   color: black;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
 }
 
-.filter input:focus {
+.filter input[type="text"]:focus,
+.filter input[type="number"]:focus,
+.filter select:focus {
   outline: none;
   border: 2px solid var(--theme_color_fg);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(var(--theme_color_fg_rgb, 99, 102, 241), 0.1);
+}
+
+.filter input[type="text"]:hover,
+.filter input[type="number"]:hover,
+.filter select:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.filter select {
+  cursor: pointer;
 }
 
 .slider {
-  width: 10px;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(to right, var(--theme_color_fg) 0%, var(--theme_color_fg) 50%, #ddd 50%, #ddd 100%);
+  outline: none;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--theme_color_fg);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: var(--theme_color_brighter);
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--theme_color_fg);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: var(--theme_color_brighter);
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .slider_container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr auto;
   width: 100%;
   align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 0;
 }
 
 .slider_container p {
   color: var(--text_color_black);
-  justify-self: center;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+  min-width: 40px;
+  text-align: center;
 }
 
 .filter_container button {
@@ -98,56 +169,140 @@
 }
 
 .search_area {
+  grid-area: search_area;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 0;
+  padding: 2rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
 }
 
 .search_area .outer_container {
-  grid-area: search_area;
-  margin-top: 2rem;
-  width: 95%;
+  margin-top: 0;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .filtersGrid {
   display: grid;
   grid-template-columns: 1fr; /* single column layout */
-  gap: 12px;
+  gap: 0.5rem;
   align-items: start;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* κάνουμε τα inline groups κατακόρυφα ώστε όλα τα controls να είναι σε μία στήλη */
 .inlineRow {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.6rem;
   align-items: stretch;
   flex-wrap: nowrap;
+  margin-top: 0.3rem;
 }
 
 /* μικρή προσαρμογή για τα labels μέσα σε inlineRow ώστε να μην έχουν μεγάλο δεξί margin */
 .inlineRow label {
   margin-right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background-color: #fafafa;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  color: var(--text_color_black);
+  border: 1px solid transparent;
+}
+
+.inlineRow label:hover {
+  background-color: #f0f0f0;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.inlineRow input[type="checkbox"],
+.inlineRow input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--theme_color_fg);
+}
+
+.inlineRow label:has(input:checked) {
+  background-color: rgba(var(--theme_color_fg_rgb, 99, 102, 241), 0.1);
+  border-color: var(--theme_color_fg);
+  font-weight: 500;
 }
 
 .fullWidthButton {
   width: 100%;
-  padding: 10px 12px;
-  margin-top: 8px;
+  padding: 0.75rem 1rem;
+  margin-top: 1.5rem;
   cursor: pointer;
-  /* αν χρειαστεί προσαρμόστε χρώμα/σύνορα ώστε να ταιριάζει με το υπάρχον theme */
+  background-color: var(--theme_color_fg);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fullWidthButton:hover {
+  background-color: var(--theme_color_brighter);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.fullWidthButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clearButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--text_color_black);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.clearButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.clearButton:active {
+  transform: scale(0.98);
 }
 
 .results_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
-  margin: 1rem auto;
+  width: 100%;
+  margin: 0 0 1rem 0;
   gap: 12px;
 }
 
@@ -174,34 +329,26 @@
 .results_list {
   list-style: none;
   padding: 0;
-  margin: 0.5rem auto 2rem;
-  width: 95%;
+  margin: 0;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* multiple items per row */
-  gap: 16px;
+  gap: 1.5rem;
   align-items: start;
   justify-items: stretch;
   box-sizing: border-box;
 }
 
 .result_item {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(20,20,20,0.06);
-  padding: 12px;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
-  width: 100%; /* καταλαμβάνει όλο το grid cell */
-  display: block;
-}
-
-.result_item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(20,20,20,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .no_results {
-  width: 95%;
-  margin: 1rem auto;
+  width: 100%;
+  margin: 0 0 2rem 0;
   padding: 18px;
   text-align: center;
   color: var(--text_color_black);
