@@ -42,7 +42,7 @@ export default function SearchPage() {
   const [collaborations, setCollaborations] = useState(savedFilters?.collaborations ?? 0);
 
   const [employment, setEmployment] = useState(savedFilters?.employment ?? "any"); // "any" | "full" | "part"
-  const [serviceArea, setServiceArea] = useState(savedFilters?.serviceArea ?? cityParam ?? "");
+  const [serviceArea, setServiceArea] = useState(cityParam ?? savedFilters?.serviceArea ?? "");
   const [childAge, setChildAge] = useState(savedFilters?.childAge ?? "");
   const [workingDays, setWorkingDays] = useState(savedFilters?.workingDays ?? []); // Empty by default
   const [education, setEducation] = useState(savedFilters?.education ?? "any");
@@ -95,10 +95,10 @@ export default function SearchPage() {
 
   // Apply filters automatically when data is loaded and there's a city parameter or saved filters
   useEffect(() => {
-    if (!loading && (cityParam || savedFilters)) {
+    if (!loading && data.length > 0 && (cityParam || savedFilters)) {
       applyFilters();
     }
-  }, [loading, data]);
+  }, [loading, data, serviceArea]);
 
   // Save filters to sessionStorage whenever they change
   useEffect(() => {

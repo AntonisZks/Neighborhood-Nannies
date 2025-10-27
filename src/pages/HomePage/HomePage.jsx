@@ -55,6 +55,8 @@ function MainSection() {
 }
 
 function ParentIntroductionContainer() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.parent_container}>
       <img className={styles.parent_image} src={parents} alt="" />
@@ -65,9 +67,9 @@ function ParentIntroductionContainer() {
         Αναζήτησε εύκολα και γρήγορα, βασισμένος στις ανάγκες της οικογένειάς
         σου.
       </p>
-      <button>
+      <button onClick={() => navigate('/search')} className={styles.search_nannies_button}>
         <div className={styles.button_content}>
-          <p>Ξεκίνα Τώρα</p>
+          <p>Αναζήτησε Τώρα</p>
           <i className="fa-solid fa-arrow-right-to-bracket"></i>
         </div>
       </button>
@@ -76,6 +78,8 @@ function ParentIntroductionContainer() {
 }
 
 function NannyIntroductionContainer() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.nanny_container}>
       <img className={styles.nanny_image} src={nanny} alt="" />
@@ -86,9 +90,9 @@ function NannyIntroductionContainer() {
         πλατφόρμα μας σου δίνει τη δυνατότητα να επιλέξεις ευέλικτες συνεργασίες
         και να κάνεις τη διαφορά στη ζωή μιας οικογένειας.
       </p>
-      <button>
+      <button onClick={() => navigate('/caretaker-registration?step=1')} className={styles.create_profile_button}>
         <div className={styles.button_content}>
-          <p>Ξεκίνα Τώρα</p>
+          <p>Δημιούργησε Προφίλ</p>
           <i className="fa-solid fa-arrow-right-to-bracket"></i>
         </div>
       </button>
@@ -457,14 +461,14 @@ function CallToActionSection() {
           <div className={styles.cta_buttons}>
             <button 
               className={styles.cta_button_primary}
-              onClick={() => navigate('/guardian-registration')}
+              onClick={() => navigate('/guardian-registration?step=1')}
             >
               <i className="fa-solid fa-user-plus"></i>
               Εγγραφή Γονέα
             </button>
             <button 
               className={styles.cta_button_secondary}
-              onClick={() => navigate('/caretaker-registration')}
+              onClick={() => navigate('/caretaker-registration?step=1')}
             >
               <i className="fa-solid fa-heart"></i>
               Εγγραφή Νταντάς
