@@ -18,6 +18,9 @@ export default function CaretakerRegistration() {
     gender: '',
     work_area: '',
     education: '',
+    transport: '',
+    hosting: false,
+    jobType: '',
     experience: '',
     schedule: [
       {
@@ -114,6 +117,9 @@ export default function CaretakerRegistration() {
           age: formData.age,
           work_area: formData.work_area,
           education: formData.education,
+          transport: formData.transport,
+          hosting: formData.hosting,
+          jobType: formData.jobType,
           experience: formData.experience,
           phone: formData.phone,
           colaborations:0,
@@ -254,15 +260,44 @@ export default function CaretakerRegistration() {
                   />
                 </div>
                 <div className={`${styles.input_container} ${styles.education_container}`}>
-                  <label htmlFor="education">Επίπεδο σπουδών / Ειδίκευση</label>
-                  <input
-                    type="text"
-                    id="education"
-                    name="education"
-                    value={formData.education}
-                    onChange={handleChange}
-                    required
-                  />
+                  <label htmlFor="education">Επίπεδο σπουδών</label>
+                  <select name="education" id="education" value={formData.education} onChange={handleChange} required>
+                    <option value=""></option>
+                    <option value="highschool">Λύκειο / Ισοδύναμο</option>
+                    <option value="vocational">Επαγγελματική</option>
+                    <option value="bachelor">Πτυχίο</option>
+                    <option value="master">Μάστερ / Άνω</option>
+                  </select>
+                </div>
+                <div className={`${styles.input_container} ${styles.transport_container}`}>
+                  <label htmlFor="transport">Μεταφορικό Μέσο</label>
+                  <select name="transport" id="transport" value={formData.transport} onChange={handleChange} required>
+                    <option value=""></option>
+                    <option value="car">Αυτοκίνητο</option>
+                    <option value="motorbike">Μοτοσυκλέτα / Scooter</option>
+                    <option value="public">Μέσα Μαζικής Μεταφοράς</option>
+                    <option value="walk">Πεζή</option>
+                  </select>
+                </div>
+                <div className={`${styles.input_container} ${styles.hosting_container}`}>
+                  <div className={styles.checkbox_wrapper}>
+                    <input
+                      type="checkbox"
+                      id="hosting"
+                      name="hosting"
+                      checked={formData.hosting}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="hosting">Προσφέρω φιλοξενία</label>
+                  </div>
+                </div>
+                <div className={`${styles.input_container} ${styles.job_type_container}`}>
+                  <label htmlFor="jobType">Τύπος Εργασίας</label>
+                  <select name="jobType" id="jobType" value={formData.jobType} onChange={handleChange} required>
+                    <option value=""></option>
+                    <option value="full-time">Πλήρης</option>
+                    <option value="part-time">Μερική</option>
+                  </select>
                 </div>
               </div>
               <div className={styles.buttons_container}>
@@ -421,9 +456,31 @@ export default function CaretakerRegistration() {
                       {formData.age}
                     </li>
                     <li>
-                      <i className="fa-solid fa-calendar-days"></i>
+                      <i className="fa-solid fa-graduation-cap"></i>
                       <b>Εκπαίδευση:</b>
-                      {formData.education}
+                      {formData.education === 'highschool' ? 'Λύκειο / Ισοδύναμο' :
+                       formData.education === 'vocational' ? 'Επαγγελματική' :
+                       formData.education === 'bachelor' ? 'Πτυχίο' :
+                       formData.education === 'master' ? 'Μάστερ / Άνω' : formData.education}
+                    </li>
+                    <li>
+                      <i className="fa-solid fa-car"></i>
+                      <b>Μεταφορικό:</b>
+                      {formData.transport === 'car' ? 'Αυτοκίνητο' :
+                       formData.transport === 'motorbike' ? 'Μοτοσυκλέτα / Scooter' :
+                       formData.transport === 'public' ? 'ΜΜΜ' :
+                       formData.transport === 'walk' ? 'Πεζή' : formData.transport}
+                    </li>
+                    <li>
+                      <i className="fa-solid fa-home"></i>
+                      <b>Φιλοξενία:</b>
+                      {formData.hosting ? 'Ναι' : 'Όχι'}
+                    </li>
+                    <li>
+                      <i className="fa-solid fa-briefcase"></i>
+                      <b>Τύπος Εργασίας:</b>
+                      {formData.jobType === 'full-time' ? 'Πλήρης' :
+                       formData.jobType === 'part-time' ? 'Μερική' : formData.jobType}
                     </li>
                   </ul>
                 </div>

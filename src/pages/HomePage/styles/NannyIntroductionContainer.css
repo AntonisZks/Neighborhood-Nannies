@@ -46,7 +46,7 @@
 
 .nanny_container button {
   justify-self: right;
-  width: 25%;
+  width: 35%;
   height: 70%;
   border: 2px solid var(--theme_color_fg);
   border-radius: 30px;
