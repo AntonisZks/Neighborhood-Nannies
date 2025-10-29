@@ -1,7 +1,7 @@
 import styles from './CollaborationRequest.module.css';
 
 import { useEffect, useState } from 'react';
-import { collection, getDocs, addDoc, setDoc, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, setDoc, getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useSearchParams } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';

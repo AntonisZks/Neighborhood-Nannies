@@ -99,7 +99,7 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/voucher-card',
+    path: 'nanny-profile/voucher-card',
     element: <VoucherCard />,
     errorElement: <div>Custom 404 Not Found</div>,
   },

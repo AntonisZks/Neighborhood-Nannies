@@ -325,7 +325,7 @@ export default function ParentDashboard() {
                           <Payment 
                             nanny_id={payment.nanny_id} 
                             accepted={payment.accepted}
-                            date={payment.date}
+                           
                           />
                         </td>
                       </tr>
@@ -465,7 +465,7 @@ function PreviousCollaboration(props) {
     <div className={styles.previous_collaboration}>
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
-      <p>Έληξε στις {props.end_date}</p>
+      <p>Έληξε στις </p>
       <div className={styles.rate_container}>
         <div className={styles.stars_container}>
           {[...Array(props.stars)].map((_, index) => (
@@ -654,17 +654,24 @@ function Payment(props) {
       <div className={styles.description_container}>
         <p className={styles.description}>Έγινε στις {props.date}</p>
         <i className="fa-solid fa-circle"></i>
-        {props.accepted ? (
-          <p className={`${styles.accepted} ${styles.state}`}>
-            Έγινε αποδεκτή
-            <i className="fa-solid fa-check"></i>
-          </p>
-        ) : (
-          <p className={`${styles.rejected} ${styles.state}`}>
-            Απορρίφθηκε
-            <i className="fa-solid fa-xmark"></i>
-          </p>
-        )}
+        {props.accepted === null
+          ? <p className={styles.state}>Αναμένεται απάντηση</p>
+          : props.accepted 
+            ? <>
+                
+                <p className={`${styles.accepted} ${styles.state}`}>
+                  Εξαργυρώθηκε
+                  <i className="fa-solid fa-check"></i>
+                </p> 
+              </>
+            : <>
+              
+                <p className={`${styles.rejected} ${styles.state}`}>
+                  Απορρίφθηκε
+                  <i className="fa-solid fa-xmark"></i>
+                </p>
+              </>
+        }
       </div>
       <button  className={styles.view_declaration_button}>
         <i className="fa-solid fa-eye"></i>

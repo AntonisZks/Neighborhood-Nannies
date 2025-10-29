@@ -29,6 +29,18 @@ export default function NannyProfileOverview() {
     navigate(`/search/nanny-profile-overview/collaboration-request?step=1&nid=${nanny_id}`);
   }
 
+
+  
+  const payForMonth = () => {
+    localStorage.setItem('nannyID', nanny_id);
+    navigate(`/payment?pid=${parent_id}`);
+  }
+
+
+  const endCollaboration = () => {
+    navigate(`/end-collaboration?pid=${parent_id}`);
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -92,7 +104,7 @@ export default function NannyProfileOverview() {
     return <p>Error: {error}</p>;
   }
 
-  console.log(parent_id);
+
   
 
   return (
@@ -172,7 +184,7 @@ export default function NannyProfileOverview() {
             <p>Στείλτε Μύνημα</p>
           </button>
           {parent.active_collaboration_id === nanny_id ? (
-            <button onClick={askForCollaboration} className={styles.payment_button}>
+            <button onClick={payForMonth} className={styles.payment_button}>
               <i className="fa-solid fa-dollar-sign"></i>
               <p>Πληρωμή Μήνα</p>
             </button>
@@ -183,7 +195,7 @@ export default function NannyProfileOverview() {
             </button>
           )}
           {parent.active_collaboration_id === nanny_id && (
-            <button className={styles.end_collaboration_button}>
+            <button onClick={endCollaboration} className={styles.end_collaboration_button}>
               <i className="fa-solid fa-handshake-simple-slash"></i>
               <p>Λήξη Συνεργασίας</p>
             </button>

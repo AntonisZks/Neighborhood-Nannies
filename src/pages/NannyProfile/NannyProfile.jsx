@@ -22,6 +22,7 @@ export default function NannyProfile() {
   const [schedule, setSchedule] = useState([]);
   const [CollaborationRequests, setCollaborationRequests] = useState([]);
   const [ActiveCollaboration, setActiveCollaboration] = useState([]);
+  const [payments, setPayments] = useState([]);
   const navigate = useNavigate();
   const nanny_id = searchParams.get('nid');
   const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
@@ -147,6 +148,16 @@ export default function NannyProfile() {
             ...doc.data()
           }));
           setActiveCollaboration(ActiveCollaborationArray);
+        }
+
+        // Get the payments of the parent
+        if (nanny) {
+          const paymentsSnapshot = await getDocs(collection(firestore, `Nannies/${nanny_id}/payments`));
+          const paymentsArray = paymentsSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setPayments(paymentsArray);
         }
         
       } 
@@ -318,73 +329,32 @@ export default function NannyProfile() {
             <a className={styles.all_link} href="#">Προβολή Όλων</a>
           </div>
           <div className={`${styles.users_panel} ${styles.payments_panel}`}>
-            <h1>Πληρωμές Κηδεμόνων (23)</h1>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={false}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={false}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  <Declaration
-                    profile_picture={jimmy}
-                    first_name="Δημήτρης"
-                    last_name="Παπαδόπουλος"
-                    accepted={true}
-                  />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <a className={styles.all_link} href="#">Προβολή Όλων</a>
-          </div>
+            <h1>Πληρωμές Κηδεμόνων ({payments.length})</h1>
+              {payments.length > 0 ? (
+                <>
+                  <table>
+                    <tbody>
+                      {payments.slice(0, Math.min(payments.length, 6)).reverse().map(payment => (
+                        <tr key={payment.id}>
+                          <td>
+                            <Payment 
+                              parent_id={payment.parent_id} 
+                              accepted={payment.accepted}
+                              payment_id={payment.id}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <a className={styles.all_link} href="#">Προβολή Όλων</a>
+                </>
+              ) : (
+                <div className={styles.no_payments_container}>
+                  <h2>Δεν υπάρχουν πληρωμές</h2>
+                </div>
+              )}
+           </div>
           <div className={`${styles.users_panel} ${styles.calendar_panel}`}>
             <h1>Ωρολόγιο Πρόγραμμα</h1>
             <Schedule
@@ -510,13 +480,12 @@ function Declaration(props) {
         setParent(parent);
 
         // 2️⃣ Get the collaboration request for this parent
-        const requestRef = doc(firestore, `Nannies/${nanny_id}/collaboration_requests/${parent.id}`);
+        const requestRef = doc(firestore, `Nannies/${nanny_id}/collaboration_requests/${props.parent_id}`);
         const requestSnap = await getDoc(requestRef);
 
         if (requestSnap.exists()) {
           const data = requestSnap.data();
           setAccepted(data.accepted ?? null);
-          console.log("Collaboration request data:", data);
         } else {
           setAccepted(null);
         }
@@ -566,4 +535,82 @@ function Declaration(props) {
       </button>
     </div>
   );
+}
+
+
+
+
+
+
+
+
+function Payment(props) {
+  const [parent, setParent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const nanny_id=searchParams.get('nid');
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.setItem('nanny_id', nanny_id);
+    navigate(`/nanny-profile/voucher-card?payid=${props.payment_id}`);
+  }
+
+  useEffect(() => {
+    const fetchNannyByID = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        // Get the nanny with the given id
+        const parent = parentsArray.find(parent => parent.id === props.parent_id);
+        setParent(parent);
+      }
+      catch (error) {
+        setError(error.message);
+      }
+      finally {
+        setLoading(false);
+      }
+    }
+    fetchNannyByID();
+  }, [])
+
+  if (loading) { return <p>Loading...</p>; }
+  if (error) { return <p>Error: {error}</p>; }
+
+  return (
+    <div className={styles.declaration}>
+      <img src={parent.profileImageUrl} alt="profile picture" />
+      <h1>{parent.first_name} {parent.last_name}</h1>
+      <div className={styles.description_container}>
+        <p className={styles.description}>Έγινε στις {props.date}</p>
+        <i className="fa-solid fa-circle"></i>
+        {props.accepted === null
+          ? <p className={styles.state}>Αναμένεται εξαργύρωση</p>
+          : props.accepted 
+            ? <>
+                
+                <p className={`${styles.accepted} ${styles.state}`}>
+                  Εξαργυρώθηκε
+                  <i className="fa-solid fa-check"></i>
+                </p> 
+              </>
+            : <>
+              
+                <p className={`${styles.rejected} ${styles.state}`}>
+                  Απορρίφθηκε
+                  <i className="fa-solid fa-xmark"></i>
+                </p>
+              </>
+        }
+      </div>
+      <button onClick={handleClick} className={styles.view_declaration_button}>
+        <i className="fa-solid fa-eye"></i>
+      </button>
+    </div>
+  )
 }

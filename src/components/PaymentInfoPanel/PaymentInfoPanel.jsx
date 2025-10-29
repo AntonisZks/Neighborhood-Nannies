@@ -1,31 +1,66 @@
 import styles from './PaymentInfoPanel.module.css';
-import default_profile_picture from '../../assets/imgs/default_profile_picture.jpg';
-import alex from '../../assets/imgs/alex.png';
-import jimmy from '../../assets/imgs/jimmy.png';
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../../firebase";
+import { use } from 'react';
 
 
-export default function PaymentInfoPanel() {
+
+export default function PaymentInfoPanel(props) {
+  
+  const [hoursWorked, setHoursWorked] = useState(0);
+
+  const nanny=props.nanny;
+  const parent=props.parent;
+  const activeCollaboration=props.activeCollaboration;
+  const schedule=props.schedule;
+
+
+ 
+useEffect(() => {
+    try {
+      if (schedule) {
+        let hoursWorking=0;
+        for (const [day, hours] of Object.entries(schedule[0])) {
+          if (day !== 'id') {
+            for (const [key, value] of Object.entries(hours)) {
+              if (value === 2) {
+                hoursWorking+=1;
+              }
+            }
+          }
+        }
+        setHoursWorked(hoursWorking);
+      }
+    }
+    catch (error) {
+      console.error("Error processing schedule: ", error);
+    }
+  }, [schedule]);
+
+ 
+ 
   return (
     <div className={styles.outer_container}>
       <div className={styles.inner_container}>
         <div className={styles.nanny_profile_container}>
-          <img className={styles.nanny_picture} src={alex} alt="profile picture" />
-          <h1 className={styles.nanny_fullname}>Αλέξανδρος Δημητρίου</h1>
+          <img className={styles.nanny_picture} src={nanny.profileImageUrl} alt="profile picture" />
+          <h1 className={styles.nanny_fullname}>{nanny.first_name} {nanny.last_name}</h1>
         </div>
         <div className={styles.nanny_info_container}>
           <h1>Πληροφορίες Επιμελητή</h1>
           <ul>
             <li>
               <i className="fa-solid fa-envelope"></i>
-              <p><b>Email:</b> alexdimitriou@gmail.com</p>
+              <p><b>Email:</b> {nanny.email}</p>
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
-              <p><b>Τηλέφωνο:</b> 6912345678</p>
+              <p><b>Τηλέφωνο:</b> {nanny.phone}</p>
             </li>
             <li>
               <i className="fa-solid fa-city"></i>
-              <p><b>Περιοχή Εργασίας:</b> Περιστέρι</p>
+              <p><b>Περιοχή Εργασίας:</b> {nanny.work_area}</p>
             </li>
           </ul>
         </div>
@@ -34,30 +69,26 @@ export default function PaymentInfoPanel() {
           <ul>
             <li>
               <i className="fa-solid fa-comments-dollar"></i>
-              <p><b>Δηλωμένο ωρομίσθιο:</b> 8€</p>
-            </li>
-            <li>
-              <i className="fa-solid fa-business-time"></i>
-              <p><b>Δηλωμένες Ώρες εργασίας:</b> 24</p>
+              <p><b>Δηλωμένο ωρομίσθιο:</b> {activeCollaboration[0].hourlyPay}€</p>
             </li>
             <li>
               <i className="fa-solid fa-circle-check"></i>
-              <p><b>Ώρες που εργάστηκε:</b> 24</p>
+              <p><b>Ώρες που εργάστηκε:</b> {hoursWorked}</p>
             </li>
           </ul>
           <h2>Συνολικό μηνιαίο ποσό:</h2>
           <div className={styles.payment_transition_container}>
             <div className={styles.me_container}>
-              <img src={jimmy} alt="your profile picture" />
+              <img src={parent.profileImageUrl} alt="your profile picture" />
               <h2>Εγώ</h2>
             </div>
             <div className={styles.payment_arrow_container}>
-              <h1>192€</h1>
+              <h1>{hoursWorked*activeCollaboration[0].hourlyPay*4}€</h1>
               <i className="fa-solid fa-arrow-right-long"></i>
             </div>
             <div className={styles.nanny_container}>
-              <img src={alex} alt="your profile picture" />
-              <h2>Αλέξανδρος Δημητρίου</h2>
+              <img src={nanny.profileImageUrl} alt="your profile picture" />
+              <h2>{nanny.first_name} {nanny.last_name}</h2>
             </div>
           </div>
         </div>
