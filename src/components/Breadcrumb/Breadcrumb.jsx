@@ -11,6 +11,12 @@ var dict={
 	'nanny-profile-overview': 'Προφίλ Επιμελητή',
 	'collaboration-request': 'Αίτηση Συνεργασίας',
 	'active-collaboration-overview': 'Ενεργή Συνεργασία', 
+	'end-collaboration' : 'Λήξη συνεργασίας',
+	'anouncement': 'Ανακοινώσεις',
+	'payment': 'Πληρωμή Κηδεμόνα',
+	'voucher-card' : 'Εξαργύρωση Voucher',
+	'collaboration-request-nanny' : 'Αίτημα Συνεργασίας'
+
 }
 
 const Breadcrumbs = () => {

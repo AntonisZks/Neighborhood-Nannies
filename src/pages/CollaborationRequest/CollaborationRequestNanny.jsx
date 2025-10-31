@@ -160,7 +160,7 @@ export default function CollaborationRequestNanny() {
     const parentRef = doc(firestore, `Parents/${parent_id}`);
     await updateDoc(parentRef, {
       active_collaboration_id: nanny_id,
-      active_collaboration_id_start_date  : new Date(),
+      active_collaboration_start_date  : new Date(),
     });
 
     alert('Η αίτηση συνεργασίας έγινε αποδεκτή!');
