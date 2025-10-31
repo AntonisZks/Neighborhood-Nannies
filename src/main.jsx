@@ -64,7 +64,7 @@ const router = createBrowserRouter([
     errorElement: <div>Custom 404 Not Found</div>,
   },
   {
-    path: '/contacts',
+    path: '/Contacts',
     element: <Contacts />,
     errorElement: <div>Custom 404 Not Found</div>,
   },

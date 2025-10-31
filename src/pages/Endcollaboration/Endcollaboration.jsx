@@ -85,7 +85,8 @@ export default function Endcollaboration () {
         first_name:parent.first_name,
         last_name:parent.last_name,
         stars:starRating,
-        text: comments
+        text: comments,
+        end_date : new Date(),
       })
       
       const NannyRef=doc(firestore, `Nannies/${nanny.id}`);

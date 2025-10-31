@@ -4,7 +4,6 @@ import Header from "../../components/Header/Header";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import EditProfilePopup from "../../components/EditProfilePopupNanny/EditProfilePopup";
-import jimmy from '../../assets/imgs/jimmy.png';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { collection, getDocs,getDoc, updateDoc } from 'firebase/firestore';
@@ -161,6 +160,7 @@ export default function NannyProfile() {
           }));
           setPayments(paymentsArray);
         }
+
         
       } 
       
@@ -292,45 +292,34 @@ export default function NannyProfile() {
         )}
       </div>
           <div className={`${styles.users_panel} ${styles.previous_collaborations_panel}`}>
-            <h1>Προηγούμενες Συνεργασίες (4)</h1>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <PreviousCollaboration
-                      profile_picture={jimmy}
-                      first_name="Δημήτρης"
-                      last_name="Παπαδόπουλος"
-                      stars={1}
-                      half_star={true}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <PreviousCollaboration
-                      profile_picture={jimmy}
-                      first_name="Δημήτρης"
-                      last_name="Παπαδόπουλος"
-                      stars={4}
-                      half_star={false}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <PreviousCollaboration
-                      profile_picture={jimmy}
-                      first_name="Δημήτρης"
-                      last_name="Παπαδόπουλος"
-                      stars={3}
-                      half_star={true}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <a className={styles.all_link} href="#">Προβολή Όλων</a>
+            <h1>Προηγούμενες συνεργασίες ({reviews.length})</h1>
+              {reviews.length > 0 ? (
+                <>
+                  <table>
+                    <tbody>
+                      {reviews.slice(0, Math.min(reviews.length, 6)).reverse().map(reviews => (
+                        <tr key={reviews.id}>
+                          <td>
+                            <PreviousCollaboration 
+                              parent_id={reviews.parent_id} 
+                              first_name={reviews.first_name}
+                              last_name={reviews.last_name}
+                              stars={reviews.stars}
+                              payment_id={reviews.id}
+                              end_date={reviews.end_date}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <a className={styles.all_link} href="#">Προβολή Όλων</a>
+                </>
+              ) : (
+                <div className={styles.no_payments_container}>
+                  <h2>Δεν υπάρχουν προηγούμενες συνεργασίες</h2>
+                </div>
+              )}
           </div>
           <div className={`${styles.users_panel} ${styles.payments_panel}`}>
             <h1>Πληρωμές Κηδεμόνων ({payments.length})</h1>
@@ -434,11 +423,42 @@ function Active_Collaboration(props) {
 }
 
 function PreviousCollaboration(props) {
+  const [parent, setParent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 1️⃣ Get the parent's info
+        const querySnapshot = await getDocs(collection(firestore, "Parents"));
+        const parentsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        const parent = parentsArray.find(parent => parent.id === props.parent_id);
+        setParent(parent);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+   if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!parent) return <p>Parent not found</p>;
+
   return (
     <div className={styles.previous_collaboration}>
-      <img src={props.profile_picture} alt="profile picture" />
+      <img src={parent.profileImageUrl} alt="profile picture" />
       <h1>{props.first_name} {props.last_name}</h1>
-      <p>Έληξε πριν από 3 ημέρες</p>
+      <p>Έληξε στις {new Date(props.end_date.seconds * 1000).toLocaleDateString()}</p>
       <div className={styles.rate_container}>
         <div className={styles.stars_container}>
           {[...Array(props.stars)].map((_, index) => (
