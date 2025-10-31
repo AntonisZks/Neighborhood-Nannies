@@ -12,7 +12,7 @@ var dict={
 	'active-collaboration-overview': 'Ενεργή Συνεργασία',
 	'guardians': 'Οδηγίες Κηδεμόνων',
 	'caretakers': 'Οδηγίες Επιμελητών',
-	'Contacts': 'Επικοινωνία'
+	'Contacts': 'Επικοινωνία',
 	'active-collaboration-overview': 'Ενεργή Συνεργασία', 
 	'end-collaboration' : 'Λήξη συνεργασίας',
 	'anouncement': 'Ανακοινώσεις',
