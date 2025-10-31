@@ -1,4 +1,3 @@
-
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Breadcrumb.module.css";
 
@@ -10,7 +9,10 @@ var dict={
 	'search': 'Αναζήτηση Επιμελητών',
 	'nanny-profile-overview': 'Προφίλ Επιμελητή',
 	'collaboration-request': 'Αίτηση Συνεργασίας',
-	'active-collaboration-overview': 'Ενεργή Συνεργασία', 
+	'active-collaboration-overview': 'Ενεργή Συνεργασία',
+	'guardians': 'Οδηγίες Κηδεμόνων',
+	'caretakers': 'Οδηγίες Επιμελητών',
+	'Contacts': 'Επικοινωνία'
 }
 
 const Breadcrumbs = () => {
