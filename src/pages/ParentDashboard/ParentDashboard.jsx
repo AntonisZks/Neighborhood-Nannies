@@ -12,6 +12,8 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs,getDoc, updateDoc, doc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import ChatButton from '../../components/ChatPopup/ChatButton';
+import ChatPopup from '../../components/ChatPopup/ChatPopup';
 
 export default function ParentDashboard() {
   const [user, setUser] = useState(null);
@@ -144,6 +146,8 @@ export default function ParentDashboard() {
   
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>

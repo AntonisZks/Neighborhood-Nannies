@@ -3,11 +3,15 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./AnouncementPage.module.css";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 
 export default function AnouncementPage() {
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header className={styles.header} />
       <Breadcrumbs className={styles.breadcrumbs} />
       <MainSection />

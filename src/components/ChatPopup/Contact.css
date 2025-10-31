@@ -1,0 +1,48 @@
+.contact_outer_container {
+    width: 100%;
+    position: relative;
+}
+
+.contact_inner_container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7em;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.contact_inner_container:hover {
+    background-color: #f0f0f0;
+}
+
+.contact_inner_container.selected {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+}
+
+.contact_inner_container::after {
+    content: '';
+    background-color: rgb(226, 226, 226);
+    width: 95%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contact_outer_container img {
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.contact_inner_container h1 {
+    font-size: 1em;
+    color: rgb(49, 49, 49);
+}

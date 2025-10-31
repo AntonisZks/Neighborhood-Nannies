@@ -92,7 +92,13 @@ function UserProfileContainer(props) {
 
   const signout = () => {
     window.localStorage.clear();
-    navigate('/');
+    
+    // Check if we are already on the homepage
+    if (window.location.pathname === '/') {
+      window.location.reload();
+    } else {
+      navigate('/');
+    }
   }
 
 

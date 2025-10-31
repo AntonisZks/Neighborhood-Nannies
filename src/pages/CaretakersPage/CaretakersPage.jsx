@@ -2,11 +2,15 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Accordion from "../../components/Accordion/Accordion";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 import styles from "./CaretakersPage.module.css";
 
 export default function CaretakersPage() {
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header className={styles.header} />
       <main className={styles.main}>
         <h1>Οδηγίες για τους επιμελητές</h1>

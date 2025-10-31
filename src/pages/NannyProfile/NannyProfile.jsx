@@ -11,6 +11,8 @@ import { collection, getDocs,getDoc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { doc} from "firebase/firestore";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 
 export default function NannyProfile() {
@@ -184,6 +186,8 @@ export default function NannyProfile() {
   
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
@@ -421,7 +425,7 @@ function Active_Collaboration(props) {
     <div className={styles.active_collaboration}>
       <img src={parent.profileImageUrl} alt="profile picture" />
       <h1>{parent.first_name} {parent.last_name}</h1>
-      <p>Ξεκίνησε στις {new Date(parent.active_collaboration_id_start_date.seconds * 1000).toLocaleDateString()}</p>
+      <p>Ξεκίνησε στις {new Date(parent.active_collaboration_start_date.seconds * 1000).toLocaleDateString()}</p>
       <button className={styles.view_profile_button}>
         <i className="fa-solid fa-eye"></i>
       </button>

@@ -6,6 +6,8 @@ import Header from "../../components/Header/Header";
 import PaymentInfoPanel from "../../components/PaymentInfoPanel/PaymentInfoPanel";
 import PaymentCalendar from "../../components/PaymentCalendar/PaymentCalendar";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 import { useEffect, useState } from "react";
 import {  useSearchParams } from "react-router-dom";
 import { doc, collection, getDocs, setDoc } from "firebase/firestore";
@@ -169,6 +171,8 @@ useEffect(() => {
 
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumb/>
       <main>

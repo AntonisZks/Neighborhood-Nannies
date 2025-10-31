@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 import nanny_image from "../../assets/imgs/nanny_image.jpg";
 
@@ -47,6 +49,7 @@ export default function NannyLoginPage() {
     if (nanny) {
       console.log("nanny exists!");
       window.localStorage.setItem("nannyID", nanny.id);
+      window.localStorage.setItem("userRole", "nanny");
       navigate(`/nanny-profile?nid=${nanny.id}`);
     } 
     else {

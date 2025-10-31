@@ -8,6 +8,8 @@ import { getAuth } from 'firebase/auth';
 import Header from '../../components/Header/Header';
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumb';
 import Schedule from '../../components/ScheduleTable/ScheduleTable';
+import ChatButton from '../../components/ChatPopup/ChatButton';
+import ChatPopup from '../../components/ChatPopup/ChatPopup';
 import { useNavigate } from "react-router-dom";
 
 export default function CollaborationRequest() {
@@ -196,6 +198,8 @@ export default function CollaborationRequest() {
 
   return (
     <>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumbs />
       <div className={styles.outer_container}>

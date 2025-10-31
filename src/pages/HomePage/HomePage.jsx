@@ -9,11 +9,15 @@ import parents from "../../assets/imgs/parents_image.jpg";
 import alexProfile from "../../assets/imgs/alex.png";
 import jimmyProfile from "../../assets/imgs/jimmy.png";
 import defaultProfile from "../../assets/imgs/default_profile_picture.jpg";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 
 export default function HomePage() {
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header className={styles.header} />
       <MainSection />
       <Footer className={styles.footer} />

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./Endcollaboration.module.css";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 import { useEffect,} from "react";
 import {  useSearchParams } from "react-router-dom";
 import { doc, collection, getDocs, setDoc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -159,6 +161,8 @@ export default function Endcollaboration () {
    
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumb />
       <div className={styles.container}>

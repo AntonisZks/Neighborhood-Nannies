@@ -3,9 +3,11 @@ import styles from "./NannyProfileOverview.module.css";
 import Header from "../../components/Header/Header";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import Schedule from "../../components/ScheduleTable/ScheduleTable";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 import alex from "../../assets/imgs/alex.png";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
@@ -19,6 +21,7 @@ export default function NannyProfileOverview() {
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const [hourlyPay, setHourlyPay] = useState('');
+  const [newContact, setNewContact] = useState(null);
   const navigate = useNavigate();
   const nanny_id = searchParams.get("nid");
   const parent_id = window.localStorage.getItem("parentID");
@@ -39,6 +42,25 @@ export default function NannyProfileOverview() {
 
   const endCollaboration = () => {
     navigate(`/end-collaboration?pid=${parent_id}`);
+  }
+
+  const handleSendMessage = () => {
+    // Create a new contact object for the nanny
+    const contactToAdd = {
+      id: nanny_id, // Use nanny_id as the document ID
+      sender_id: nanny_id,
+      isTemporary: true // Flag to indicate this needs to be saved to database
+    };
+    
+    setNewContact(contactToAdd);
+    
+    const chatPopup = document.getElementById('chat_popup_window');
+      if (chatPopup) {
+          if (chatPopup.style.display === 'none' || chatPopup.style.display === '') {
+              chatPopup.style.display = 'block';
+              document.body.style.overflow = 'hidden';
+          }
+      }
   }
 
   useEffect(() => {
@@ -109,6 +131,8 @@ export default function NannyProfileOverview() {
 
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup newContact={newContact} />
       <Header />
       <Breadcrumbs className={styles.breadcrumbs} />
       <div className={styles.profile_sidebar}>
@@ -179,7 +203,7 @@ export default function NannyProfileOverview() {
           </div>
         </div>
         <div className={styles.buttons_container}>
-          <button className={styles.message_button}>
+          <button className={styles.message_button} onClick={handleSendMessage}>
             <i className="fa-solid fa-message"></i>
             <p>Στείλτε Μύνημα</p>
           </button>

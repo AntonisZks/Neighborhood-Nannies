@@ -1,0 +1,103 @@
+.outer_container {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1001;
+}
+
+.popup_window {
+    background-color: white;
+    width: 1100px;
+    height: 900px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.close_button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    color: var(--text_color_black);
+    cursor: pointer;
+}
+
+.contacts_panel {
+    width: 30%;
+    height: 90%;
+    background-color: white;
+    border: 1px solid rgb(220, 220, 220);
+    margin-left: 2.5em;
+    border-radius: 1em;
+}
+
+.messages_panel {
+    width: 70%;
+    height: 90%;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid rgb(220, 220, 220);
+    margin-right: 2.5em;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.message_input_container {
+    display: flex;
+    gap: 0.5em;
+    padding: 1em;
+    background-color: white;
+    border-top: 1px solid rgb(220, 220, 220);
+    border-radius: 0 0 1em 1em;
+}
+
+.message_input {
+    flex: 1;
+    padding: 0.8em 1em;
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 1.5em;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.message_input:focus {
+    border-color: #007bff;
+}
+
+.send_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.send_button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.send_button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.send_button i {
+    font-size: 1.1em;
+}

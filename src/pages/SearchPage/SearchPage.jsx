@@ -7,6 +7,8 @@ import alex from "../../assets/imgs/alex.png";
 import Header from "../../components/Header/Header";
 import Breadcrumbs from "../../components/Breadcrumb/Breadcrumb";
 import NannySearchPanel from "../../components/NannySearchPanel/NannySearchPanel";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 import {collection, getDocs} from "firebase/firestore";
 import {firestore} from "../../firebase";
@@ -233,6 +235,8 @@ export default function SearchPage() {
 
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <Breadcrumbs />
       <div className={styles.filters_area}>

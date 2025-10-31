@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './GuardianRegistration.module.css';
 import Logo from '../../components/Logo/Logo';
 import SmallFooter from '../../components/SmallFooter/SmallFooter';
+import ChatButton from '../../components/ChatPopup/ChatButton';
+import ChatPopup from '../../components/ChatPopup/ChatPopup';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import default_profile_image from '../../assets/imgs/default_profile_picture.jpg';
 
@@ -93,6 +95,7 @@ export default function GuardianRegistration() {
       const docRef = await addDoc(collection(firestore, 'Parents'), formData);
       const parentId = docRef.id;
       localStorage.setItem('parentID', parentId);
+      localStorage.setItem('userRole', 'parent');
       navigate(`/p_dashboard?pid=${parentId}`);
     } 
     catch (error) {

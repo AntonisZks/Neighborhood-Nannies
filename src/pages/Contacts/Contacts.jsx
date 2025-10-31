@@ -1,11 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import ChatButton from '../../components/ChatPopup/ChatButton';
+import ChatPopup from '../../components/ChatPopup/ChatPopup';
 import styles from './Contacts.module.css';
 
 const Contacts = () => {
   return (
     <div className={styles.outer_container}>
+      <ChatButton />
+      <ChatPopup />
       <Header />
       <main className={styles.main}>
         <h1>Επικοινωνία</h1>

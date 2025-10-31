@@ -3,6 +3,8 @@ import styles from './CaretakerRegistration.module.css';
 import Logo from '../../components/Logo/Logo';
 import Schedule from '../../components/ScheduleTable/ScheduleTable';
 import SmallFooter from '../../components/SmallFooter/SmallFooter';
+import ChatButton from '../../components/ChatPopup/ChatButton';
+import ChatPopup from '../../components/ChatPopup/ChatPopup';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import default_profile_image from '../../assets/imgs/default_profile_picture.jpg';
 import { firestore } from '../../firebase';
@@ -142,6 +144,7 @@ export default function CaretakerRegistration() {
 
         // localStorage.removeItem('guardianFormData');
         localStorage.setItem('nannyID', nannyId);
+        localStorage.setItem('userRole', 'nanny');
         navigate(`/nanny-profile?nid=${nannyId}`);
       } 
       catch (error) {

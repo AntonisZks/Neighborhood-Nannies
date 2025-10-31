@@ -4,6 +4,8 @@ import styles from "./ParentLoginPage.module.css";
 
 import Logo from "../../components/Logo/Logo";
 import SmallFooter from "../../components/SmallFooter/SmallFooter";
+import ChatButton from "../../components/ChatPopup/ChatButton";
+import ChatPopup from "../../components/ChatPopup/ChatPopup";
 
 import parents_image from "../../assets/imgs/parents_image.jpg";
 
@@ -50,6 +52,7 @@ export default function ParentLoginPage() {
     if (parent) {
       console.log("Parent exists!");
       window.localStorage.setItem("parentID", parent.id);
+      window.localStorage.setItem("userRole", "parent");
       navigate(`/p_dashboard?pid=${parent.id}`);
     } 
     else {
