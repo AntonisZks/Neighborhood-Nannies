@@ -421,7 +421,7 @@ function Active_Collaboration(props) {
     <div className={styles.active_collaboration}>
       <img src={parent.profileImageUrl} alt="profile picture" />
       <h1>{parent.first_name} {parent.last_name}</h1>
-      <p>Πριν από 3 ημέρες</p>
+      <p>Ξεκίνησε στις {new Date(parent.active_collaboration_id_start_date.seconds * 1000).toLocaleDateString()}</p>
       <button className={styles.view_profile_button}>
         <i className="fa-solid fa-eye"></i>
       </button>

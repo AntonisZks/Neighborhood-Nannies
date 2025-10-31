@@ -325,7 +325,7 @@ export default function ParentDashboard() {
                           <Payment 
                             nanny_id={payment.nanny_id} 
                             accepted={payment.accepted}
-                           
+                            date={payment.date}
                           />
                         </td>
                       </tr>
@@ -414,7 +414,7 @@ function ActiveCollaboration(props) {
     <div className={styles.active_collaboration}>
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
-      <p>Ξεκίνησε στις {parent.active_collaboration_id_start_date[0]}</p>
+      <p>Ξεκίνησε στις {new Date(parent.active_collaboration_id_start_date.seconds * 1000).toLocaleDateString()}</p>
       <button onClick={viewProfile} className={styles.view_profile_button}>
         <i className="fa-solid fa-eye"></i>
       </button>
@@ -465,7 +465,7 @@ function PreviousCollaboration(props) {
     <div className={styles.previous_collaboration}>
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
-      <p>Έληξε στις </p>
+      <p>Έληξε στις {new Date(props.end_date.seconds * 1000).toLocaleDateString()}</p>
       <div className={styles.rate_container}>
         <div className={styles.stars_container}>
           {[...Array(props.stars)].map((_, index) => (
@@ -652,7 +652,7 @@ function Payment(props) {
       <img src={nanny.profileImageUrl} alt="profile picture" />
       <h1>{nanny.first_name} {nanny.last_name}</h1>
       <div className={styles.description_container}>
-        <p className={styles.description}>Έγινε στις {props.date}</p>
+        <p className={styles.description}>Έγινε στις {new Date(props.date.seconds * 1000).toLocaleDateString()}</p>
         <i className="fa-solid fa-circle"></i>
         {props.accepted === null
           ? <p className={styles.state}>Αναμένεται απάντηση</p>
